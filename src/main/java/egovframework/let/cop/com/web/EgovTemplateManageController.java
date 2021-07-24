@@ -338,7 +338,7 @@ public class EgovTemplateManageController {
     	String typeFlag = (String)commandMap.get("typeFlag");
 
     	if (trgetId != null && !"".equals(trgetId) ) {
-    	    if (typeFlag != null && typeFlag != "") {
+    	    if (typeFlag != null && !"".equals(typeFlag) ) {
     		model.addAttribute("requestUrl", requestUrl + "?trgetId=" + trgetId + "&PopFlag=Y&typeFlag=" + typeFlag);
     	    } else {
     		model.addAttribute("requestUrl", requestUrl + "?trgetId=" + trgetId + "&PopFlag=Y");
