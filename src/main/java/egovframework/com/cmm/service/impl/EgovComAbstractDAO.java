@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
 
 /**
  * EgovComAbstractDAO.java 클래스

@@ -337,14 +337,14 @@ public class EgovTemplateManageController {
     	String height = (String)commandMap.get("height");
     	String typeFlag = (String)commandMap.get("typeFlag");
 
-    	if (trgetId != null && trgetId != "") {
+    	if (trgetId != null && !"".equals(trgetId) ) {
     	    if (typeFlag != null && typeFlag != "") {
     		model.addAttribute("requestUrl", requestUrl + "?trgetId=" + trgetId + "&PopFlag=Y&typeFlag=" + typeFlag);
     	    } else {
     		model.addAttribute("requestUrl", requestUrl + "?trgetId=" + trgetId + "&PopFlag=Y");
     	    }
     	} else {
-    	    if (typeFlag != null && typeFlag != "") {
+    	    if (typeFlag != null && !"".equals(typeFlag) ) {
     		model.addAttribute("requestUrl", requestUrl + "?PopFlag=Y&typeFlag=" + typeFlag);
     	    } else {
     		model.addAttribute("requestUrl", requestUrl + "?PopFlag=Y");
