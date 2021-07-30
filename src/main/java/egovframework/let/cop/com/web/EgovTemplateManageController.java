@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -336,22 +337,17 @@ public class EgovTemplateManageController {
     	String width = (String)commandMap.get("width");
     	String height = (String)commandMap.get("height");
     	String typeFlag = (String)commandMap.get("typeFlag");
+    	StringBuilder fullUrl = new StringBuilder(requestUrl);
 
-    	if (trgetId != null && trgetId != "") {
-    	    if (typeFlag != null && typeFlag != "") {
-    		model.addAttribute("requestUrl", requestUrl + "?trgetId=" + trgetId + "&PopFlag=Y&typeFlag=" + typeFlag);
-    	    } else {
-    		model.addAttribute("requestUrl", requestUrl + "?trgetId=" + trgetId + "&PopFlag=Y");
-    	    }
-    	} else {
-    	    if (typeFlag != null && typeFlag != "") {
-    		model.addAttribute("requestUrl", requestUrl + "?PopFlag=Y&typeFlag=" + typeFlag);
-    	    } else {
-    		model.addAttribute("requestUrl", requestUrl + "?PopFlag=Y");
-    	    }
-
+    	fullUrl.append("?PopFlag=Y");
+    	if (!StringUtils.isEmpty(trgetId)) {
+    	    fullUrl.append("&trgetId=").append(trgetId);
+    	}
+    	if (!StringUtils.isEmpty(typeFlag)) {
+    	    fullUrl.append("&typeFlag=").append(typeFlag);
     	}
 
+    	model.addAttribute("requestUrl", fullUrl.toString());
     	model.addAttribute("width", width);
     	model.addAttribute("height", height);
 
