@@ -1086,10 +1086,10 @@
       <!-- 
       	주민등록번호 validation.
       	Commons Validator가 제공하는 validator가 아니라 추가된 validator이므로
-      	실행을 위해서는 반드시  egovframework.rte.ptl.mvcXXXXX.jar가 필요하다.
+      	실행을 위해서는 반드시  org.egovframe.rte.ptl.mvcXXXXX.jar가 필요하다.
       -->
       <validator name="ihidnum"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validateIhIdNum"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
@@ -1165,7 +1165,7 @@
            </javascript>
       </validator>
 	  <validator name="korean"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validateKorean"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
@@ -1219,7 +1219,7 @@
         4. password4 : 반복문자나 숫자 연속 4개이상 사용금지
       -->
       <validator name="password1"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validatePassword1"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
@@ -1270,7 +1270,7 @@
       </validator>
       
       <validator name="password2"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validatePassword2"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
@@ -1321,7 +1321,7 @@
       </validator>
       
       <validator name="password3"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validatePassword3"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
@@ -1389,7 +1389,7 @@
       </validator>
       
       <validator name="password4"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validatePassword4"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
@@ -1456,7 +1456,7 @@
            </javascript>
       </validator>
       	  <validator name="minInteger"
-            classname="egovframework.rte.ptl.mvc.validation.RteFieldChecks"
+            classname="org.egovframe.rte.ptl.mvc.validation.RteFieldChecks"
                method="validateMinInteger"
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,

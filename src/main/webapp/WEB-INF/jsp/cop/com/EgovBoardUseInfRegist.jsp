@@ -146,7 +146,7 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>게시판 사용등록</strong></h2></div>
                 </div>
-				<form:form commandName="boardUseInf" name="boardUseInf" method="post">
+				<form:form modelAttribute="boardUseInf" name="boardUseInf" method="post">
 					<div style="visibility:hidden;display:none;"><input name="iptSubmit" type="submit" value="전송" title="전송"></div>
 					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" />
 					<input type="hidden" name="param_trgetType" value="" />

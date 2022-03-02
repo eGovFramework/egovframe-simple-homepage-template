@@ -84,8 +84,8 @@
 </head>
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
-<%//<form:form commandName="boardMaster" name="boardMaster" method="post" action="<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>"> %>
-<%//<form:form commandName="boardMaster" name="boardMaster" method="post" action="${pageContext.request.contextPath}/cop/bbs/SelectBBSMasterInfs.do"> //%>
+<%//<form:form modelAttribute="boardMaster" name="boardMaster" method="post" action="<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>"> %>
+<%//<form:form modelAttribute="boardMaster" name="boardMaster" method="post" action="${pageContext.request.contextPath}/cop/bbs/SelectBBSMasterInfs.do"> //%>
 
 <!-- 전체 레이어 시작 -->
 <div id="wrap">
@@ -115,7 +115,7 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>게시판 생성</strong></h2></div>
                 </div>
-				<form:form commandName="boardMaster" name="boardMaster" method="post" action="cop/bbs/SelectBBSMasterInfs.do">
+				<form:form modelAttribute="boardMaster" name="boardMaster" method="post" action="cop/bbs/SelectBBSMasterInfs.do">
 				
 				    <input type="hidden" name="pageIndex"  value="<c:out value='${searchVO.pageIndex}'/>"/>
                     <div id="border" class="modify_user" >

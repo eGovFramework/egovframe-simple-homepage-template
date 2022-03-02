@@ -110,7 +110,7 @@
                     <div id="search_field_loc"><h2><strong>게시글쓰기</strong></h2></div>
                 </div>
 
-				<form:form commandName="board" name="board" method="post" enctype="multipart/form-data" >
+				<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" >
 				
 				<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 				<input type="hidden" name="bbsId" value="<c:out value='${bdMstr.bbsId}'/>" />

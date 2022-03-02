@@ -115,7 +115,7 @@
                 <!-- 검색 필드 박스 시작 -->
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>게시판 정보수정 및 상세보기</strong></h2></div>
-					<form:form commandName="boardMaster" name="boardMaster" action="<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>" method="post" >
+					<form:form modelAttribute="boardMaster" name="boardMaster" action="<c:url value='/cop/bbs/SelectBBSMasterInfs.do'/>" method="post" >
 						<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
 						<input name="bbsId" type="hidden" value="<c:out value='${result.bbsId}'/>" />
 						<input name="bbsTyCode" type="hidden" value="<c:out value='${result.bbsTyCode}'/>" />

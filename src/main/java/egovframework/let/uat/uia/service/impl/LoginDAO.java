@@ -2,7 +2,7 @@ package egovframework.let.uat.uia.service.impl;
 
 import egovframework.com.cmm.LoginVO;
 
-import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 
 import org.springframework.stereotype.Repository;
 

@@ -17,8 +17,8 @@ import java.util.Map.Entry;
 
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 
-import egovframework.rte.fdl.idgnr.EgovIdGnrService;
-import egovframework.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

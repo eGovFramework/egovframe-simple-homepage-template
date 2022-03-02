@@ -109,7 +109,7 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>템플릿 등록</strong></h2></div>
                 </div>
-				<form:form commandName="templateInf" name="templateInf" method="post" >
+				<form:form modelAttribute="templateInf" name="templateInf" method="post" >
     				<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" />
 
                     <div class="modify_user" >

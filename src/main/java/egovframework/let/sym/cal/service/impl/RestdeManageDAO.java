@@ -5,7 +5,7 @@ import java.util.List;
 import egovframework.let.sym.cal.service.Restde;
 import egovframework.let.sym.cal.service.RestdeVO;
 
-import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 
 import org.springframework.stereotype.Repository;
 

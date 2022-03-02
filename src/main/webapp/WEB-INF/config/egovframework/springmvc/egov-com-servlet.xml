@@ -21,7 +21,7 @@
             <props>
                 <prop key="org.springframework.dao.DataAccessException">cmm/error/dataAccessFailure</prop>
                 <prop key="org.springframework.transaction.TransactionException">cmm/error/transactionFailure</prop>
-                <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmm/error/egovError</prop>
+                <prop key="org.egovframe.rte.fdl.cmmn.exception.EgovBizException">cmm/error/egovError</prop>
                 <prop key="org.springframework.security.AccessDeniedException">cmm/error/accessDenied</prop>
             </props>
         </property>

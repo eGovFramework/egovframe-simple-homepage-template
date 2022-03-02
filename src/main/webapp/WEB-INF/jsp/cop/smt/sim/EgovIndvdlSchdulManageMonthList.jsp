@@ -21,7 +21,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="egovframework.rte.psl.dataaccess.util.EgovMap"%>
+<%@ page import="org.egovframe.rte.psl.dataaccess.util.EgovMap"%>
 <%
 java.util.Calendar cal = java.util.Calendar.getInstance();
 String sImgUrl = "images/btn/";

@@ -9,9 +9,9 @@ import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.BoardUseInfVO;
 import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
 
-import egovframework.rte.fdl.cmmn.exception.EgovBizException;
-import egovframework.rte.fdl.property.EgovPropertyService;
-import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
 //SHT-CUSTOMIZING//import egovframework.let.cop.clb.service.EgovClubManageService;
 //SHT-CUSTOMIZING//import egovframework.let.cop.cmy.service.CommunityUser;
 //SHT-CUSTOMIZING//import egovframework.let.cop.cmy.service.EgovCommunityManageService;
-//import egovframework.rte.fdl.cmmn.exception.EgovBizException;
+//import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 
 /**
  * 게시판의 이용정보를 관리하기 위한 컨트롤러 클래스

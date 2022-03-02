@@ -22,8 +22,8 @@
         <property name="basenames">
             <list>
                 <value>classpath:/egovframework/message/com/message-common</value>
-                <value>classpath:/egovframework/rte/fdl/idgnr/messages/idgnr</value>
-                <value>classpath:/egovframework/rte/fdl/property/messages/properties</value>
+                <value>classpath:/org/egovframe/rte/fdl/idgnr/messages/idgnr</value>
+                <value>classpath:/org/egovframe/rte/fdl/property/messages/properties</value>
             </list>
         </property>
         <property name="cacheSeconds">
@@ -32,7 +32,7 @@
     </bean>
 	
 	<!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의 LeveaTrace를 활용하도록 설정 -->
-	<bean id="leaveaTrace" class="egovframework.rte.fdl.cmmn.trace.LeaveaTrace">
+	<bean id="leaveaTrace" class="org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace">
 		<property name="traceHandlerServices">
 			<list>
 				<ref bean="traceHandlerService" />
@@ -40,7 +40,7 @@
 		</property>
 	</bean>
     <!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의 DefaultTrace Handle Manager 를 활용하도록 설정 -->
-	<bean id="traceHandlerService" class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
+	<bean id="traceHandlerService" class="org.egovframe.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
 		<property name="reqExpMatcher">
 			<ref bean="antPathMater" />
 		</property>
@@ -57,12 +57,12 @@
 	</bean>
 	<!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의  AntPathMatcher 를 활용하도록 설정 -->
 	<bean id="antPathMater" class="org.springframework.util.AntPathMatcher" />
-    <!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의  DefaultTraceHandler 를 활용하도록 설정 egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler -->
+    <!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의  DefaultTraceHandler 를 활용하도록 설정 org.egovframe.rte.fdl.cmmn.trace.handler.DefaultTraceHandler -->
     <bean id="defaultTraceHandler" class="egovframework.com.cmm.EgovComTraceHandler" />
 	
     <!-- For Pagination Tag 설정-->
     <bean id="imageRenderer" class="egovframework.com.cmm.ImagePaginationRenderer"/>
-    <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+    <bean id="paginationManager" class="org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
         <property name="rendererType">
             <map>
                 <entry key="image" value-ref="imageRenderer"/> 

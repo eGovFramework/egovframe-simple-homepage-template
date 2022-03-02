@@ -9,8 +9,8 @@ import egovframework.let.cop.bbs.service.EgovBBSLoneMasterService;
 import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.impl.BBSUseInfoManageDAO;
 
-import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
-import egovframework.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 
 import javax.annotation.Resource;
 

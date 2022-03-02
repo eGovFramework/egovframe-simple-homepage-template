@@ -5,7 +5,7 @@ import java.util.Map;
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
 
-import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
+import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
 
 import org.springframework.stereotype.Repository;
 

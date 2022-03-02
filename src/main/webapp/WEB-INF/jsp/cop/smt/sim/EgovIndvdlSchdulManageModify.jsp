@@ -218,7 +218,7 @@ String.prototype.replaceAll = function(src, repl){
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>일정관리 수정</strong></h2></div>
                 </div>
-                <form:form commandName="indvdlSchdulManageVO" action="/cop/smt/sim/EgovIndvdlSchdulManageModifyActor.do" method="post" enctype="multipart/form-data">
+                <form:form modelAttribute="indvdlSchdulManageVO" action="/cop/smt/sim/EgovIndvdlSchdulManageModifyActor.do" method="post" enctype="multipart/form-data">
                     <div class="modify_user" >
                         <table width="100%" border="0" cellpadding="0" cellspacing="1" class="table-register">
                             <tr>

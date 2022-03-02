@@ -111,7 +111,7 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>템플릿 정보수정 및 상세보기</strong></h2></div>
                 </div>
-				<form:form commandName="templateInf" name="templateInf" method="post" >
+				<form:form modelAttribute="templateInf" name="templateInf" method="post" >
 					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" />
 					<input name="tmplatNm" type="hidden" value='<c:out value="${TemplateInfVO.tmplatNm}"/>' />
 
