@@ -1,0 +1,32 @@
+/* Border */
+div#border {
+	width: 730px;
+}
+ 
+/* 리스트 테이블 */
+.listTable{BORDER-TOP: #1A90D8 2px solid; BORDER-bottom: #BABABA 1px solid;border-collapse: collapse;}
+  .listTable th{BORDER-bottom: #A3A3A3 1px solid; padding-left:2px;padding-right:2px;background-color: #E4EAF8; height:20px;}
+  .listTable td{BORDER-bottom: #E0E0E0 1px solid; padding-left:2px;padding-right:2px;background-color: #F7F7F7; height:20px;}
+ 
+/* 리스트 타이틀 */
+.listTitle{font-family:"돋움"; font-size:9pt; color:#000000 ; 
+        font-weight: bold ; vertical-align: middle}
+ 
+/* 리스트 내용 */
+.listCenter {font-size:9pt; color:#000000; font-family:"돋움, Arial"; height:24px; text-align:center; vertical-align:middle;}
+.listLeft {font-size:9pt; color:#000000; font-family:"돋움, Arial"; height:24px; text-align:left; vertical-align:middle;}
+.listRight {font-size:9pt; color:#000000; font-family:"돋움, Arial"; height:24px; text-align:right; vertical-align:middle;}
+ 
+/* 일반 테이블 */
+.generalTable{BORDER-TOP: #D2D4D1 1px solid;BORDER-bottom: #D2D4D1 1px solid;BORDER-left: #D2D4D1 1px solid;
+              BORDER-right: #D2D4D1 1px solid; border-collapse: collapse;}
+  .generalTable th{padding-left:2px;padding-right:5px;background-color: #E4EAF8; Text-align: right ;}
+  .generalTable td{padding-left:2px;padding-right:5px;background-color: #F7F7F7;}
+ 
+/* 강조 내용 */
+.emphasisCenter {font-family:"돋움"; font-size:9pt; color:#2E4B90 ; font-weight: bold ; padding-right:3px; text-align: 
+                 center ; vertical-align: middle}
+.emphasisLeft {font-family:"돋움"; font-size:9pt; color:#2E4B90 ; font-weight: bold ; padding-right:3px; text-align: left; 
+               vertical-align: middle}
+.emphasisRight {font-family:"돋움"; font-size:9pt; color:#2E4B90 ; font-weight: bold ; padding-right:3px; text-align: right; 
+                vertical-align: middle}
