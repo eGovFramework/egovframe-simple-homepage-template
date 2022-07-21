@@ -44,9 +44,9 @@
 						<ul>
 							<li>HOME</li>
 							<li>&gt;</li>
-							<li>사용자관리</li>
+							<li>사이트소개</li>
 							<li>&gt;</li>
-							<li><strong>사이트소개</strong></li>
+							<li><strong>소개</strong></li>
 						</ul>
 					</div>
 				</div>
