@@ -16,6 +16,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="egovc" uri="/WEB-INF/tlds/egovc.tld" %>
 <script type="text/javascript">
 	function fn_egov_downFile(atchFileId, fileSn){
 		window.open("<c:url value='/cmm/fms/FileDown.do?atchFileId="+atchFileId+"&fileSn="+fileSn+"'/>");
@@ -52,15 +53,15 @@
 
       
 <!-- <form name="fileForm" action="" method="post" >  -->
-<input type="hidden" name="atchFileId" value="${atchFileId}">
+<input type="hidden" name="atchFileId" value="<c:out value='${atchFileId}'/>">
 <input type="hidden" name="fileSn" >
-<input type="hidden" name="fileListCnt" value="${fileListCnt}">
+<input type="hidden" name="fileListCnt" value="<c:out value='${fileListCnt}'/>">
       	<c:forEach var="fileVO" items="${fileList}" varStatus="status">
 	       <c:choose>
 		       <c:when test="${updateFlag=='Y'}">
 			       <c:out value="${fileVO.orignlFileNm}"/>&nbsp;[<c:out value="${fileVO.fileMg}"/>&nbsp;byte]
 			       <img alt="파일 삭제" src="<c:url value='/images/btn/bu5_close.gif'/>" 
-			       		width="19" height="18" onClick="fn_egov_deleteFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>');" />
+			       		width="19" height="18" onClick="fn_egov_deleteFile('<c:out value="${atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>');" />
 		       </c:when>
 		       <c:otherwise>
 			       <a href="#LINK" onclick="javascript:fn_egov_downFile('<c:out value="${fileVO.atchFileId}"/>','<c:out value="${fileVO.fileSn}"/>')">

@@ -19,6 +19,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
+<%@ taglib prefix="egovc" uri="/WEB-INF/tlds/egovc.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -155,7 +156,7 @@
 					        <img src="<c:url value='/images/required.gif' />" width="15" height="15" alt="required" />
 					        </th>
 					        <td colspan="3">
-					          <textarea id="nttCn" name="nttCn"  cols="75" rows="20"  style="width:99%;" title="<spring:message code="cop.nttCn" />"><c:out value="${result.nttCn}" escapeXml="false" /></textarea> 
+					          <textarea id="nttCn" name="nttCn"  cols="75" rows="20"  style="width:99%;" title="<spring:message code="cop.nttCn" />"><c:out value="${result.nttCn}" escapeXml="true" /></textarea> 
 					          <form:errors path="nttCn" />
 					        </td>
 					      </tr>
@@ -191,7 +192,7 @@
 					            <th height="23"><spring:message code="cop.atchFileList" /></th>
 					            <td colspan="3">
 					                <c:import url="/cmm/fms/selectFileInfsForUpdate.do" charEncoding="utf-8">
-					                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
+					                    <c:param name="param_atchFileId" value="${egovc:encrypt(result.atchFileId)}" />
 					                </c:import>
 					            </td>
 					          </tr>

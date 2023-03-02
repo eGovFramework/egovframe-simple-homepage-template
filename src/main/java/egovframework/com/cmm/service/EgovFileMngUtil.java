@@ -15,20 +15,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import egovframework.let.utl.fcc.service.EgovStringUtil;
-
-import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import egovframework.com.cmm.EgovWebUtil;
+import egovframework.let.utl.fcc.service.EgovStringUtil;
 //import java.util.HashMap;
 
 /**
@@ -85,7 +85,7 @@ public class EgovFileMngUtil {
 	    atchFileIdString = atchFileId;
 	}
 
-	File saveFolder = new File(storePathString);
+	File saveFolder = new File(EgovWebUtil.filePathBlackList(storePathString));
 
 	if (!saveFolder.exists() || saveFolder.isFile()) {
 	    saveFolder.mkdirs();
@@ -120,7 +120,7 @@ public class EgovFileMngUtil {
 
 	    if (!"".equals(orginFileName)) {
 		filePath = storePathString + File.separator + newName;
-		file.transferTo(new File(filePath));
+		file.transferTo(new File(EgovWebUtil.filePathBlackList(filePath)));
 	    }
 	    fvo = new FileVO();
 	    fvo.setFileExtsn(fileExt);

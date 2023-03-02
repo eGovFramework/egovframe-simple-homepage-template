@@ -17,6 +17,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="egovc" uri="/WEB-INF/tlds/egovc.tld" %>
 <%pageContext.setAttribute("crlf", "\r\n"); %>
 <%
 String sLinkType = request.getParameter("linkType") == null ? "" : (String)request.getParameter("linkType");
@@ -163,7 +164,7 @@ function fn_egov_delete_IndvdlSchdulManage(){
 						      <th width="20%" height="23" class="required_text" nowrap >반복구분</th>
 						      <td width="80%">
 						          <c:forEach items="${reptitSeCode}" var="schdulSeInfo" varStatus="status">
-						          <c:if test="${schdulSeInfo.code eq resultList[0].reptitSeCode}">    
+						          <c:if test="${fn:trim(schdulSeInfo.code) eq fn:trim(resultList[0].reptitSeCode)}">    
 						          <c:out value="${fn:replace(schdulSeInfo.codeNm , crlf , '<br/>')}" escapeXml="false" />
 						          </c:if>
 						          </c:forEach>
@@ -190,7 +191,7 @@ function fn_egov_delete_IndvdlSchdulManage(){
 						    <th height="23" class="required_text" nowrap="nowrap">파일첨부</th>
 						    <td>
 						        <c:import charEncoding="utf-8" url="/cmm/fms/selectFileInfs.do" > 
-						        <c:param name="param_atchFileId" value="${resultList[0].atchFileId}" /> 
+						        <c:param name="param_atchFileId" value="${egovc:encrypt(resultList[0].atchFileId)}" /> 
 						        </c:import>       
 						     </td>
 						  </tr>

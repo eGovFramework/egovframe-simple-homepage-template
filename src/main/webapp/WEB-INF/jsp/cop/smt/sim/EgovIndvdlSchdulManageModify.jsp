@@ -20,6 +20,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
+<%@ taglib prefix="egovc" uri="/WEB-INF/tlds/egovc.tld" %>
 
 <c:set var="ImgUrl" value="/images/egovframework/cop/smt/sim/"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -266,9 +267,7 @@ String.prototype.replaceAll = function(src, repl){
                             <tr> 
                               <th width="20%" height="23" class="required_text" nowrap >반복구분<!--<img src="${ImgUrl}icon/required.gif" width="15" height="15">--></th>
                               <td width="80%">
-						       <form:radiobutton path="reptitSeCode" value="1" />당일
-						       <form:radiobutton path="reptitSeCode" value="2"/>반복
-						       <form:radiobutton path="reptitSeCode" value="3"/>연속
+						       <form:radiobuttons path="reptitSeCode" items="${reptitSeCode}" itemValue="code" itemLabel="codeNm"/>
 						       <div><form:errors path="reptitSeCode" cssClass="error"/></div>
                               </td>
                             </tr>
@@ -317,7 +316,7 @@ String.prototype.replaceAll = function(src, repl){
 						        <th height="23" class="required_text">첨부파일 목록</th>
 						        <td>
 						            <c:import charEncoding="utf-8" url="/cmm/fms/selectFileInfs.do" >
-						                <c:param name="param_atchFileId" value="${indvdlSchdulManageVO.atchFileId}" />
+						                <c:param name="param_atchFileId" value="${egovc:encrypt(indvdlSchdulManageVO.atchFileId)}" />
 						            </c:import>     
 						        </td>
 						    </tr>

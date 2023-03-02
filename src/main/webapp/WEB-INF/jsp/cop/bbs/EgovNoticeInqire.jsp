@@ -17,6 +17,7 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="egovc" uri="/WEB-INF/tlds/egovc.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -168,7 +169,7 @@
 					            <th height="23" >첨부이미지</th>
 					            <td colspan="5">
 					                    <c:import url="/cmm/fms/selectImageFileInfs.do" charEncoding="utf-8">
-					                        <c:param name="atchFileId" value="${result.atchFileId}" />
+					                        <c:param name="atchFileId" value="${egovc:encryptSession(result.atchFileId, pageContext.session.id)}" />
 					                    </c:import>
 					            </td>
 					          </tr>
@@ -177,7 +178,7 @@
 					            <th height="23">첨부파일 목록</th>
 					            <td colspan="5">
 					                <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-					                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
+					                    <c:param name="param_atchFileId" value="${egovc:encrypt(result.atchFileId)}" />
 					                </c:import>
 					            </td>
 					          </tr>

@@ -57,7 +57,7 @@
     }
     
     function fn_egov_select_noticeList() {
-        document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>"+ "?bbsId=" +"<c:out value='${bdMstr.bbsId}'/>";
+        document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
         document.board.submit();
     }   
 </script>

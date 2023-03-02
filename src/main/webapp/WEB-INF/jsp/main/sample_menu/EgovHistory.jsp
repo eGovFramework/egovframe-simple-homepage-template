@@ -43,7 +43,7 @@
 						<ul>
 							<li>HOME</li>
 							<li>&gt;</li>
-							<li>사용자관리</li>
+							<li>사이트소개</li>
 							<li>&gt;</li>
 							<li><strong>연혁</strong></li> 
 						</ul>
