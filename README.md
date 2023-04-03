@@ -23,7 +23,7 @@
 
 ### 메인 화면
 
-![sh1 (1)](https://user-images.githubusercontent.com/3771788/229035534-3146e773-f67a-4197-a966-38117b91692b.jpg)
+![sh1 (1)](https://user-images.githubusercontent.com/30619379/229413223-31bc7778-6fd9-4d37-9b62-1611b2524421.jpg)
 
 1. 홈페이지 템플릿은 관리자만 로그인 가능하다는 전제로 구성되었으며 최초 관리자 계정 설정은 **[ 로그인계정 : admin , 로그인암호 : 1 ]** 로 설정되어 있다.
 2. 관리자 추가 및 변경 기능은 추가 구성되어 있지 않으므로 필요 시 DB를 통해 직접 변경한다. (암호 셋팅 값은 공통컴포넌트의 암호화 로직에 따라 생성해야 함)
@@ -31,7 +31,7 @@
 
 ### 사이트 소개 화면
 
-![sh2 (1)](https://user-images.githubusercontent.com/3771788/229035569-f68ad92b-e614-4398-b49f-a2b9eed65ef9.jpg)
+![sh2 (1)](https://user-images.githubusercontent.com/30619379/229413242-2a28416c-73a4-430b-8d8f-bfae320ac0d5.jpg)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -41,7 +41,7 @@
 
 ### 정보마당 화면
 
-![sh3 (1)](https://user-images.githubusercontent.com/3771788/229035594-051ee465-9ea0-4b9c-9771-71e930674382.jpg)
+![sh3 (1)](https://user-images.githubusercontent.com/30619379/229413265-2ca23e56-4d3b-47e1-b5d0-ee4d65a10323.jpg)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -51,7 +51,7 @@
 
 ### 고객지원 화면
 
-![sh4 (1)](https://user-images.githubusercontent.com/3771788/229035624-2de16df9-bc79-4d68-8e6e-8ece9189bf9a.jpg)
+![sh4 (1)](https://user-images.githubusercontent.com/30619379/229413293-844c0cf1-1066-4967-b2b0-073f1c5a759b.jpg)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -61,7 +61,7 @@
 
 ### 알림마당 화면
 
-![sh5 (1)](https://user-images.githubusercontent.com/3771788/229035640-9def026a-74bb-43b5-b09f-84a8a5c830df.jpg)
+![sh5 (1)](https://user-images.githubusercontent.com/30619379/229413343-cf1061ce-0cd9-47b1-88e4-77ea5cf170f6.jpg)
 
 1. 세부메뉴 : 오늘의행사, 금주의행사, 공지사항, 사이트갤러리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)와 게시판 기능을 커스터마이징하여 사용한다.
@@ -69,7 +69,7 @@
 
 ### 사이트관리 화면
 
-![sh6 (1)](https://user-images.githubusercontent.com/3771788/229035687-9fead8d2-1c61-42b8-a974-160ae847caf6.jpg)
+![sh6 (1)](https://user-images.githubusercontent.com/30619379/229413357-3d802dad-cbaf-4fcb-84d9-2b508e883f4f.jpg)
 
 1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항관리, 사이트갤러리관리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)과 게시판 기능을 커스터마이징하여 사용한다.
