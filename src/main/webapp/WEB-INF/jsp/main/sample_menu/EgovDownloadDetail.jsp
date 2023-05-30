@@ -25,16 +25,16 @@
 <div id="wrap">
 	<!-- header 시작 -->
     <div id="header_mainsize">
-        <c:import url="/EgovPageLink.do?link=main/inc/EgovIncHeader" />
+        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
     </div>
     <div id="topnavi">
-        <c:import url="/EgovPageLink.do?link=main/inc/EgovIncTopnav" />
+        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/>
     </div>
     <!-- //header 끝 -->
 	<!-- container 시작 -->
 	<div id="container">
 		<!-- 좌측메뉴 시작 -->
-		<div id="leftmenu"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncLeftmenu" /></div>
+		<div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
 		<!-- //좌측메뉴 끝 -->			
 			<!-- content 시작 -->			
 			<div id="content">
@@ -114,7 +114,7 @@
                     감사합니다.				
 					</div>
 				</div>
-				<div class="buttons" style="clear:both;float:right;padding-top:10px;padding-bottom:10px;"><a href="javascript:fn_main_headPageMove('31','main/sample_menu/EgovDownload')">목록 </a></div> 
+				<div class="buttons" style="clear:both;float:right;padding-top:10px;padding-bottom:10px;"><a href="<c:url value='/EgovPageLink.do?linkIndex=15'/>">목록 </a></div> 
 				<div class="btm_prev">이전글 egovframe installer v1.03</div>
 				<div class="btm_next">다음글 egovframe installer v1.03 </div> 	
 			</div>			
@@ -123,7 +123,7 @@
 			<!-- //content 끝 -->
 	<!-- //container 끝 -->
 	<!-- footer 시작 -->
-	<div id="footer"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncFooter" /></div>
+	<div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
 	<!-- //footer 끝 -->				
 </div>
 <!-- //전체 레이어 끝 -->

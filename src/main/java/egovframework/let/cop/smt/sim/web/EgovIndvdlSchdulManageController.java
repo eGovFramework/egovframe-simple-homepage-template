@@ -22,6 +22,7 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -282,12 +283,18 @@ public class EgovIndvdlSchdulManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do")
-	public String EgovIndvdlSchdulManageMonthList(
+	public String EgovIndvdlSchdulManageMonthList(HttpSession session, 
+			@RequestParam(value="menuNo", required=false) String menuNo,
 			@ModelAttribute("searchVO") ComDefaultVO searchVO,
 			@RequestParam Map <String, Object> commandMap,
 			IndvdlSchdulManageVO indvdlSchdulManageVO,
     		ModelMap model)
     throws Exception {
+		
+		// 선택된 메뉴정보를 세션으로 등록한다.
+		if (menuNo!=null && !menuNo.equals("")){
+			session.setAttribute("menuNo",menuNo);
+		}
 
 		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
