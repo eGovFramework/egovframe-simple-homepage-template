@@ -15,6 +15,7 @@ import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -169,7 +170,15 @@ public class EgovBBSUseInfoManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/com/selectBBSUseInfs.do")
-    public String selectBBSUseInfs(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, ModelMap model) throws Exception {
+    public String selectBBSUseInfs(HttpSession session, 
+			@RequestParam(value="menuNo", required=false) String menuNo,
+    		@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, 
+    		ModelMap model) throws Exception {
+    	
+    	// 선택된 메뉴정보를 세션으로 등록한다.
+    	if (menuNo!=null && !menuNo.equals("")){
+    		session.setAttribute("menuNo",menuNo);
+    	}
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 

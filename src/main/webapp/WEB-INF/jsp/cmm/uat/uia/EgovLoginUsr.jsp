@@ -93,13 +93,13 @@ function fnInit() {
 <!-- 전체 레이어 시작 -->
 <div id="wrap">
     <!-- header 시작 -->
-    <div id="header_mainsize"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncHeader" /></div>
-    <div id="topnavi"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncTopnav" /></div>
+    <div id="header_mainsize"><c:import url="/EgovPageLink.do?linkIndex=0" /></div>
+    <div id="topnavi"><c:import url="/EgovPageLink.do?linkIndex=1" /></div>
     <!-- //header 끝 -->
     <!-- container 시작 -->
     <div id="container">
         <!-- 좌측메뉴 시작 -->
-        <div id="leftmenu"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncLeftmenu" /></div>
+        <div id="leftmenu"><c:import url="/EgovPageLink.do?linkIndex=2" /></div>
         <!-- //좌측메뉴 끝 -->
             <!-- content 시작 --> 
             <div id="content">
@@ -159,7 +159,7 @@ function fnInit() {
     </div>  
     <!-- //container 끝 -->
     <!-- footer 시작 -->
-    <div id="footer"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncFooter" /></div>
+    <div id="footer"><c:import url="/EgovPageLink.do?linkIndex=3" /></div>
     <!-- //footer 끝 -->
 </div>
 <!-- //전체 레이어 끝 -->

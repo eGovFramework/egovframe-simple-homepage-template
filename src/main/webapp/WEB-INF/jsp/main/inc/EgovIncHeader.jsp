@@ -30,7 +30,7 @@
 </div>
  -->
 <div id="project_title"><span class="maintitle">표준프레임워크 </span><strong>샘플 홈페이지 </strong>
-<a href="<c:url value='/EgovPageLink.do?link=main/sample_menu/Intro'/>" target="_blank"><img width="20" height="20" src="<c:url value='/images/question.jpg'/>" alt="메뉴구성 설명" title="메뉴구성 설명"></a>
+<a href="<c:url value='/EgovPageLink.do?linkIndex=4'/>" target="_blank"><img width="20" height="20" src="<c:url value='/images/question.jpg'/>" alt="메뉴구성 설명" title="메뉴구성 설명"></a>
 </div>
 <!-- //행정안전부 로고 및 타이틀 끝 -->
 <div class="header_login">

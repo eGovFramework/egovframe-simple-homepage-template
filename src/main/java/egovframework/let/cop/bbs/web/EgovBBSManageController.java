@@ -20,6 +20,7 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -128,7 +130,16 @@ public class EgovBBSManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/bbs/selectBoardList.do")
-    public String selectBoardArticles(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+    public String selectBoardArticles(HttpSession session, 
+			@RequestParam(value="menuNo", required=false) String menuNo,
+    		@ModelAttribute("searchVO") BoardVO boardVO, 
+    		ModelMap model) throws Exception {
+    	
+    // 선택된 메뉴정보를 세션으로 등록한다.
+    if (menuNo!=null && !menuNo.equals("")){
+    	session.setAttribute("menuNo",menuNo);
+    }
+    	
 	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 
 	boardVO.setBbsId(boardVO.getBbsId());

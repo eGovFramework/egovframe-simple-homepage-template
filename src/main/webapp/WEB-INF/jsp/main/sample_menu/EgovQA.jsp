@@ -25,16 +25,16 @@
 <div id="wrap">
 	<!-- header 시작 -->
     <div id="header_mainsize">
-        <c:import url="/EgovPageLink.do?link=main/inc/EgovIncHeader" />
+        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
     </div>
     <div id="topnavi">
-        <c:import url="/EgovPageLink.do?link=main/inc/EgovIncTopnav" />
+        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/>
     </div>
     <!-- //header 끝 -->
 	<!-- container 시작 -->
 	<div id="container">
 		<!-- 좌측메뉴 시작 -->
-		<div id="leftmenu"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncLeftmenu" /></div>
+		<div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
 		<!-- //좌측메뉴 끝 -->
 			<!-- content 시작 -->
 			<div id="content">
@@ -110,70 +110,70 @@
 					<!-- loop 시작 -->
 					<tr>
 						<td><strong>10</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다(15)</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다(15)</a></td>
 						<td>홍길동</td>
 						<td>1232</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>9</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">validation 처리 시.패스워드에 대한 메소드를 찾지 못합니다.</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">validation 처리 시.패스워드에 대한 메소드를 찾지 못합니다.</a></td>
 						<td>홍길동</td>
 						<td>111</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>8</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>324</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>7</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>521</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>6</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>755</td>
 						<td>2011-04-04</td>
 					</tr>
 										<tr>
 						<td><strong>5</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>324</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>4</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>521</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>3</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>755</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>2</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>521</td>
 						<td>2011-04-04</td>
 					</tr>
 					<tr>
 						<td><strong>1</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?link=main/sample_menu/EgovQADetail'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
+						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
 						<td>홍길동</td>
 						<td>755</td>
 						<td>2011-04-04</td>
@@ -200,7 +200,7 @@
 			</div>
 	<!-- //container 끝 -->
 	<!-- footer 시작 -->
-	<div id="footer"><c:import url="/EgovPageLink.do?link=main/inc/EgovIncFooter" /></div>
+	<div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
 	<!-- //footer 끝 -->
 </div>
 <!-- //전체 레이어 끝 -->

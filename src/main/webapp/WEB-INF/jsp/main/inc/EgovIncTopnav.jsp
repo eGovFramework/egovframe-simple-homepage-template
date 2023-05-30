@@ -15,24 +15,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>
 
-<script type="text/javascript">
-    function fn_main_headPageMove(menuNo, url){
-	    document.selectOne.menuNo.value=menuNo;
-	    document.selectOne.link.value=url;
-	    document.selectOne.action = "<c:url value='/EgovPageLink.do'/>";
-	    //alert(document.selectOne.action);
-	    document.selectOne.submit();
-    }
-    function fn_main_headPageAction(menuNo, url){
-        document.selectOne.menuNo.value=menuNo;
-        document.selectOne.link.value="";
-        document.selectOne.action = "<c:url value='/' />"+url;
-        document.selectOne.method = "post";
-        //alert(document.selectOne.action);
-        document.selectOne.submit();
-    }
-</script>
-
 <!-- topmenu start -->
 <form name="selectOne" action="#LINK">
 <input name="menuNo" type="hidden" />
@@ -40,15 +22,15 @@
 </form>
 
 <ul>
-	<li><a href="#LINK" onclick="javascript:fn_main_headPageMove('11','main/sample_menu/EgovAboutSite')" >사이트소개</a></li>
-    <li><a href="#LINK" onclick="javascript:fn_main_headPageMove('21','main/sample_menu/EgovProductInfo')" >정보마당</a></li>
-    <li><a href="#LINK" onclick="javascript:fn_main_headPageMove('31','main/sample_menu/EgovDownload')" >고객지원</a></li>
-    <li><a href="#LINK" onclick="javascript:fn_main_headPageAction('42','cop/smt/sim/EgovIndvdlSchdulManageWeekList.do')" >알림마당</a></li>
+	<li><a href="/sht_webapp/EgovPageLink.do?menuNo=11&linkIndex=9">사이트소개</a></li>
+	<li><a href="/sht_webapp/EgovPageLink.do?menuNo=21&linkIndex=13">정보마당</a></li>
+	<li><a href="/sht_webapp/EgovPageLink.do?menuNo=31&linkIndex=15">고객지원</a></li>
+	<li><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do?menuNo=42">알림마당</a></li>
     <%
        LoginVO loginVO = (LoginVO)session.getAttribute("LoginVO"); 
        if(loginVO != null){ 
     %>
-    <li><a href="#LINK" onclick="javascript:fn_main_headPageAction('51','cop/smt/sim/EgovIndvdlSchdulManageMonthList.do')" >사이트관리(관리자)</a></li>
+    <li><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do?menuNo=52">사이트관리(관리자)</a></li>
     <%
        }
     %>
