@@ -277,7 +277,13 @@ int iEndDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
 								    out.print((String)egovMap.get("schdulNm"));
 								    out.println("</a>");
 								    %> 
-							    <td nowrap="nowrap"></td>  
+							    <td nowrap align="center">
+							    	<%
+								    out.print("<a href=\"JavaScript:fn_egov_detail_DeptSchdulManage('" + (String)egovMap.get("schdulId") + "')\">");
+								    out.print((String)egovMap.get("userNm"));
+								    out.println("</a>");
+								    %> 
+							    </td>  
 						  </tr>
 						 <%
 						    }

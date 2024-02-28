@@ -330,7 +330,20 @@ arrDateTitle[6] = "토요일";
 							    %>
 							    </td>
 							    <td nowrap="nowrap">
-							
+								<%
+								if(listResult != null){
+								for(int j=0;j < listResult.size(); j++){
+									    egovMap = (EgovMap)listResult.get(j);
+									    int iBeginDate = Integer.parseInt(((String)egovMap.get("schdulBgnde")).substring(0, 8));
+									    int iBeginEnd = Integer.parseInt(((String)egovMap.get("schdulEndde")).substring(0, 8));
+									    if(iUseDate >= iBeginDate && iUseDate <= iBeginEnd){
+									    out.print("<a href=\"JavaScript:fn_egov_detail_DeptSchdulManage('" + (String)egovMap.get("schdulId") + "')\">");
+									    out.print((String)egovMap.get("userNm"));
+		                                out.println("</a><br/>");
+									    }
+									}
+								}
+								%>
 							    </td>
 							  </tr>
 							  <%

@@ -88,7 +88,7 @@
 <div id="wrap">
     <!-- header 시작 -->
     <div id="header_mainsize"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/></div>
-    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>      
+    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>        
     <!-- //header 끝 --> 
     <!-- container 시작 -->
     <div id="container">
@@ -112,7 +112,7 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>게시글 수정</strong></h2></div>
                 </div>
-				<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" >
+				<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" onsubmit="return false" >
 					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
 					<input type="hidden" name="returnUrl" value="<c:url value='/cop/bbs/forUpdateBoardArticle.do'/>"/>
 					

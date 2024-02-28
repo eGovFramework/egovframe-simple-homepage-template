@@ -249,7 +249,7 @@
 					</ul>
 				</div>	
 				<!-- //페이지 네비게이션 끝 -->
-				<div class="buttons" style="clear:both;float:right;padding-left:2px;"><a href="<c:url value='/EgovPageLink.do?linkIndex=6'/>">자료올리기 </a></div> 							
+				<div class="buttons" style="clear:both;float:right;padding-left:2px;"><a href="<c:url value='/EgovPageLink.do?linkIndex=6'/>">자료올리기 </a></div> 						
 			</div>
 		
 			</div>				

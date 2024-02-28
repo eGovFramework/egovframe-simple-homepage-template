@@ -134,7 +134,7 @@ public class EgovBBSManageController {
 			@RequestParam(value="menuNo", required=false) String menuNo,
     		@ModelAttribute("searchVO") BoardVO boardVO, 
     		ModelMap model) throws Exception {
-    	
+    
     // 선택된 메뉴정보를 세션으로 등록한다.
     if (menuNo!=null && !menuNo.equals("")){
     	session.setAttribute("menuNo",menuNo);
