@@ -22,7 +22,7 @@
 </form>
 
 <ul>
-	<li><a href="/sht_webapp/EgovPageLink.do?menuNo=11&linkIndex=9">사이트소개</a></li>
+    <li><a href="/sht_webapp/EgovPageLink.do?menuNo=11&linkIndex=9">사이트소개</a></li>
 	<li><a href="/sht_webapp/EgovPageLink.do?menuNo=21&linkIndex=13">정보마당</a></li>
 	<li><a href="/sht_webapp/EgovPageLink.do?menuNo=31&linkIndex=15">고객지원</a></li>
 	<li><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do?menuNo=42">알림마당</a></li>

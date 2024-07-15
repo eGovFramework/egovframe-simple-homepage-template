@@ -54,7 +54,7 @@ String menuNo = ((String)session.getAttribute("menuNo")!=null)?(String)session.g
 		<li class="leftmenu_dept01">
 			<a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do?menuNo=41">알림마당</a>
 			<ul>
-			    <li class="dept02"><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageDailyList.do?menuNo=41">오늘의 행사</a></li>	
+				<li class="dept02"><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageDailyList.do?menuNo=41">오늘의 행사</a></li>	
 				<li class="dept02"><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do?menuNo=42">금주의 행사</a></li>
 				<li class="dept02"><a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43">공지사항</a></li>
 				<li class="dept02"><a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_BBBBBBBBBBBB&menuNo=44">사이트갤러리</a></li>
@@ -64,7 +64,7 @@ String menuNo = ((String)session.getAttribute("menuNo")!=null)?(String)session.g
         <% if (menuNo.indexOf("5")== 0) {%>
 		<li class="leftmenu_dept01">
 			<a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do?menuNo=51">사이트관리</a>
-			<ul>	
+			<ul>
 				<li class="dept02"><a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do?menuNo=51">일정관리</a></li>
 				<li class="dept02"><a href="/sht_webapp/cop/com/selectTemplateInfs.do?menuNo=52">게시판템플릿관리</a></li>
 				<li class="dept02"><a href="/sht_webapp/cop/bbs/SelectBBSMasterInfs.do?menuNo=53">게시판생성관리</a></li>

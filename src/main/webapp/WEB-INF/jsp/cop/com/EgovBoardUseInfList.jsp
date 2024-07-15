@@ -66,7 +66,7 @@
 <div id="wrap">
     <!-- header 시작 -->
     <div id="header_mainsize"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/></div>
-    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>          
+    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>        
     <!-- //header 끝 --> 
     <!-- container 시작 -->
     <div id="container">

@@ -53,7 +53,7 @@
     					<c:forEach var="result" items="${notiList}" varStatus="status">
         					<li>
                                 <div class="notice_lefttext">
-        					        <a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43">
+            					    <a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43">    
             					        <c:if test="${result.replyLc!=0}">
                                             <c:forEach begin="0" end="${result.replyLc}" step="1">&nbsp;</c:forEach>
                                             <img src="<c:url value='/images/reply_arrow.gif'/>" alt="reply arrow"/>
@@ -111,7 +111,7 @@
 				<!--  //갤러리 끝 -->			
 				<div class="info_divwrap"> 
 					<div class="righttop_banner"> 
-						<ul>
+						<ul>							
 							<li><a href="/sht_webapp/EgovPageLink.do?menuNo=21&linkIndex=13"><img src="<c:url value='/images/index/img_product.gif' />" alt="주요사업 소개" title="샘플화면으로 이동합니다.(주요사업 소개)" /></a></li>
 							<li><a href="/sht_webapp/EgovPageLink.do?menuNo=22&linkIndex=14"><img src="<c:url value='/images/index/img_service.gif' />" alt="대표서비스 소개" title="샘플화면으로 이동합니다.(대표서비스 소개)" /></a></li>
 						</ul>
