@@ -4,24 +4,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import egovframework.com.cmm.service.EgovFileMngService;
-import egovframework.com.cmm.service.FileVO;
-
-import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
-
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
+
+import egovframework.com.cmm.service.EgovFileMngService;
+import egovframework.com.cmm.service.FileVO;
 
 /**
  * @Class Name : EgovFileMngServiceImpl.java
  * @Description : 파일정보의 관리를 위한 구현 클래스
  * @Modification Information
- *
+ * 
+ *               <pre>
  *    수정일       수정자         수정내용
  *    -------        -------     -------------------
  *    2009. 3. 25.     이삼섭    최초생성
- *
+ *   2024.08.13  이백행          시큐어코딩 Exception 제거
+ *               </pre>
+ * 
  * @author 공통 서비스 개발팀 이삼섭
  * @since 2009. 3. 25.
  * @version
@@ -31,137 +33,137 @@ import org.springframework.stereotype.Service;
 @Service("EgovFileMngService")
 public class EgovFileMngServiceImpl extends EgovAbstractServiceImpl implements EgovFileMngService {
 
-    @Resource(name = "FileManageDAO")
-    private FileManageDAO fileMngDAO;
+	@Resource(name = "FileManageDAO")
+	private FileManageDAO fileMngDAO;
 
-    /**
-     * 여러 개의 파일을 삭제한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#deleteFileInfs(java.util.List)
-     */
-    @Override
-    public void deleteFileInfs(List<?> fvoList) throws Exception {
-	fileMngDAO.deleteFileInfs(fvoList);
-    }
-
-    /**
-     * 하나의 파일에 대한 정보(속성 및 상세)를 등록한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#insertFileInf(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public String insertFileInf(FileVO fvo) throws Exception {
-	String atchFileId = fvo.getAtchFileId();
-
-	fileMngDAO.insertFileInf(fvo);
-
-	return atchFileId;
-    }
-
-    /**
-     * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#insertFileInfs(java.util.List)
-     */
-    @Override
-    public String insertFileInfs(List<?> fvoList) throws Exception {
-	String atchFileId = "";
-
-	if (fvoList.size() != 0) {
-	    atchFileId = fileMngDAO.insertFileInfs(fvoList);
+	/**
+	 * 여러 개의 파일을 삭제한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#deleteFileInfs(java.util.List)
+	 */
+	@Override
+	public void deleteFileInfs(List<?> fvoList) {
+		fileMngDAO.deleteFileInfs(fvoList);
 	}
-	if(atchFileId == ""){
-		atchFileId = null;
+
+	/**
+	 * 하나의 파일에 대한 정보(속성 및 상세)를 등록한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#insertFileInf(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public String insertFileInf(FileVO fvo) {
+		String atchFileId = fvo.getAtchFileId();
+
+		fileMngDAO.insertFileInf(fvo);
+
+		return atchFileId;
 	}
-	return atchFileId;
-    }
 
-    /**
-     * 파일에 대한 목록을 조회한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#selectFileInfs(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public List<FileVO> selectFileInfs(FileVO fvo) throws Exception {
-	return fileMngDAO.selectFileInfs(fvo);
-    }
+	/**
+	 * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#insertFileInfs(java.util.List)
+	 */
+	@Override
+	public String insertFileInfs(List<?> fvoList) {
+		String atchFileId = "";
 
-    /**
-     * 여러 개의 파일에 대한 정보(속성 및 상세)를 수정한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#updateFileInfs(java.util.List)
-     */
-    @Override
-	public void updateFileInfs(List<?> fvoList) throws Exception {
-	//Delete & Insert
-	fileMngDAO.updateFileInfs(fvoList);
-    }
+		if (fvoList.size() != 0) {
+			atchFileId = fileMngDAO.insertFileInfs(fvoList);
+		}
+		if (atchFileId == "") {
+			atchFileId = null;
+		}
+		return atchFileId;
+	}
 
-    /**
-     * 하나의 파일을 삭제한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#deleteFileInf(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public void deleteFileInf(FileVO fvo) throws Exception {
-	fileMngDAO.deleteFileInf(fvo);
-    }
+	/**
+	 * 파일에 대한 목록을 조회한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#selectFileInfs(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public List<FileVO> selectFileInfs(FileVO fvo) {
+		return fileMngDAO.selectFileInfs(fvo);
+	}
 
-    /**
-     * 파일에 대한 상세정보를 조회한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#selectFileInf(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public FileVO selectFileInf(FileVO fvo) throws Exception {
-	return fileMngDAO.selectFileInf(fvo);
-    }
+	/**
+	 * 여러 개의 파일에 대한 정보(속성 및 상세)를 수정한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#updateFileInfs(java.util.List)
+	 */
+	@Override
+	public void updateFileInfs(List<?> fvoList) {
+		// Delete & Insert
+		fileMngDAO.updateFileInfs(fvoList);
+	}
 
-    /**
-     * 파일 구분자에 대한 최대값을 구한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#getMaxFileSN(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public int getMaxFileSN(FileVO fvo) throws Exception {
-	return fileMngDAO.getMaxFileSN(fvo);
-    }
+	/**
+	 * 하나의 파일을 삭제한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#deleteFileInf(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public void deleteFileInf(FileVO fvo) {
+		fileMngDAO.deleteFileInf(fvo);
+	}
 
-    /**
-     * 전체 파일을 삭제한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#deleteAllFileInf(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public void deleteAllFileInf(FileVO fvo) throws Exception {
-	fileMngDAO.deleteAllFileInf(fvo);
-    }
+	/**
+	 * 파일에 대한 상세정보를 조회한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#selectFileInf(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public FileVO selectFileInf(FileVO fvo) {
+		return fileMngDAO.selectFileInf(fvo);
+	}
 
-    /**
-     * 파일명 검색에 대한 목록을 조회한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#selectFileListByFileNm(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public Map<String, Object> selectFileListByFileNm(FileVO fvo) throws Exception {
-	List<FileVO>  result = fileMngDAO.selectFileListByFileNm(fvo);
-	int cnt = fileMngDAO.selectFileListCntByFileNm(fvo);
+	/**
+	 * 파일 구분자에 대한 최대값을 구한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#getMaxFileSN(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public int getMaxFileSN(FileVO fvo) {
+		return fileMngDAO.getMaxFileSN(fvo);
+	}
 
-	Map<String, Object> map = new HashMap<String, Object>();
+	/**
+	 * 전체 파일을 삭제한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#deleteAllFileInf(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public void deleteAllFileInf(FileVO fvo) {
+		fileMngDAO.deleteAllFileInf(fvo);
+	}
 
-	map.put("resultList", result);
-	map.put("resultCnt", Integer.toString(cnt));
+	/**
+	 * 파일명 검색에 대한 목록을 조회한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#selectFileListByFileNm(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public Map<String, Object> selectFileListByFileNm(FileVO fvo) {
+		List<FileVO> result = fileMngDAO.selectFileListByFileNm(fvo);
+		int cnt = fileMngDAO.selectFileListCntByFileNm(fvo);
 
-	return map;
-    }
+		Map<String, Object> map = new HashMap<String, Object>();
 
-    /**
-     * 이미지 파일에 대한 목록을 조회한다.
-     *
-     * @see egovframework.com.cmm.service.EgovFileMngService#selectImageFileList(egovframework.com.cmm.service.FileVO)
-     */
-    @Override
-	public List<FileVO> selectImageFileList(FileVO vo) throws Exception {
-	return fileMngDAO.selectImageFileList(vo);
-    }
+		map.put("resultList", result);
+		map.put("resultCnt", Integer.toString(cnt));
+
+		return map;
+	}
+
+	/**
+	 * 이미지 파일에 대한 목록을 조회한다.
+	 *
+	 * @see egovframework.com.cmm.service.EgovFileMngService#selectImageFileList(egovframework.com.cmm.service.FileVO)
+	 */
+	@Override
+	public List<FileVO> selectImageFileList(FileVO vo) {
+		return fileMngDAO.selectImageFileList(vo);
+	}
 }
