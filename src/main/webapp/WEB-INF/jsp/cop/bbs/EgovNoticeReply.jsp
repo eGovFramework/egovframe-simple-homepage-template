@@ -51,6 +51,7 @@
     
     function fn_egov_select_noticeList() {
         document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
+        document.board.method = 'get';
         document.board.submit();    
     }
 </script>
@@ -68,7 +69,7 @@
 
 </head>
 
-<!-- body onload="javascript:editor_generate('nttCn');"-->
+<!-- body onload="editor_generate('nttCn');"-->
 <!-- <body onLoad="HTMLArea.init(); HTMLArea.onload = initEditor; document.board.nttSj.focus();"> -->
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>    
@@ -157,16 +158,16 @@
 					            <td colspan="3">
 					              <input name="ntceBgnde" type="hidden" value="">
 					              <input name="ntceBgndeView" title="게시시작일" type="text" size="10" value=""  readonly="readonly"
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
+					                onClick="fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 					              <img src="<c:url value='/images/calendar.gif' />"
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
+					                onClick="fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 					                width="15" height="15" alt="calendar">
 					              ~
 					              <input name="ntceEndde" type="hidden"  value="">
 					              <input name="ntceEnddeView" title="게시종료일" type="text" size="10" value=""  readonly="readonly"
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"  >
+					                onClick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"  >
 					              <img src="<c:url value='/images/calendar.gif' />"
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
+					                onClick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 					                width="15" height="15" alt="calendar">
 					                <br/><form:errors path="ntceBgndeView" />
 					                <br/><form:errors path="ntceEnddeView" />             
@@ -193,12 +194,12 @@
                         <tr>
 						     <c:if test="${bdMstr.authFlag == 'Y'}">
 						          <td>
-						            <a href="#LINK" onclick="javascript:fn_egov_regist_notice(); return false;"><spring:message code="button.save" /></a> 
+						            <a href="#LINK" onclick="fn_egov_regist_notice(); return false;"><spring:message code="button.save" /></a> 
 						          </td>
 						          <td width="10"></td>
 						      </c:if>
 						      <td>
-						        <a href="#LINK" onclick="javascript:fn_egov_select_noticeList(); return false;"><spring:message code="button.list" /></a> 
+						        <a href="<c:url value="/cop/bbs${prefix}/selectBoardList.do" />?bbsId=<c:out value="${searchVO.bbsId}" />&searchCnd=<c:out value="${searchVO.searchCnd}" />&searchWrd=<c:out value="${searchVO.searchWrd}" />&pageIndex=<c:out value="${searchVO.pageIndex}" />"><spring:message code="button.list" /></a> 
 						      </td>
 					    </tr>
                       </table>

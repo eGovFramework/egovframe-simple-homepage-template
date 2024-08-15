@@ -34,7 +34,7 @@
     }
     
     function fn_egov_select_noticeList(pageNo) {
-        document.frm.pageIndex.value = pageNo; 
+//         document.frm.pageIndex.value = pageNo; 
         document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();  
     }
@@ -48,6 +48,7 @@
         
         if (confirm('<spring:message code="common.delete.msg" />')) {
             document.frm.action = "<c:url value='/cop/bbs${prefix}/deleteBoardArticle.do'/>";
+            document.frm.method = 'post';
             document.frm.submit();
         }   
     }
@@ -126,7 +127,9 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>글조회</strong></h2></div>
                 </div>
-				<form name="frm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
+				<form name="frm" method="get" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
+					<input type="hidden" name="searchCnd" value="<c:out value='${searchVO.searchCnd}'/>">
+					<input type="hidden" name="searchWrd" value="<c:out value='${searchVO.searchWrd}'/>">
 					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
 					<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
 					<input type="hidden" name="nttId" value="<c:out value='${result.nttId}'/>" >
@@ -202,24 +205,24 @@
                          <% if(null != session.getAttribute("LoginVO")){ %>
 			             <c:if test="${result.frstRegisterId == sessionUniqId}">     
 			                  <td>
-			                     <a href="#LINK" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a> 
+			                     <a href="#LINK" onclick="fn_egov_moveUpdt_notice(); return false;">수정</a> 
 			                  </td>
 			                  
 			                  <td width="10"></td>
 			                  <td>
-			                     <a href="#LINK" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a> 
+			                     <a href="#LINK" onclick="fn_egov_delete_notice(); return false;">삭제</a> 
 			                  </td>
 			             </c:if>    
 			             <c:if test="${result.replyPosblAt == 'Y'}">     
 			                  <td width="10"></td>
 			                  <td>
-			                     <a href="#LINK" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a> 
+			                     <a href="#LINK" onclick="fn_egov_addReply(); return false;">답글작성</a> 
 			                  </td>
 			              </c:if>
 			              <% } %>
 			              <td width="10"></td>
                           <td>
-                              <a href="#LINK" onclick="javascript:fn_egov_select_noticeList('1'); return false;">목록</a> 
+                              <a href="<c:url value="/cop/bbs${prefix}/selectBoardList.do" />?bbsId=<c:out value="${searchVO.bbsId}" />&searchCnd=<c:out value="${searchVO.searchCnd}" />&searchWrd=<c:out value="${searchVO.searchWrd}" />&pageIndex=<c:out value="${searchVO.pageIndex}" />">목록</a> 
                           </td>
 			            </tr>
                       </table>
