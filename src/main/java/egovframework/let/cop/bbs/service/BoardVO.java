@@ -17,9 +17,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2009.03.19  이삼섭          최초 생성
- *  2009.06.29  한성곤		   2단계 기능 추가 (댓글관리, 만족도조사)
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.03.19  이삼섭          최초 생성
+ *   2009.06.29  한성곤          2단계 기능 추가 (댓글관리, 만족도조사)
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.08.31  이백행          컨트리뷰션 요청 메서드 정리(메뉴번호 추가)
  *
  *      </pre>
  */
@@ -111,6 +112,11 @@ public class BoardVO extends Board implements Serializable {
 	/** 하위 페이지 인덱스 (댓글 및 만족도 조사 여부 확인용) */
 	private String subPageIndex = "";
 	//// -------------------------------
+
+	/**
+	 * 메뉴번호
+	 */
+	private String menuNo;
 
 	/**
 	 * searchBgnDe attribute를 리턴한다.
@@ -580,6 +586,24 @@ public class BoardVO extends Board implements Serializable {
 	 */
 	public void setSubPageIndex(String subPageIndex) {
 		this.subPageIndex = subPageIndex;
+	}
+
+	/**
+	 * 메뉴번호를 리턴한다.
+	 * 
+	 * @return
+	 */
+	public String getMenuNo() {
+		return menuNo;
+	}
+
+	/**
+	 * 메뉴번호 값을 설정한다.
+	 * 
+	 * @param menuNo
+	 */
+	public void setMenuNo(String menuNo) {
+		this.menuNo = menuNo;
 	}
 
 	/**
