@@ -136,7 +136,7 @@
                                     <input name="searchWrd" type="text" size="35" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);" title="검색어 입력"> 
                                 </li>
                                 <li>
-                                    <div class="buttons" style="position:absolute;left:770px;top:182px;">
+                                    <div class="buttons" style="position:absolute;left:870px;top:182px;">
                                         <a href="#LINK" onclick="fn_egov_select_noticeList('1'); return false;"><img src="<c:url value='/images/img_search.gif' />" alt="search" />조회</a>
                                         <% if(null != session.getAttribute("LoginVO")){ %>
                                         <c:if test="${brdMstrVO.authFlag == 'Y'}">
