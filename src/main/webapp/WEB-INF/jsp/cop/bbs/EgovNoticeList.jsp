@@ -138,7 +138,6 @@
                                 <li>
                                     <div class="buttons" style="position:absolute;left:770px;top:182px;">
                                         <a href="#LINK" onclick="fn_egov_select_noticeList('1'); return false;"><img src="<c:url value='/images/img_search.gif' />" alt="search" />조회</a>
-                                        <a href="<c:url value="/cop/bbs${prefix}/selectBoardList.do" />?bbsId=<c:out value="${boardVO.bbsId}" />&menuNo=<c:out value="${param.menuNo}" />">목록</a>
                                         <% if(null != session.getAttribute("LoginVO")){ %>
                                         <c:if test="${brdMstrVO.authFlag == 'Y'}">
                                             <a href="<c:url value="/cop/bbs${prefix}/addBoardArticle.do" />?bbsId=<c:out value="${boardVO.bbsId}" />&searchCnd=<c:out value="${boardVO.searchCnd}" />&searchWrd=<c:out value="${boardVO.searchWrd}" />&pageIndex=<c:out value="${boardVO.pageIndex}" />&menuNo=<c:out value="${param.menuNo}" />">등록</a>
