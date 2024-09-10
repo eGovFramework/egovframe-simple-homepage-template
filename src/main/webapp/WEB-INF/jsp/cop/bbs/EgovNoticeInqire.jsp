@@ -33,13 +33,14 @@
         }
     }
     
-    function fn_egov_select_noticeList(pageNo) {
-        document.frm.pageIndex.value = pageNo; 
+    function fn_egov_select_noticeList() {
+        event.preventDefault();
         document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();  
     }
     
     function fn_egov_delete_notice() {
+        event.preventDefault();
         if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
             alert('등록시 사용한 패스워드를 입력해 주세요.');
             document.frm.password.focus();
@@ -48,11 +49,13 @@
         
         if (confirm('<spring:message code="common.delete.msg" />')) {
             document.frm.action = "<c:url value='/cop/bbs${prefix}/deleteBoardArticle.do'/>";
+            document.frm.method = 'post';
             document.frm.submit();
         }   
     }
     
     function fn_egov_moveUpdt_notice() {
+        event.preventDefault();
         if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
             alert('등록시 사용한 패스워드를 입력해 주세요.');
             document.frm.password.focus();
@@ -64,6 +67,7 @@
     }
     
     function fn_egov_addReply() {
+        event.preventDefault();
         document.frm.action = "<c:url value='/cop/bbs${prefix}/addReplyBoardArticle.do'/>";
         document.frm.submit();          
     }   
@@ -126,8 +130,11 @@
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong>글조회</strong></h2></div>
                 </div>
-				<form name="frm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
+				<form name="frm" method="get" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
+					<input type="hidden" name="searchCnd" value="<c:out value="${searchVO.searchCnd}" />">
+					<input type="hidden" name="searchWrd" value="<c:out value="${searchVO.searchWrd}" />">
 					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+					<input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
 					<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
 					<input type="hidden" name="nttId" value="<c:out value='${result.nttId}'/>" >
 					<input type="hidden" name="parnts" value="<c:out value='${result.parnts}'/>" >
@@ -202,24 +209,24 @@
                          <% if(null != session.getAttribute("LoginVO")){ %>
 			             <c:if test="${result.frstRegisterId == sessionUniqId}">     
 			                  <td>
-			                     <a href="#LINK" onclick="javascript:fn_egov_moveUpdt_notice(); return false;">수정</a> 
+			                     <a href="#LINK" onclick="fn_egov_moveUpdt_notice();">수정</a> 
 			                  </td>
 			                  
 			                  <td width="10"></td>
 			                  <td>
-			                     <a href="#LINK" onclick="javascript:fn_egov_delete_notice(); return false;">삭제</a> 
+			                     <a href="#LINK" onclick="fn_egov_delete_notice();">삭제</a> 
 			                  </td>
 			             </c:if>    
 			             <c:if test="${result.replyPosblAt == 'Y'}">     
 			                  <td width="10"></td>
 			                  <td>
-			                     <a href="#LINK" onclick="javascript:fn_egov_addReply(); return false;">답글작성</a> 
+			                     <a href="#LINK" onclick="fn_egov_addReply();">답글작성</a> 
 			                  </td>
 			              </c:if>
 			              <% } %>
 			              <td width="10"></td>
                           <td>
-                              <a href="#LINK" onclick="javascript:fn_egov_select_noticeList('1'); return false;">목록</a> 
+                              <a href="#LINK" onclick="fn_egov_select_noticeList();">목록</a> 
                           </td>
 			            </tr>
                       </table>
