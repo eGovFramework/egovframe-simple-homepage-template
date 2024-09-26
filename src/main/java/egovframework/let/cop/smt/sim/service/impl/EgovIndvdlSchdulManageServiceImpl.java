@@ -3,8 +3,6 @@ package egovframework.let.cop.smt.sim.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.springframework.stereotype.Service;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.let.cop.smt.sim.service.EgovIndvdlSchdulManageService;
 import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 일정관리를 처리하는 ServiceImpl Class 구현
@@ -20,24 +19,26 @@ import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
  * @see
  * 
  *      <pre>
- * << 개정이력(Modification Information) >>  수정일      수정자           수정내용 -------    ---
- * -----    --------------------------- 2009.04.10  장동한          최초 생성 2011.05.31
- * JJY           경량환경 커스터마이징버전 생성
+ * << 개정이력(Modification Information) >>
+ *   수정일      수정자           수정내용
+ *  -------    --------    ---------------------------
+ *   2009.04.10  장동한          최초 생성
+ *   2011.05.31  JJY           경량환경 커스터마이징버전 생성
+ *   2024.09.26  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *      </pre>
  * 
  * @author 조재영
  * @version 1.0
  * @created 09-6-2011 오전 10:08:05
  */
-@Service("egovIndvdlSchdulManageService")
+@Service
+@RequiredArgsConstructor
 public class EgovIndvdlSchdulManageServiceImpl extends EgovAbstractServiceImpl
 		implements EgovIndvdlSchdulManageService {
 
-	@Resource(name = "indvdlSchdulManageDao")
-	private IndvdlSchdulManageDao dao;
+	private final IndvdlSchdulManageDao dao;
 
-	@Resource(name = "deptSchdulManageIdGnrService")
-	private EgovIdGnrService idgenService;
+	private final EgovIdGnrService deptSchdulManageIdGnrService;
 
 	/**
 	 * 메인페이지/일정관리조회
@@ -120,7 +121,7 @@ public class EgovIndvdlSchdulManageServiceImpl extends EgovAbstractServiceImpl
 	 */
 	@Override
 	public void insertIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception {
-		String sMakeId = idgenService.getNextStringId();
+		String sMakeId = deptSchdulManageIdGnrService.getNextStringId();
 		indvdlSchdulManageVO.setSchdulId(sMakeId);
 
 		dao.insertIndvdlSchdulManage(indvdlSchdulManageVO);

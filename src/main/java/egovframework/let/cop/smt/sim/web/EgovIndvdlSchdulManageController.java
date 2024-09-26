@@ -5,13 +5,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,6 +30,7 @@ import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.smt.sim.service.EgovIndvdlSchdulManageService;
 import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 일정관리를 처리하는 Controller Class 구현
@@ -44,8 +42,9 @@ import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
  * << 개정이력(Modification Information) >>
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *  2009.04.10  장동한          최초 생성
- *  2011.05.31  JJY           경량환경 커스터마이징버전 생성
+ *   2009.04.10  장동한          최초 생성
+ *   2011.05.31  JJY           경량환경 커스터마이징버전 생성
+ *   2024.09.26  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입 *
  *      </pre>
  * 
  * @author 조재영
@@ -53,31 +52,22 @@ import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
  * @created 09-6-2011 오전 10:08:04
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovIndvdlSchdulManageController {
 
-	@Autowired
-	private DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
-	@Resource(name = "egovMessageSource")
-	EgovMessageSource egovMessageSource;
+	private final EgovMessageSource egovMessageSource;
 
-	@Resource(name = "egovIndvdlSchdulManageService")
-	private EgovIndvdlSchdulManageService egovIndvdlSchdulManageService;
+	private final EgovIndvdlSchdulManageService egovIndvdlSchdulManageService;
 
-	@Resource(name = "EgovCmmUseService")
-	private EgovCmmUseService cmmUseService;
-
-	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertiesService;
+	private final EgovCmmUseService cmmUseService;
 
 	// 첨부파일 관련
-	@Resource(name = "EgovFileMngService")
-	private EgovFileMngService fileMngService;
+	private final EgovFileMngService fileMngService;
 
-	@Resource(name = "EgovFileMngUtil")
-	private EgovFileMngUtil fileUtil;
+	private final EgovFileMngUtil fileUtil;
 
 	/**
 	 * 일정(일별) 목록을 조회한다.
