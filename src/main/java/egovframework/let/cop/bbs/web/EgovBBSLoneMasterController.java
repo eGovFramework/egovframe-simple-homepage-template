@@ -3,12 +3,9 @@ package egovframework.let.cop.bbs.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,6 +22,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.bbs.service.BoardMaster;
 import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.EgovBBSLoneMasterService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시판 속성관리를 위한 컨트롤러 클래스
@@ -39,33 +37,30 @@ import egovframework.let.cop.bbs.service.EgovBBSLoneMasterService;
  *
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2009.08.25  한성곤          최초 생성
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.08.25  한성곤          최초 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovBBSLoneMasterController {
 
 	/** EgovBBSLoneMasterService */
-	@Resource(name = "EgovBBSLoneMasterService")
-	private EgovBBSLoneMasterService bbsLoneService;
+	private final EgovBBSLoneMasterService bbsLoneService;
 
 	/** EgovCmmUseService */
-	@Resource(name = "EgovCmmUseService")
-	private EgovCmmUseService cmmUseService;
+	private final EgovCmmUseService cmmUseService;
 
 	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertyService;
+	private final EgovPropertyService propertyService;
 
 	/** DefaultBeanValidator */
-	@Autowired
-	private DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
-	@Resource(name = "egovMessageSource")
-	EgovMessageSource egovMessageSource;
+	private final EgovMessageSource egovMessageSource;
 
 	/**
 	 * 신규 게시판 마스터 등록을 위한 등록페이지로 이동한다.
