@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.springframework.stereotype.Service;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 import egovframework.let.cop.com.service.EgovTemplateManageService;
 import egovframework.let.cop.com.service.TemplateInf;
 import egovframework.let.cop.com.service.TemplateInfVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 템플릿 정보관리를 위한 서비스 구현 클래스
@@ -27,19 +26,24 @@ import egovframework.let.cop.com.service.TemplateInfVO;
  *   
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *   2009.3.17  이삼섭          최초 생성
- *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.03.17  이삼섭          최초 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
-@Service("EgovTemplateManageService")
+//@Service("EgovTemplateManageService")
+@Service
+@RequiredArgsConstructor
 public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl implements EgovTemplateManageService {
 
-	@Resource(name = "TemplateManageDAO")
-	private TemplateManageDAO tmplatDAO;
+//	@Resource(name = "TemplateManageDAO")
+//	private TemplateManageDAO tmplatDAO;
+	private final TemplateManageDAO tmplatDAO;
 
-	@Resource(name = "egovTmplatIdGnrService")
-	private EgovIdGnrService idgenService;
+//	@Resource(name = "egovTmplatIdGnrService")
+//	private EgovIdGnrService idgenService;
+	private final EgovIdGnrService egovTmplatIdGnrService;
 
 	/**
 	 * 템플릿 정보를 삭제한다.
@@ -59,7 +63,7 @@ public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl imple
 	@Override
 	public void insertTemplateInf(TemplateInf tmplatInf) throws Exception {
 
-		tmplatInf.setTmplatId(idgenService.getNextStringId());
+		tmplatInf.setTmplatId(egovTmplatIdGnrService.getNextStringId());
 
 		tmplatDAO.insertTemplateInf(tmplatInf);
 	}

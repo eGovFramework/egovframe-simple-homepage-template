@@ -3,13 +3,11 @@ package egovframework.let.cop.com.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,6 +25,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.com.service.EgovTemplateManageService;
 import egovframework.let.cop.com.service.TemplateInf;
 import egovframework.let.cop.com.service.TemplateInfVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 템플릿 관리를 위한 컨트롤러 클래스
@@ -42,28 +41,35 @@ import egovframework.let.cop.com.service.TemplateInfVO;
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  *   2009.03.18  이삼섭          최초 생성
- *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovTemplateManageController {
 
-	@Resource(name = "EgovTemplateManageService")
-	private EgovTemplateManageService tmplatService;
+//	@Resource(name = "EgovTemplateManageService")
+//	private EgovTemplateManageService tmplatService;
+	private final EgovTemplateManageService tmplatService;
 
-	@Resource(name = "EgovCmmUseService")
-	private EgovCmmUseService cmmUseService;
+//	@Resource(name = "EgovCmmUseService")
+//	private EgovCmmUseService cmmUseService;
+	private final EgovCmmUseService cmmUseService;
 
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertyService;
+//	@Resource(name = "propertiesService")
+//	protected EgovPropertyService propertyService;
+	private final EgovPropertyService propertyService;
 
-	@Autowired
-	private DefaultBeanValidator beanValidator;
+//	@Autowired
+//	private DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
-	@Resource(name = "egovMessageSource")
-	EgovMessageSource egovMessageSource;
+//	@Resource(name = "egovMessageSource")
+//	EgovMessageSource egovMessageSource;
+	private final EgovMessageSource egovMessageSource;
 
 	/**
 	 * 템플릿 목록을 조회한다.
