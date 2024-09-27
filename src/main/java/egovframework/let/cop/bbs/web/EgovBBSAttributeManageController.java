@@ -53,28 +53,18 @@ import lombok.RequiredArgsConstructor;
 public class EgovBBSAttributeManageController {
 
 	/** EgovBBSAttributeManageService */
-//	@Resource(name = "EgovBBSAttributeManageService")
-//	private EgovBBSAttributeManageService bbsAttrbService;
 	private final EgovBBSAttributeManageService bbsAttrbService;
 
 	/** EgovCmmUseService */
-//	@Resource(name = "EgovCmmUseService")
-//	private EgovCmmUseService cmmUseService;
 	private final EgovCmmUseService cmmUseService;
 
 	/** EgovPropertyService */
-//	@Resource(name = "propertiesService")
-//	protected EgovPropertyService propertyService;
 	private final EgovPropertyService propertyService;
 
 	/** DefaultBeanValidator */
-//	@Autowired
-//	private DefaultBeanValidator beanValidator;
 	private final DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
-//	@Resource(name = "egovMessageSource")
-//	EgovMessageSource egovMessageSource;
 	private final EgovMessageSource egovMessageSource;
 
 	/**

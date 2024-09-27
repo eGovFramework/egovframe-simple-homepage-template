@@ -28,7 +28,6 @@ import egovframework.let.cop.bbs.service.BoardMasterVO;
  *
  *      </pre>
  */
-//@Repository("BBSAttributeManageDAO")
 @Repository
 public class BBSAttributeManageDAO extends EgovAbstractMapper {
 

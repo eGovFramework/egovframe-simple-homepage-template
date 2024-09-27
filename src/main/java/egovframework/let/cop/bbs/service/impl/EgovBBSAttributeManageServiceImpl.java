@@ -41,40 +41,26 @@ import lombok.RequiredArgsConstructor;
  *
  *      </pre>
  */
-//@Service("EgovBBSAttributeManageService")
 @Service
 @RequiredArgsConstructor
-
 public class EgovBBSAttributeManageServiceImpl extends EgovAbstractServiceImpl
 		implements EgovBBSAttributeManageService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovBBSAttributeManageServiceImpl.class);
 
-//	@Resource(name = "BBSAttributeManageDAO")
-//	private BBSAttributeManageDAO attrbMngDAO;
 	private final BBSAttributeManageDAO attrbMngDAO;
 
-//	@Resource(name = "BBSUseInfoManageDAO")
-//	private BBSUseInfoManageDAO bbsUseDAO;
 	private final BBSUseInfoManageDAO bbsUseDAO;
 
-//	@Resource(name = "EgovUserInfManageService")
-//	private EgovUserInfManageService userService;
 	private final EgovUserInfManageService userService;
 
-//	@Resource(name = "egovBBSMstrIdGnrService")
-//	private EgovIdGnrService idgenService;
 	private final EgovIdGnrService egovBBSMstrIdGnrService;
 
-//	@Resource(name = "propertiesService")
-//	protected EgovPropertyService propertyService;
 	private final EgovPropertyService propertyService;
 
 	// ---------------------------------
 	// 2009.06.26 : 2단계 기능 추가
 	// ---------------------------------
-//	@Resource(name = "BBSAddedOptionsDAO")
-//	private BBSAddedOptionsDAO addedOptionsDAO;
 	private final BBSAddedOptionsDAO addedOptionsDAO;
 	//// -------------------------------
 

@@ -64,8 +64,6 @@ public class EgovBBSManageController {
 	@Resource(name = "EgovBBSManageService")
 	private EgovBBSManageService bbsMngService;
 
-//	@Resource(name = "EgovBBSAttributeManageService")
-//	private EgovBBSAttributeManageService bbsAttrbService;
 	private final EgovBBSAttributeManageService bbsAttrbService;
 
 	@Resource(name = "EgovFileMngService")
