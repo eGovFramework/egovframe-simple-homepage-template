@@ -5,14 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.service.CmmnDetailCode;
 import egovframework.com.cmm.service.EgovCmmUseService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Class Name : EgovCmmUseServiceImpl.java
@@ -23,6 +22,7 @@ import egovframework.com.cmm.service.EgovCmmUseService;
  *    수정일       수정자         수정내용
  *    -------        -------     -------------------
  *    2009. 3. 11.     이삼섭
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *               </pre>
  * 
  * @author 공통 서비스 개발팀 이삼섭
@@ -31,11 +31,11 @@ import egovframework.com.cmm.service.EgovCmmUseService;
  * @see
  *
  */
-@Service("EgovCmmUseService")
+@Service
+@RequiredArgsConstructor
 public class EgovCmmUseServiceImpl extends EgovAbstractServiceImpl implements EgovCmmUseService {
 
-	@Resource(name = "cmmUseDAO")
-	private CmmUseDAO cmmUseDAO;
+	private final CmmUseDAO cmmUseDAO;
 
 	/**
 	 * 공통코드를 조회한다.

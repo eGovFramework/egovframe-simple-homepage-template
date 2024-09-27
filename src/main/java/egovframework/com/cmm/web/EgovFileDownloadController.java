@@ -10,7 +10,6 @@ import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +27,7 @@ import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 파일 다운로드를 위한 컨트롤러 클래스
@@ -42,26 +42,26 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
  *
  *     수정일      	수정자           수정내용
  *  ------------   --------    ---------------------------
- *   2009.03.25  	이삼섭          최초 생성
- *   2014.02.24		이기하          IE11 브라우저 한글 파일 다운로드시 에러 수정
- *   2018.08.28		신용호          Safari, Chrome, Firefox, Opera 한글파일 다운로드 처리 수정 (macOS에서 확장자 exe붙는 문제 처리)
- *   2022.12.02     윤창원          File ID 암호화 처리
+ *   2009.03.25  이삼섭          최초 생성
+ *   2014.02.24  이기하          IE11 브라우저 한글 파일 다운로드시 에러 수정
+ *   2018.08.28  신용호          Safari, Chrome, Firefox, Opera 한글파일 다운로드 처리 수정 (macOS에서 확장자 exe붙는 문제 처리)
+ *   2022.12.02  윤창원          File ID 암호화 처리
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  * Copyright (C) 2009 by MOPAS  All right reserved.
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovFileDownloadController {
 
 	/** 로그설정 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileDownloadController.class);
 
 	/** 암호화서비스 */
-	@Resource(name = "egovARIACryptoService")
-	EgovCryptoService cryptoService;
+	private final EgovCryptoService cryptoService;
 
-	@Resource(name = "EgovFileMngService")
-	private EgovFileMngService fileService;
+	private final EgovFileMngService fileService;
 
 	// 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
 	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");

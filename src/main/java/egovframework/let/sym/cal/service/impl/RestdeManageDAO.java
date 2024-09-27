@@ -24,10 +24,11 @@ import egovframework.let.sym.cal.service.RestdeVO;
  *  -------    --------    ---------------------------
  *   2009.04.01  이중호          최초 생성
  *   2024.08.09  이백행          더 이상 사용되지 않는 메소드를 수정
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
-@Repository("RestdeManageDAO")
+@Repository
 public class RestdeManageDAO extends EgovAbstractMapper {
 
 	/**

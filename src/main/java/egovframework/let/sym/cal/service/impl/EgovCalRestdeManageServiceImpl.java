@@ -2,14 +2,13 @@ package egovframework.let.sym.cal.service.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.sym.cal.service.EgovCalRestdeManageService;
 import egovframework.let.sym.cal.service.Restde;
 import egovframework.let.sym.cal.service.RestdeVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  *
@@ -26,14 +25,15 @@ import egovframework.let.sym.cal.service.RestdeVO;
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  *   2009.04.01  이중호          최초 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
-@Service("RestdeManageService")
+@Service
+@RequiredArgsConstructor
 public class EgovCalRestdeManageServiceImpl extends EgovAbstractServiceImpl implements EgovCalRestdeManageService {
 
-	@Resource(name = "RestdeManageDAO")
-	private RestdeManageDAO restdeManageDAO;
+	private final RestdeManageDAO restdeManageDAO;
 
 	/**
 	 * 일반달력 팝업 정보를 조회한다.

@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.util.Base64;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +24,7 @@ import egovframework.com.cmm.SessionVO;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Class Name : EgovImageProcessController.java
@@ -34,8 +34,9 @@ import egovframework.com.cmm.service.FileVO;
  *               <pre>
  *    수정일       수정자         수정내용
  *    -------        -------     -------------------
- *    2009. 4. 2.     이삼섭
- *    2011.08.31.     JJY        경량환경 템플릿 커스터마이징버전 생성
+ *   2009.04.02  이삼섭
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *               </pre>
  * 
  * @author 공통 서비스 개발팀 이삼섭
@@ -45,6 +46,7 @@ import egovframework.com.cmm.service.FileVO;
  *
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovImageProcessController extends HttpServlet {
 
 	/**
@@ -54,12 +56,10 @@ public class EgovImageProcessController extends HttpServlet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovImageProcessController.class);
 
-	@Resource(name = "EgovFileMngService")
-	private EgovFileMngService fileService;
+	private final EgovFileMngService fileService;
 
 	/** 암호화서비스 */
-	@Resource(name = "egovARIACryptoService")
-	EgovCryptoService cryptoService;
+	private final EgovCryptoService cryptoService;
 
 	// 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
 	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");

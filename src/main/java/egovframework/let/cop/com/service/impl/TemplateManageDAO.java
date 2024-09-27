@@ -28,7 +28,6 @@ import egovframework.let.cop.com.service.TemplateInfVO;
  *
  *      </pre>
  */
-//@Repository("TemplateManageDAO")
 @Repository
 public class TemplateManageDAO extends EgovAbstractMapper {
 

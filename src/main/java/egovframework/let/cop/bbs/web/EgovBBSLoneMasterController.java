@@ -25,6 +25,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.bbs.service.BoardMaster;
 import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.EgovBBSLoneMasterService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시판 속성관리를 위한 컨트롤러 클래스
@@ -39,12 +40,14 @@ import egovframework.let.cop.bbs.service.EgovBBSLoneMasterService;
  *
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2009.08.25  한성곤          최초 생성
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.08.25  한성곤          최초 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovBBSLoneMasterController {
 
 	/** EgovBBSLoneMasterService */
@@ -52,8 +55,9 @@ public class EgovBBSLoneMasterController {
 	private EgovBBSLoneMasterService bbsLoneService;
 
 	/** EgovCmmUseService */
-	@Resource(name = "EgovCmmUseService")
-	private EgovCmmUseService cmmUseService;
+//	@Resource(name = "EgovCmmUseService")
+//	private EgovCmmUseService cmmUseService;
+	private final EgovCmmUseService cmmUseService;
 
 	/** EgovPropertyService */
 	@Resource(name = "propertiesService")
