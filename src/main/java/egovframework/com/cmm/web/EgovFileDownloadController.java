@@ -52,20 +52,19 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
  */
 @Controller
 public class EgovFileDownloadController {
-	
+
 	/** 로그설정 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileDownloadController.class);
-	
+
 	/** 암호화서비스 */
 	@Resource(name = "egovARIACryptoService")
 	EgovCryptoService cryptoService;
 
 	@Resource(name = "EgovFileMngService")
 	private EgovFileMngService fileService;
-	
+
 	// 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
 	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");
-	
 
 	/**
 	 * 브라우저 구분 얻기.
@@ -95,7 +94,8 @@ public class EgovFileDownloadController {
 	 * @param response
 	 * @throws Exception
 	 */
-	private void setDisposition(String filename, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void setDisposition(String filename, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		String browser = getBrowser(request);
 
 		String dispositionPrefix = "attachment; filename=";
@@ -121,7 +121,7 @@ public class EgovFileDownloadController {
 			}
 			encodedFilename = sb.toString();
 		} else {
-			//throw new RuntimeException("Not supported browser");
+			// throw new RuntimeException("Not supported browser");
 			throw new IOException("Not supported browser");
 		}
 
@@ -140,7 +140,8 @@ public class EgovFileDownloadController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/cmm/fms/FileDown.do")
-	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
@@ -148,7 +149,7 @@ public class EgovFileDownloadController {
 
 			// 암호화된 atchFileId 를 복호화. (2022.12.06 추가) - 파일아이디가 유추 불가능하도록 조치
 			String param_atchFileId = (String) commandMap.get("atchFileId");
-	    	param_atchFileId = param_atchFileId.replaceAll(" ", "+");
+			param_atchFileId = param_atchFileId.replaceAll(" ", "+");
 			byte[] decodedBytes = Base64.getDecoder().decode(param_atchFileId);
 			String decodedString = new String(cryptoService.decrypt(decodedBytes, ALGORITHM_KEY));
 			String decodedFileId = StringUtils.substringAfter(decodedString, "|");
@@ -167,17 +168,16 @@ public class EgovFileDownloadController {
 			if (fSize > 0) {
 				String mimetype = "application/x-msdownload";
 
-				//response.setBufferSize(fSize);	// OutOfMemeory 발생
+				// response.setBufferSize(fSize); // OutOfMemeory 발생
 				response.setContentType(mimetype);
-				//response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fvo.getOrignlFileNm(), "utf-8") + "\"");
+				// response.setHeader("Content-Disposition", "attachment; filename=\"" +
+				// URLEncoder.encode(fvo.getOrignlFileNm(), "utf-8") + "\"");
 				setDisposition(fvo.getOrignlFileNm(), request, response);
-				//response.setContentLength(fSize);
+				// response.setContentLength(fSize);
 
 				/*
-				 * FileCopyUtils.copy(in, response.getOutputStream());
-				 * in.close();
-				 * response.getOutputStream().flush();
-				 * response.getOutputStream().close();
+				 * FileCopyUtils.copy(in, response.getOutputStream()); in.close();
+				 * response.getOutputStream().flush(); response.getOutputStream().close();
 				 */
 				BufferedInputStream in = null;
 				BufferedOutputStream out = null;
@@ -215,7 +215,8 @@ public class EgovFileDownloadController {
 				PrintWriter printwriter = response.getWriter();
 				printwriter.println("<html>");
 				printwriter.println("<br><br><br><h2>Could not get file name:<br>" + fvo.getOrignlFileNm() + "</h2>");
-				printwriter.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
+				printwriter
+						.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
 				printwriter.println("<br><br><br>&copy; webAccess");
 				printwriter.println("</html>");
 				printwriter.flush();
