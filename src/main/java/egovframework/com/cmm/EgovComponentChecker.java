@@ -1,13 +1,11 @@
 package egovframework.com.cmm;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-
 
 /**
  * EgovComUtil 클래스
@@ -17,25 +15,23 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  * @see
  *
- * <pre>
+ *      <pre>
  * << 개정이력(Modification Information) >>
  *
  *   수정일      수정자           수정내용
  *  -------    -------------    ----------------------
  *   2011.09.15  서준식        최초 생성
- * </pre>
+ *      </pre>
  */
 
 @Service("egovUtil")
-public class EgovComponentChecker extends EgovAbstractServiceImpl implements ApplicationContextAware{
-
+public class EgovComponentChecker extends EgovAbstractServiceImpl implements ApplicationContextAware {
 
 	public static ApplicationContext context;
 
 	@Override
 	@SuppressWarnings("static-access")
-	public void setApplicationContext(ApplicationContext context)
-		throws BeansException {
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
 
 		this.context = context;
 	}
@@ -43,19 +39,19 @@ public class EgovComponentChecker extends EgovAbstractServiceImpl implements App
 	/**
 	 * Spring MVC에서 설정한 빈이 아닌 서비스 빈(컴포넌트)만을 검색할 수 있음
 	 *
-	*/
-	public static boolean hasComponent(String componentName){
+	 */
+	public static boolean hasComponent(String componentName) {
 
-		try{
+		try {
 			Object component = context.getBean(componentName);
 
-			if(component == null){
+			if (component == null) {
 				return false;
-			}else{
+			} else {
 				return true;
 			}
 
-		}catch(NoSuchBeanDefinitionException ex){// 해당 컴포넌트를 찾을 수없을 경우 false반환
+		} catch (NoSuchBeanDefinitionException ex) {// 해당 컴포넌트를 찾을 수없을 경우 false반환
 			return false;
 		}
 	}
