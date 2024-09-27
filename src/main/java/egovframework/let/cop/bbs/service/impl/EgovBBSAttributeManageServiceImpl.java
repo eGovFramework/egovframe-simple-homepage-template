@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
@@ -21,6 +19,7 @@ import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.EgovUserInfManageService;
 import egovframework.let.cop.com.service.UserInfVO;
 import egovframework.let.cop.com.service.impl.BBSUseInfoManageDAO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시판 속성관리를 위한 서비스 구현 클래스
@@ -35,38 +34,48 @@ import egovframework.let.cop.com.service.impl.BBSUseInfoManageDAO;
  *
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2009.03.24  이삼섭          최초 생성
- *  2009.06.26	한성곤		   2단계 기능 추가 (댓글관리, 만족도조사)
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.03.24  이삼섭          최초 생성
+ *   2009.06.26  한성곤          2단계 기능 추가 (댓글관리, 만족도조사)
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
-@Service("EgovBBSAttributeManageService")
+//@Service("EgovBBSAttributeManageService")
+@Service
+@RequiredArgsConstructor
+
 public class EgovBBSAttributeManageServiceImpl extends EgovAbstractServiceImpl
 		implements EgovBBSAttributeManageService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovBBSAttributeManageServiceImpl.class);
 
-	@Resource(name = "BBSAttributeManageDAO")
-	private BBSAttributeManageDAO attrbMngDAO;
+//	@Resource(name = "BBSAttributeManageDAO")
+//	private BBSAttributeManageDAO attrbMngDAO;
+	private final BBSAttributeManageDAO attrbMngDAO;
 
-	@Resource(name = "BBSUseInfoManageDAO")
-	private BBSUseInfoManageDAO bbsUseDAO;
+//	@Resource(name = "BBSUseInfoManageDAO")
+//	private BBSUseInfoManageDAO bbsUseDAO;
+	private final BBSUseInfoManageDAO bbsUseDAO;
 
-	@Resource(name = "EgovUserInfManageService")
-	private EgovUserInfManageService userService;
+//	@Resource(name = "EgovUserInfManageService")
+//	private EgovUserInfManageService userService;
+	private final EgovUserInfManageService userService;
 
-	@Resource(name = "egovBBSMstrIdGnrService")
-	private EgovIdGnrService idgenService;
+//	@Resource(name = "egovBBSMstrIdGnrService")
+//	private EgovIdGnrService idgenService;
+	private final EgovIdGnrService egovBBSMstrIdGnrService;
 
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertyService;
+//	@Resource(name = "propertiesService")
+//	protected EgovPropertyService propertyService;
+	private final EgovPropertyService propertyService;
 
 	// ---------------------------------
 	// 2009.06.26 : 2단계 기능 추가
 	// ---------------------------------
-	@Resource(name = "BBSAddedOptionsDAO")
-	private BBSAddedOptionsDAO addedOptionsDAO;
+//	@Resource(name = "BBSAddedOptionsDAO")
+//	private BBSAddedOptionsDAO addedOptionsDAO;
+	private final BBSAddedOptionsDAO addedOptionsDAO;
 	//// -------------------------------
 
 	/**
@@ -93,7 +102,7 @@ public class EgovBBSAttributeManageServiceImpl extends EgovAbstractServiceImpl
 	 */
 	@Override
 	public String insertBBSMastetInf(BoardMaster boardMaster) throws Exception {
-		String bbsId = idgenService.getNextStringId();
+		String bbsId = egovBBSMstrIdGnrService.getNextStringId();
 
 		boardMaster.setBbsId(bbsId);
 

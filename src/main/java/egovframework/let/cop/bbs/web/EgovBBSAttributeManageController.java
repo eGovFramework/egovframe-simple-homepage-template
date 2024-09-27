@@ -3,13 +3,11 @@ package egovframework.let.cop.bbs.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,6 +26,7 @@ import egovframework.let.cop.bbs.service.BoardMaster;
 import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.EgovBBSAttributeManageService;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시판 속성관리를 위한 컨트롤러 클래스
@@ -42,34 +41,41 @@ import egovframework.let.utl.fcc.service.EgovStringUtil;
  *
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2009.03.12  이삼섭          최초 생성
- *  2009.06.26	한성곤		2단계 기능 추가 (댓글관리, 만족도조사)
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.03.12  이삼섭          최초 생성
+ *   2009.06.26  한성곤          2단계 기능 추가 (댓글관리, 만족도조사)
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovBBSAttributeManageController {
 
 	/** EgovBBSAttributeManageService */
-	@Resource(name = "EgovBBSAttributeManageService")
-	private EgovBBSAttributeManageService bbsAttrbService;
+//	@Resource(name = "EgovBBSAttributeManageService")
+//	private EgovBBSAttributeManageService bbsAttrbService;
+	private final EgovBBSAttributeManageService bbsAttrbService;
 
 	/** EgovCmmUseService */
-	@Resource(name = "EgovCmmUseService")
-	private EgovCmmUseService cmmUseService;
+//	@Resource(name = "EgovCmmUseService")
+//	private EgovCmmUseService cmmUseService;
+	private final EgovCmmUseService cmmUseService;
 
 	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertyService;
+//	@Resource(name = "propertiesService")
+//	protected EgovPropertyService propertyService;
+	private final EgovPropertyService propertyService;
 
 	/** DefaultBeanValidator */
-	@Autowired
-	private DefaultBeanValidator beanValidator;
+//	@Autowired
+//	private DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
-	@Resource(name = "egovMessageSource")
-	EgovMessageSource egovMessageSource;
+//	@Resource(name = "egovMessageSource")
+//	EgovMessageSource egovMessageSource;
+	private final EgovMessageSource egovMessageSource;
 
 	/**
 	 * 운영자 권한을 확인한다.(로그인 여부를 확인한다.)

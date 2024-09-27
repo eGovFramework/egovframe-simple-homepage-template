@@ -34,6 +34,7 @@ import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.BoardVO;
 import egovframework.let.cop.bbs.service.EgovBBSAttributeManageService;
 import egovframework.let.cop.bbs.service.EgovBBSManageService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시물 관리를 위한 컨트롤러 클래스
@@ -52,17 +53,20 @@ import egovframework.let.cop.bbs.service.EgovBBSManageService;
  *   2009.06.29  한성곤          2단계 기능 추가 (댓글관리, 만족도조사)
  *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
  *   2024.09.02  이백행          컨트리뷰션 요청 메서드 정리
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovBBSManageController {
 
 	@Resource(name = "EgovBBSManageService")
 	private EgovBBSManageService bbsMngService;
 
-	@Resource(name = "EgovBBSAttributeManageService")
-	private EgovBBSAttributeManageService bbsAttrbService;
+//	@Resource(name = "EgovBBSAttributeManageService")
+//	private EgovBBSAttributeManageService bbsAttrbService;
+	private final EgovBBSAttributeManageService bbsAttrbService;
 
 	@Resource(name = "EgovFileMngService")
 	private EgovFileMngService fileMngService;
