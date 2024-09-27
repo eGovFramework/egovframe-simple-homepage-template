@@ -2,14 +2,12 @@ package egovframework.let.cop.com.web;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,6 +23,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.BoardUseInfVO;
 import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
+import lombok.RequiredArgsConstructor;
 //SHT-CUSTOMIZING//import egovframework.let.cop.clb.service.ClubUser;
 //SHT-CUSTOMIZING//import egovframework.let.cop.clb.service.EgovClubManageService;
 //SHT-CUSTOMIZING//import egovframework.let.cop.cmy.service.CommunityUser;
@@ -45,28 +44,26 @@ import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  *   2009.04.02  이삼섭          최초 생성
- *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovBBSUseInfoManageController {
 
 	/** EgovBBSUseInfoManageService */
-	@Resource(name = "EgovBBSUseInfoManageService")
-	private EgovBBSUseInfoManageService bbsUseService;
+	private final EgovBBSUseInfoManageService bbsUseService;
 
 	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertyService;
+	private final EgovPropertyService propertyService;
 
 	/** DefaultBeanValidator */
-	@Autowired
-	private DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
-	@Resource(name = "egovMessageSource")
-	EgovMessageSource egovMessageSource;
+	private final EgovMessageSource egovMessageSource;
 
 	/**
 	 * 게시판 사용 정보를 삭제한다.

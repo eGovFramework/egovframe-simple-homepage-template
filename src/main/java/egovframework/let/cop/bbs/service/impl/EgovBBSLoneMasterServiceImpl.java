@@ -15,6 +15,7 @@ import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.EgovBBSLoneMasterService;
 import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.impl.BBSUseInfoManageDAO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시판 속성관리를 위한 서비스 구현 클래스
@@ -29,19 +30,20 @@ import egovframework.let.cop.com.service.impl.BBSUseInfoManageDAO;
  * 
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
- *  2009.08.25  한성곤          최초 생성
- *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2009.08.25  한성곤          최초 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  * 
  *      </pre>
  */
 @Service("EgovBBSLoneMasterService")
+@RequiredArgsConstructor
 public class EgovBBSLoneMasterServiceImpl extends EgovAbstractServiceImpl implements EgovBBSLoneMasterService {
 
 	@Resource(name = "BBSLoneMasterDAO")
 	private BBSLoneMasterDAO masterDAO;
 
-	@Resource(name = "BBSUseInfoManageDAO")
-	private BBSUseInfoManageDAO bbsUseDAO;
+	private final BBSUseInfoManageDAO bbsUseDAO;
 
 	@Resource(name = "egovBBSMstrIdGnrService")
 	private EgovIdGnrService idgenService;

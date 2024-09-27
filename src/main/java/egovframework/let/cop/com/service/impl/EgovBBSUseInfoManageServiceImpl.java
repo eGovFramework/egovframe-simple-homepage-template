@@ -5,14 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 import egovframework.let.cop.com.service.BoardUseInf;
 import egovframework.let.cop.com.service.BoardUseInfVO;
 import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 게시판 이용정보를 관리하기 위한 서비스 구현 클래스
@@ -28,15 +27,16 @@ import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  *   2009.04.02  이삼섭          최초 생성
- *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
-@Service("EgovBBSUseInfoManageService")
+@Service
+@RequiredArgsConstructor
 public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl implements EgovBBSUseInfoManageService {
 
-	@Resource(name = "BBSUseInfoManageDAO")
-	private BBSUseInfoManageDAO bbsUseDAO;
+	private final BBSUseInfoManageDAO bbsUseDAO;
 
 	/**
 	 * 게시판 사용 정보를 삭제한다.
