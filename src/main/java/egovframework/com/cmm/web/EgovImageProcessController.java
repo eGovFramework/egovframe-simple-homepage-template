@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.util.Base64;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,17 +24,21 @@ import egovframework.com.cmm.SessionVO;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Class Name : EgovImageProcessController.java
  * @Description :
  * @Modification Information
- *
+ * 
+ *               <pre>
  *    수정일       수정자         수정내용
  *    -------        -------     -------------------
- *    2009. 4. 2.     이삼섭
- *    2011.08.31.     JJY        경량환경 템플릿 커스터마이징버전 생성
- *
+ *   2009.04.02  이삼섭
+ *   2011.08.31  JJY           경량환경 템플릿 커스터마이징버전 생성
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
+ *               </pre>
+ * 
  * @author 공통 서비스 개발팀 이삼섭
  * @since 2009. 4. 2.
  * @version
@@ -43,38 +46,38 @@ import egovframework.com.cmm.service.FileVO;
  *
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovImageProcessController extends HttpServlet {
 
-    /**
-	 *  serialVersion UID
+	/**
+	 * serialVersion UID
 	 */
 	private static final long serialVersionUID = -6339945210971171173L;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovImageProcessController.class);
 
-	@Resource(name = "EgovFileMngService")
-    private EgovFileMngService fileService;
-	
+	private final EgovFileMngService fileService;
+
 	/** 암호화서비스 */
-	@Resource(name = "egovARIACryptoService")
-	EgovCryptoService cryptoService;
+	private final EgovCryptoService cryptoService;
 
 	// 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
 	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");
-    
-    /**
-     * 첨부된 이미지에 대한 미리보기 기능을 제공한다.
-     *
-     * @param atchFileId
-     * @param fileSn
-     * @param sessionVO
-     * @param model
-     * @param response
-     * @throws Exception
-     */
-    @SuppressWarnings("resource")
+
+	/**
+	 * 첨부된 이미지에 대한 미리보기 기능을 제공한다.
+	 *
+	 * @param atchFileId
+	 * @param fileSn
+	 * @param sessionVO
+	 * @param model
+	 * @param response
+	 * @throws Exception
+	 */
+	@SuppressWarnings("resource")
 	@RequestMapping("/cmm/fms/getImage.do")
-    public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap, HttpServletResponse response) throws Exception {
+	public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap,
+			HttpServletResponse response) throws Exception {
 
 		String param_atchFileId = (String) commandMap.get("atchFileId");
 		param_atchFileId = param_atchFileId.replaceAll(" ", "+");
@@ -91,33 +94,34 @@ public class EgovImageProcessController extends HttpServlet {
 
 		FileVO fvo = fileService.selectFileInf(vo);
 
-		//String fileLoaction = fvo.getFileStreCours() + fvo.getStreFileNm();
+		// String fileLoaction = fvo.getFileStreCours() + fvo.getStreFileNm();
 		String fileStreCours = EgovWebUtil.filePathBlackList(fvo.getFileStreCours());
 		String streFileNm = EgovWebUtil.filePathBlackList(fvo.getStreFileNm());
 
 		File file = new File(fileStreCours, streFileNm);
-		FileInputStream fis = null; new FileInputStream(file);
+		FileInputStream fis = null;
+		new FileInputStream(file);
 
 		BufferedInputStream in = null;
 		ByteArrayOutputStream bStream = null;
-		try{
+		try {
 			fis = new FileInputStream(file);
 			in = new BufferedInputStream(fis);
 			bStream = new ByteArrayOutputStream();
 			int imgByte;
 			while ((imgByte = in.read()) != -1) {
-			    bStream.write(imgByte);
+				bStream.write(imgByte);
 			}
 
 			String type = "";
 
 			if (fvo.getFileExtsn() != null && !"".equals(fvo.getFileExtsn())) {
-			    if ("jpg".equals(fvo.getFileExtsn().toLowerCase())) {
-				type = "image/jpeg";
-			    } else {
+				if ("jpg".equals(fvo.getFileExtsn().toLowerCase())) {
+					type = "image/jpeg";
+				} else {
+					type = "image/" + fvo.getFileExtsn().toLowerCase();
+				}
 				type = "image/" + fvo.getFileExtsn().toLowerCase();
-			    }
-			    type = "image/" + fvo.getFileExtsn().toLowerCase();
 
 			} else {
 				LOGGER.debug("Image fileType is null.");
@@ -131,10 +135,9 @@ public class EgovImageProcessController extends HttpServlet {
 			response.getOutputStream().flush();
 			response.getOutputStream().close();
 
-
-		}catch(Exception e){
+		} catch (Exception e) {
 			LOGGER.debug("{}", e);
-		}finally{
+		} finally {
 			if (bStream != null) {
 				try {
 					bStream.close();
@@ -157,5 +160,5 @@ public class EgovImageProcessController extends HttpServlet {
 				}
 			}
 		}
-    }
+	}
 }

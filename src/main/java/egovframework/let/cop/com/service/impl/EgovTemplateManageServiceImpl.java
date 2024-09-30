@@ -32,17 +32,12 @@ import lombok.RequiredArgsConstructor;
  *
  *      </pre>
  */
-//@Service("EgovTemplateManageService")
 @Service
 @RequiredArgsConstructor
 public class EgovTemplateManageServiceImpl extends EgovAbstractServiceImpl implements EgovTemplateManageService {
 
-//	@Resource(name = "TemplateManageDAO")
-//	private TemplateManageDAO tmplatDAO;
 	private final TemplateManageDAO tmplatDAO;
 
-//	@Resource(name = "egovTmplatIdGnrService")
-//	private EgovIdGnrService idgenService;
 	private final EgovIdGnrService egovTmplatIdGnrService;
 
 	/**

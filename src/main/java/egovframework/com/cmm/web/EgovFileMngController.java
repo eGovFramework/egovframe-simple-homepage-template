@@ -21,6 +21,7 @@ import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 파일 조회, 삭제, 다운로드 처리를 위한 컨트롤러 클래스
@@ -35,15 +36,17 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
  *
  *   수정일          수정자        수정내용
  *  ----------     --------    ---------------------------
- *  2009.03.25     이삼섭        최초 생성
- *  2016.10.13     장동한        deleteFileInf 메소드 return 방식 수정
- *  2022.12.02     윤창원        File ID 암호화 처리
- *  2022.12.22     신용호        JSTL 커스텀 태그 추가 및 기능 보완
+ *   2009.03.25  이삼섭          최초 생성
+ *   2016.10.13  장동한          deleteFileInf 메소드 return 방식 수정
+ *   2022.12.02  윤창원          File ID 암호화 처리
+ *   2022.12.22  신용호          JSTL 커스텀 태그 추가 및 기능 보완
  *   2024.08.09  이백행          정적 방식으로 액세스
+ *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
 @Controller
+@RequiredArgsConstructor
 public class EgovFileMngController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileMngController.class);
@@ -56,8 +59,7 @@ public class EgovFileMngController {
 		EgovFileMngController.cryptoService = cryptoService;
 	}
 
-	@Resource(name = "EgovFileMngService")
-	private EgovFileMngService fileService;
+	private final EgovFileMngService fileService;
 
 	// 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
 	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");
