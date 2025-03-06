@@ -184,7 +184,7 @@
 					              <input name="ntceEndde" type="hidden"  value='<c:out value="${result.ntceEndde}" />'>
 					              <input name="ntceEnddeView" type="text" size="10" title="ntceEnddeView"
 					                value="${fn:substring(result.ntceEndde, 0, 4)}-${fn:substring(result.ntceEndde, 4, 6)}-${fn:substring(result.ntceEndde, 6, 8)}"  readOnly
-					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"  >
+					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 					              <img src="<c:url value='/images/calendar.gif' />"
 					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 					                width="15" height="15" alt="calendar">
@@ -231,13 +231,13 @@
 						     <c:if test="${bdMstr.authFlag == 'Y'}">
 						         <c:if test="${result.frstRegisterId == searchVO.frstRegisterId}"> 
 							          <td>
-							              <a href="#LINK" onclick="fn_egov_regist_notice();"><spring:message code="button.save" /></a> 
+							              <a href="#LINK" onclick="fn_egov_regist_notice();"><spring:message code="button.save" /></a>
 							          </td>
 							          <td width="10"></td>
 						          </c:if>
 						      </c:if>
 						      <td>
-						            <a href="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" onclick="fn_egov_select_noticeList();"><spring:message code="button.list" /></a> 
+						            <a href="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" onclick="fn_egov_select_noticeList();"><spring:message code="button.list" /></a>
 						      </td>
                         </tr>
                       </table>

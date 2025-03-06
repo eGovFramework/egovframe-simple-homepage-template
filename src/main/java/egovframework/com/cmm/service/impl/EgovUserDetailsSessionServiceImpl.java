@@ -22,7 +22,6 @@ import egovframework.com.cmm.service.EgovUserDetailsService;
  *   수정일      수정자          수정내용
  *  -------    --------    ---------------------------
  *   2011.08.12  서준식          최초생성
- *   2024.09.21  이백행          컨트리뷰션 loginVO 를 LoginVO 로 수정
  * 
  *      </pre>
  */

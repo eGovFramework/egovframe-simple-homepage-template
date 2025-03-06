@@ -34,13 +34,13 @@
     }
     
     function fn_egov_select_noticeList() {
-        event.preventDefault();
+    	event.preventDefault(); 
         document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();  
     }
     
     function fn_egov_delete_notice() {
-        event.preventDefault();
+    	event.preventDefault();
         if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
             alert('등록시 사용한 패스워드를 입력해 주세요.');
             document.frm.password.focus();
@@ -55,7 +55,7 @@
     }
     
     function fn_egov_moveUpdt_notice() {
-        event.preventDefault();
+    	event.preventDefault();
         if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
             alert('등록시 사용한 패스워드를 입력해 주세요.');
             document.frm.password.focus();
@@ -67,7 +67,7 @@
     }
     
     function fn_egov_addReply() {
-        event.preventDefault();
+    	event.preventDefault();
         document.frm.action = "<c:url value='/cop/bbs${prefix}/addReplyBoardArticle.do'/>";
         document.frm.submit();          
     }   
@@ -209,24 +209,24 @@
                          <% if(null != session.getAttribute("LoginVO")){ %>
 			             <c:if test="${result.frstRegisterId == sessionUniqId}">     
 			                  <td>
-			                     <a href="#LINK" onclick="fn_egov_moveUpdt_notice();">수정</a> 
+			                     <a href="#LINK" onclick="fn_egov_moveUpdt_notice();">수정</a>
 			                  </td>
 			                  
 			                  <td width="10"></td>
 			                  <td>
-			                     <a href="#LINK" onclick="fn_egov_delete_notice();">삭제</a> 
+			                     <a href="#LINK" onclick="fn_egov_delete_notice();">삭제</a>
 			                  </td>
 			             </c:if>    
 			             <c:if test="${result.replyPosblAt == 'Y'}">     
 			                  <td width="10"></td>
 			                  <td>
-			                     <a href="#LINK" onclick="fn_egov_addReply();">답글작성</a> 
+			                     <a href="#LINK" onclick="fn_egov_addReply();">답글작성</a>
 			                  </td>
 			              </c:if>
 			              <% } %>
 			              <td width="10"></td>
                           <td>
-                              <a href="#LINK" onclick="fn_egov_select_noticeList();">목록</a> 
+                             <a href="#LINK" onclick="fn_egov_select_noticeList();">목록</a>
                           </td>
 			            </tr>
                       </table>

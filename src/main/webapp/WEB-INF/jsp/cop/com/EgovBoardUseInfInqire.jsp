@@ -87,7 +87,7 @@
 					<!-- TODO 게시판 사용정보를 수정한다. boardUseInfUpdateVO validator 추가해서 등록/수정/삭제 처리 분리해야 함  -->
 					<input type="hidden" name="bbsNm" value="<c:out value="${bdUseVO.bbsId}" />">
 					<input type="hidden" name="trgetNm" value="<c:out value="${bdUseVO.bbsId}" />">
-
+					
                     <div class="modify_user" >
                         <table summary="게시판명, 커뮤니티/ 동호회명, 사용여부  입니다">
 					      <tr> 

@@ -51,6 +51,7 @@
 					</div>
 				</div>
 				<!-- //현재위치 네비게이션 끝 -->
+				<div><span class="sample_guide">본 화면은 디자인 예시임</span></div>
 				<!-- 타이틀 이미지 -->
 				<div id="content_img_div"><img src="<c:url value='/'/>images/subtitle/img_subtitle03-02.gif" width="776" height="230" alt="둗고/답하기 각종 문의 사항에 대한 답변을 친절하게 제공해 드리고 있습니다."/></div>
 				<!-- main content 시작 -->

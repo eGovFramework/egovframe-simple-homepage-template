@@ -37,7 +37,7 @@
     }
 
     function fn_egov_regist_notice() {
-        event.preventDefault();
+    	event.preventDefault();
         //document.board.onsubmit();
 
         if (!validateBoard(document.board)){
@@ -51,10 +51,10 @@
     }
     
     function fn_egov_select_noticeList() {
-        event.preventDefault();
+    	event.preventDefault();
         document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
         document.board.method = 'get';
-        document.board.submit();
+        document.board.submit();    
     }
 </script>
 <style type="text/css">
@@ -170,7 +170,7 @@
 					              ~
 					              <input name="ntceEndde" type="hidden"  value="">
 					              <input name="ntceEnddeView" title="게시종료일" type="text" size="10" value=""  readonly="readonly"
-					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"  >
+					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 					              <img src="<c:url value='/images/calendar.gif' />"
 					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 					                width="15" height="15" alt="calendar">
@@ -199,12 +199,12 @@
                         <tr>
 						     <c:if test="${bdMstr.authFlag == 'Y'}">
 						          <td>
-						            <a href="#LINK" onclick="fn_egov_regist_notice();"><spring:message code="button.save" /></a> 
+						            <a href="#LINK" onclick="fn_egov_regist_notice();"><spring:message code="button.save" /></a>
 						          </td>
 						          <td width="10"></td>
 						      </c:if>
 						      <td>
-						        <a href="#LINK" onclick="fn_egov_select_noticeList();"><spring:message code="button.list" /></a> 
+						        <a href="#LINK" onclick="fn_egov_select_noticeList();"><spring:message code="button.list" /></a>
 						      </td>
 					    </tr>
                       </table>

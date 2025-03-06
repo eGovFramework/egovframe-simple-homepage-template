@@ -3,30 +3,26 @@ package egovframework.com.cmm.service.impl;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import egovframework.com.cmm.service.FileVO;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * @Class Name : EgovFileMngDAO.java
  * @Description : 파일정보 관리를 위한 데이터 처리 클래스
  * @Modification Information
- * 
- *               <pre>
+ *
  *    수정일       수정자         수정내용
  *    -------        -------     -------------------
- *   2009.03.25  이삼섭          최초생성
- *   2024.08.09  이백행          더 이상 사용되지 않는 메소드를 수정
- *   2024.09.27  이백행          컨트리뷰션 롬복 생성자 기반 종속성 주입
- *               </pre>
- * 
+ *    2009. 3. 25.     이삼섭    최초생성
+ *
  * @author 공통 서비스 개발팀 이삼섭
  * @since 2009. 3. 25.
  * @version
  * @see
  *
  */
-@Repository
+@Repository("FileManageDAO")
 public class FileManageDAO extends EgovComAbstractDAO {
 
 	/**
