@@ -110,6 +110,11 @@ public class BoardVO extends Board implements Serializable {
     /** 하위 페이지 인덱스 (댓글 및 만족도 조사 여부 확인용) */
     private String subPageIndex = "";
     ////-------------------------------
+    
+    /**
+	 * 메뉴번호
+	 */
+	private String menuNo;
 
     /**
      * searchBgnDe attribute를 리턴한다.
@@ -599,6 +604,24 @@ public class BoardVO extends Board implements Serializable {
         this.subPageIndex = subPageIndex;
     }
 
+    /**
+	 * 메뉴번호를 리턴한다.
+	 * 
+	 * @return
+	 */
+	public String getMenuNo() {
+		return menuNo;
+	}
+
+	/**
+	 * 메뉴번호 값을 설정한다.
+	 * 
+	 * @param menuNo
+	 */
+	public void setMenuNo(String menuNo) {
+		this.menuNo = menuNo;
+	}
+    
     /**
      * toString 메소드를 대치한다.
      */

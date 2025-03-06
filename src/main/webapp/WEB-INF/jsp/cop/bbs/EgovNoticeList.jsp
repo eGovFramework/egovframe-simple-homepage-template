@@ -112,13 +112,14 @@
                 <!-- 검색 필드 박스 시작 -->
                 <div id="search_field">
                     <div id="search_field_loc"><h2><strong><c:out value='${brdMstrVO.bbsNm}'/></strong></h2></div>
-					<form name="frm" action ="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" method="post">
+					<form name="frm" action ="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" method="get">
 						<input type="hidden" name="bbsId" value="<c:out value='${boardVO.bbsId}'/>" />
 						<input type="hidden" name="nttId"  value="0" />
 						<input type="hidden" name="bbsTyCode" value="<c:out value='${brdMstrVO.bbsTyCode}'/>" />
 						<input type="hidden" name="bbsAttrbCode" value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" />
 						<input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
 						<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+						<input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
                         <input type="submit" value="실행" onclick="fn_egov_select_noticeList('1'); return false;" id="invisible" class="invisible" />
                         
                         <fieldset><legend>조건정보 영역</legend>
@@ -136,10 +137,10 @@
                                 </li>
                                 <li>
                                     <div class="buttons" style="position:absolute;left:870px;top:182px;">
-                                        <a href="#LINK" onclick="javascript:fn_egov_select_noticeList('1'); return false;"><img src="<c:url value='/images/img_search.gif' />" alt="search" />조회 </a>
+                                        <a href="#LINK" onclick="fn_egov_select_noticeList('1'); return false;"><img src="<c:url value='/images/img_search.gif' />" alt="search" />조회</a>
                                         <% if(null != session.getAttribute("LoginVO")){ %>
                                         <c:if test="${brdMstrVO.authFlag == 'Y'}">
-                                            <a href="<c:url value='/cop/bbs${prefix}/addBoardArticle.do'/>?bbsId=<c:out value="${boardVO.bbsId}"/>">등록</a>
+                                            <a href="<c:url value="/cop/bbs${prefix}/addBoardArticle.do" />?bbsId=<c:out value="${boardVO.bbsId}" />&searchCnd=<c:out value="${boardVO.searchCnd}" />&searchWrd=<c:out value="${boardVO.searchWrd}" />&pageIndex=<c:out value="${boardVO.pageIndex}" />&menuNo=<c:out value="${param.menuNo}" />">등록</a>
                                         </c:if>
                                         <%} %>
                                     </div>                              
@@ -193,7 +194,7 @@
 				        <!--td class="lt_text3" nowrap="nowrap"><input type="checkbox" name="check1" class="check2"></td-->
 				        <td><b><c:out value="${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}"/></b></td>            
 				        <td align="left">
-				            <form name="subForm" method="post" action="<c:url value='/cop/bbs${prefix}/selectBoardArticle.do'/>">
+				            <form name="subForm" method="get" action="<c:url value='/cop/bbs${prefix}/selectBoardArticle.do'/>">
 				            <c:if test="${result.replyLc!=0}">
 				                <c:forEach begin="0" end="${result.replyLc}" step="1">
 				                    &nbsp;
@@ -210,7 +211,10 @@
 				                        <input type="hidden" name="bbsTyCode" value="<c:out value='${brdMstrVO.bbsTyCode}'/>" />
 				                        <input type="hidden" name="bbsAttrbCode" value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" />
 				                        <input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
+				                        <input name="searchCnd" type="hidden" value="<c:out value="${searchVO.searchCnd}" />">
+				                        <input name="searchWrd" type="hidden" value="<c:out value="${searchVO.searchWrd}" />">
 				                        <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+				                        <input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
 				                        <span class="link"><input type="submit" style="width:320px;border:solid 0px black;text-align:left;" value="<c:out value="${result.nttSj}"/>" ></span>
 				                </c:otherwise>
 				            </c:choose>

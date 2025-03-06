@@ -28,6 +28,9 @@ public class BoardUseInf implements Serializable {
 	 *  serialVersion UID
 	 */
 	private static final long serialVersionUID = -8164785314697750055L;
+	
+	/** 게시판 명 */
+	private String bbsNm = "";
 
 	/** 게시판 아이디 */
     private String bbsId = "";
@@ -37,8 +40,11 @@ public class BoardUseInf implements Serializable {
 
     /** 대상 구분 (커뮤니티, 동호회) */
     private String trgetType = "";
+    
+    /** 커뮤니티, 동호회 정보 */
+    private String trgetNm = "";
 
-    /** 최초 등록자 아이디 */
+	/** 최초 등록자 아이디 */
     private String frstRegisterId = "";
 
     /** 최초등록시점 */
@@ -55,6 +61,25 @@ public class BoardUseInf implements Serializable {
 
     /** 사용여부 */
     private String useAt = "";
+    
+    /**
+     * bbsNm attribute를 리턴한다.
+     *
+     * @return the bbsNm
+     */
+    public String getBbsNm() {
+		return bbsNm;
+	}
+
+    /**
+     * bbsNm attribute 값을 설정한다.
+     *
+     * @param bbsNm
+     *            the bbsNm to set
+     */
+	public void setBbsNm(String bbsNm) {
+		this.bbsNm = bbsNm;
+	}
 
     /**
      * bbsId attribute를 리턴한다.
@@ -223,6 +248,22 @@ public class BoardUseInf implements Serializable {
     public void setTrgetType(String trgetType) {
         this.trgetType = trgetType;
     }
+    
+    /**
+     * trgetNm attribute를 리턴한다.
+     * @return the trgetNm
+     */
+    public String getTrgetNm() {
+		return trgetNm;
+	}
+
+    /**
+     * trgetNm attribute 값을 설정한다.
+     * @param trgetNm the trgetNm to set
+     */
+	public void setTrgetNm(String trgetNm) {
+		this.trgetNm = trgetNm;
+	}
 
     /**
      * toString 메소드를 대치한다.

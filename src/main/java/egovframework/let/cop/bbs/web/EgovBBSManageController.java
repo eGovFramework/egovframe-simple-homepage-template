@@ -3,6 +3,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springmodules.validation.commons.DefaultBeanValidator;
+
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovFileMngService;
@@ -15,24 +33,6 @@ import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.BoardVO;
 import egovframework.let.cop.bbs.service.EgovBBSAttributeManageService;
 import egovframework.let.cop.bbs.service.EgovBBSManageService;
-
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springmodules.validation.commons.DefaultBeanValidator;
 
 /**
  * 게시물 관리를 위한 컨트롤러 클래스
@@ -129,7 +129,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/selectBoardList.do")
+    @GetMapping("/cop/bbs/selectBoardList.do")
     public String selectBoardArticles(HttpSession session, 
 			@RequestParam(value="menuNo", required=false) String menuNo,
     		@ModelAttribute("searchVO") BoardVO boardVO, 
@@ -204,7 +204,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/selectBoardArticle.do")
+    @GetMapping("/cop/bbs/selectBoardArticle.do")
     public String selectBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
     	LoginVO user = new LoginVO();
 	    if(EgovUserDetailsHelper.isAuthenticated()){
@@ -257,7 +257,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/addBoardArticle.do")
+    @GetMapping("/cop/bbs/addBoardArticle.do")
     public String addBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 	// 사용자권한 처리
 	if(!EgovUserDetailsHelper.isAuthenticated()) {
@@ -303,7 +303,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/insertBoardArticle.do")
+    @PostMapping("/cop/bbs/insertBoardArticle.do")
     public String insertBoardArticle(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO boardVO,
 	    @ModelAttribute("bdMstr") BoardMaster bdMstr, @ModelAttribute("board") Board board, BindingResult bindingResult, SessionStatus status,
 	    ModelMap model) throws Exception {
@@ -363,7 +363,14 @@ public class EgovBBSManageController {
 	}
 
 	//status.setComplete();
-	return "forward:/cop/bbs/selectBoardList.do";
+	
+	model.addAttribute("bbsId", boardVO.getBbsId());
+	model.addAttribute("searchCnd", boardVO.getSearchCnd());
+	model.addAttribute("searchWrd", boardVO.getSearchWrd());
+	model.addAttribute("pageIndex", boardVO.getPageIndex());
+	model.addAttribute("menuNo", boardVO.getMenuNo());
+
+	return "redirect:/cop/bbs/selectBoardList.do";
     }
 
     /**
@@ -375,7 +382,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/addReplyBoardArticle.do")
+    @GetMapping("/cop/bbs/addReplyBoardArticle.do")
     public String addReplyBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
     	// 사용자권한 처리
     	if(!EgovUserDetailsHelper.isAuthenticated()) {
@@ -419,7 +426,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/replyBoardArticle.do")
+    @PostMapping("/cop/bbs/replyBoardArticle.do")
     public String replyBoardArticle(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO boardVO,
 	    @ModelAttribute("bdMstr") BoardMaster bdMstr, @ModelAttribute("board") Board board, BindingResult bindingResult, ModelMap model,
 	    SessionStatus status) throws Exception {
@@ -484,7 +491,13 @@ public class EgovBBSManageController {
 	    bbsMngService.insertBoardArticle(board);
 	}
 
-	return "forward:/cop/bbs/selectBoardList.do";
+	model.addAttribute("bbsId", boardVO.getBbsId());
+	model.addAttribute("searchCnd", boardVO.getSearchCnd());
+	model.addAttribute("searchWrd", boardVO.getSearchWrd());
+	model.addAttribute("pageIndex", boardVO.getPageIndex());
+	model.addAttribute("menuNo", boardVO.getMenuNo());
+
+	return "redirect:/cop/bbs/selectBoardList.do";
     }
 
     /**
@@ -497,7 +510,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/forUpdateBoardArticle.do")
+    @GetMapping("/cop/bbs/forUpdateBoardArticle.do")
     public String selectBoardArticleForUpdt(@ModelAttribute("searchVO") BoardVO boardVO, @ModelAttribute("board") BoardVO vo, ModelMap model)
 	    throws Exception {
 
@@ -552,7 +565,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/updateBoardArticle.do")
+    @PostMapping("/cop/bbs/updateBoardArticle.do")
     public String updateBoardArticle(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO boardVO,
 	    @ModelAttribute("bdMstr") BoardMaster bdMstr, @ModelAttribute("board") Board board, BindingResult bindingResult, ModelMap model,
 	    SessionStatus status) throws Exception {
@@ -614,7 +627,13 @@ public class EgovBBSManageController {
 	    bbsMngService.updateBoardArticle(board);
 	}
 
-	return "forward:/cop/bbs/selectBoardList.do";
+	model.addAttribute("bbsId", boardVO.getBbsId());
+	model.addAttribute("searchCnd", boardVO.getSearchCnd());
+	model.addAttribute("searchWrd", boardVO.getSearchWrd());
+	model.addAttribute("pageIndex", boardVO.getPageIndex());
+	model.addAttribute("menuNo", boardVO.getMenuNo());
+
+	return "redirect:/cop/bbs/selectBoardList.do";
     }
 
     /**
@@ -627,7 +646,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/deleteBoardArticle.do")
+    @PostMapping("/cop/bbs/deleteBoardArticle.do")
     public String deleteBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, @ModelAttribute("board") Board board,
 	    @ModelAttribute("bdMstr") BoardMaster bdMstr, ModelMap model) throws Exception {
 
@@ -646,7 +665,13 @@ public class EgovBBSManageController {
 	    bbsMngService.deleteBoardArticle(board);
 	}
 
-	return "forward:/cop/bbs/selectBoardList.do";
+	model.addAttribute("bbsId", boardVO.getBbsId());
+	model.addAttribute("searchCnd", boardVO.getSearchCnd());
+	model.addAttribute("searchWrd", boardVO.getSearchWrd());
+	model.addAttribute("pageIndex", boardVO.getPageIndex());
+	model.addAttribute("menuNo", boardVO.getMenuNo());
+
+	return "redirect:/cop/bbs/selectBoardList.do";
     }
 
     /**
@@ -658,7 +683,7 @@ public class EgovBBSManageController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/cop/bbs/previewBoardList.do")
+    @GetMapping("/cop/bbs/previewBoardList.do")
     public String previewBoardArticles(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 	//LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 

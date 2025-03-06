@@ -38,6 +38,7 @@
     }
 
     function fn_egov_regist_notice(){
+        event.preventDefault();
         //document.board.onsubmit();
 
         if (!validateBoard(document.board)){
@@ -51,8 +52,10 @@
     }   
     
     function fn_egov_select_noticeList() {
+        event.preventDefault();
         document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
-        document.board.submit();    
+        document.board.method = 'get';
+        document.board.submit();
     }
     
     function fn_egov_check_file(flag) {
@@ -79,7 +82,7 @@
 
 </head>
 
-<!-- body onload="javascript:editor_generate('nttCn');"-->
+<!-- body onload="editor_generate('nttCn');"-->
 <!-- <body onLoad="HTMLArea.init(); HTMLArea.onload = initEditor; document.board.nttSj.focus();">
 -->
 <body>
@@ -113,7 +116,10 @@
                     <div id="search_field_loc"><h2><strong>게시글 수정</strong></h2></div>
                 </div>
 				<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" onsubmit="return false" >
+					<input type="hidden" name="searchCnd" value="<c:out value="${searchVO.searchCnd}" />">
+					<input type="hidden" name="searchWrd" value="<c:out value="${searchVO.searchWrd}" />">
 					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
+					<input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
 					<input type="hidden" name="returnUrl" value="<c:url value='/cop/bbs/forUpdateBoardArticle.do'/>"/>
 					
 					<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" />
@@ -170,17 +176,17 @@
 					              <input name="ntceBgnde" type="hidden" value='<c:out value="${result.ntceBgnde}" />'>
 					              <input name="ntceBgndeView" type="text" size="10" title="ntceBgndeView"
 					                value="${fn:substring(result.ntceBgnde, 0, 4)}-${fn:substring(result.ntceBgnde, 4, 6)}-${fn:substring(result.ntceBgnde, 6, 8)}"  readOnly
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
+					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 					              <img src="<c:url value='/images/calendar.gif' />"
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
+					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 					                width="15" height="15" alt="calendar">
 					              ~
 					              <input name="ntceEndde" type="hidden"  value='<c:out value="${result.ntceEndde}" />'>
 					              <input name="ntceEnddeView" type="text" size="10" title="ntceEnddeView"
 					                value="${fn:substring(result.ntceEndde, 0, 4)}-${fn:substring(result.ntceEndde, 4, 6)}-${fn:substring(result.ntceEndde, 6, 8)}"  readOnly
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"  >
+					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 					              <img src="<c:url value='/images/calendar.gif' />"
-					                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
+					                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 					                width="15" height="15" alt="calendar">
 					                 <br/><form:errors path="ntceBgndeView" />    
 					                 <br/><form:errors path="ntceEnddeView" />                  
@@ -225,13 +231,13 @@
 						     <c:if test="${bdMstr.authFlag == 'Y'}">
 						         <c:if test="${result.frstRegisterId == searchVO.frstRegisterId}"> 
 							          <td>
-							              <a href="#LINK" onclick="javascript:fn_egov_regist_notice(); return false;"><spring:message code="button.save" /></a> 
+							              <a href="#LINK" onclick="fn_egov_regist_notice();"><spring:message code="button.save" /></a>
 							          </td>
 							          <td width="10"></td>
 						          </c:if>
 						      </c:if>
 						      <td>
-						            <a href="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" onclick="javascript:fn_egov_select_noticeList(); return false;"><spring:message code="button.list" /></a> 
+						            <a href="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>" onclick="fn_egov_select_noticeList();"><spring:message code="button.list" /></a>
 						      </td>
                         </tr>
                       </table>

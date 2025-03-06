@@ -51,6 +51,7 @@
 					</div>
 				</div>	
 				<!-- //현재위치 네비게이션 끝 -->
+				<div><span class="sample_guide">본 화면은 디자인 예시임</span></div>
 				<!-- 타이틀 이미지 -->			
 				<div id="content_img_div"><img src="<c:url value='/'/>images/subtitle/img_subtitle03-01.gif" width="776" height="230" alt="자료실 전자정부표준프레임워크 경량환경 페이지의 다양한 종류의 자룔르 다운 받으실 수 있습니다."/></div>
 	

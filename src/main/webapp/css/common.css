@@ -398,6 +398,7 @@ select {
 .download_modify_content{float:left;width:800px;padding-left:10px;padding-top:5px;}
 .btm_prev{clear:both;width:800px;border-top:1px solid #dddddd;border-bottom:1px solid #dddddd;margin-top:5px}
 .btm_next{clear:both;width:800px;border-bottom:1px solid #dddddd;}
+.sample_guide{float:left;width:280px;padding-right:10px; margin-bottom:20px;overflow: hidden;font-size: 15px;font-weight:bold;color:red;}
 
 /* 자료등록 */
 #download_regdiv{float:left;clear:both;width: 800px;min-height:250px;border-bottom: 1px solid #CBB9FC;}

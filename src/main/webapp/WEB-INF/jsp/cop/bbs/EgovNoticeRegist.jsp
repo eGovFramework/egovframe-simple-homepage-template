@@ -38,6 +38,7 @@
     }
     
     function fn_egov_regist_notice() {
+    	event.preventDefault();
         //document.board.onsubmit();
         
         if (!validateBoard(document.board)){
@@ -57,7 +58,9 @@
     }
     
     function fn_egov_select_noticeList() {
+    	event.preventDefault();
         document.board.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
+        document.board.method = 'get';
         document.board.submit();
     }   
 </script>
@@ -76,7 +79,7 @@
 
 </head>
 
-<!-- body onload="javascript:editor_generate('nttCn');"-->
+<!-- body onload="editor_generate('nttCn');"-->
 <!-- <body onLoad="HTMLArea.init(); HTMLArea.onload = initEditor; document.board.nttSj.focus();"> -->
 <body>
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -112,7 +115,10 @@
 
 				<form:form modelAttribute="board" name="board" method="post" enctype="multipart/form-data" onsubmit="return false" >
 				
+				<input name="searchCnd" type="hidden" value="<c:out value="${searchVO.searchCnd}" />">
+				<input name="searchWrd" type="hidden" value="<c:out value="${searchVO.searchWrd}" />">
 				<input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+				<input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
 				<input type="hidden" name="bbsId" value="<c:out value='${bdMstr.bbsId}'/>" />
 				<input type="hidden" name="bbsAttrbCode" value="<c:out value='${bdMstr.bbsAttrbCode}'/>" />
 				<input type="hidden" name="bbsTyCode" value="<c:out value='${bdMstr.bbsTyCode}'/>" />
@@ -164,16 +170,16 @@
 						            <td colspan="3">
 						              <input name="ntceBgnde" type="hidden" >
 						              <input name="ntceBgndeView" type="text" size="10" value=""  title="게시시작일" readonly="readonly"
-						                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
+						                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 						              <img src="<c:url value='/images/calendar.gif' />"
-						                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
+						                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceBgnde, document.board.ntceBgndeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 						                width="15" height="15" alt="calendar">
 						              ~
 						              <input name="ntceEndde" type="hidden"  />
 						              <input name="ntceEnddeView" type="text" size="10" value=""  title="게시종료일" readonly="readonly"
-						                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"  >
+						                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');" >
 						              <img src="<c:url value='/images/calendar.gif' />"
-						                onClick="javascript:fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
+						                onclick="fn_egov_NormalCalendar(document.board, document.board.ntceEndde, document.board.ntceEnddeView,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');"
 						                width="15" height="15" alt="calendar">
 						                <br/><form:errors path="ntceBgnde" />
 						                <br/><form:errors path="ntceEndde" />
@@ -206,12 +212,12 @@
                             <tr>
 						      <c:if test="${bdMstr.authFlag == 'Y'}">
 						          <td>
-						             <a href="#LINK" onclick="javascript:fn_egov_regist_notice(); return false;"><spring:message code="button.save" /></a> 
+						            <a href="#LINK" onclick="fn_egov_regist_notice();"><spring:message code="button.save" /></a>
 						          </td>
 						          <td width="10"></td>
 						      </c:if>
 						      <td>
-						          <a href="#LINK" onclick="javascript:fn_egov_select_noticeList(); return fasle;"><spring:message code="button.list" /></a> 
+						         <a href="#LINK" onclick="fn_egov_select_noticeList();"><spring:message code="button.list" /></a>
 						      </td>
                             </tr>   
                         </table>

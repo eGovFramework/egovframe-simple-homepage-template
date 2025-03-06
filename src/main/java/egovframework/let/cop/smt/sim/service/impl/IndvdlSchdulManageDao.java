@@ -33,7 +33,7 @@ public class IndvdlSchdulManageDao extends EgovAbstractMapper {
 	 * @throws Exception
 	 */
 	public List<?> selectIndvdlSchdulManageMainList(Map<?, ?> map) throws Exception{
-		 return  list("IndvdlSchdulManage.selectIndvdlSchdulManageMainList", map);
+		 return  selectList("IndvdlSchdulManage.selectIndvdlSchdulManageMainList", map);
 	}
 
     /**
@@ -43,7 +43,7 @@ public class IndvdlSchdulManageDao extends EgovAbstractMapper {
 	 * @throws Exception
 	 */
 	public List<?> selectIndvdlSchdulManageRetrieve(Map<?, ?> map) throws Exception{
-		 return  list("IndvdlSchdulManage.selectIndvdlSchdulManageRetrieve", map);
+		 return  selectList("IndvdlSchdulManage.selectIndvdlSchdulManageRetrieve", map);
 	}
 
 
@@ -64,7 +64,7 @@ public class IndvdlSchdulManageDao extends EgovAbstractMapper {
 	 * @throws Exception
 	 */
 	public List<?> selectIndvdlSchdulManageList(ComDefaultVO searchVO) throws Exception{
-		return list("IndvdlSchdulManage.selectIndvdlSchdulManage", searchVO);
+		return selectList("IndvdlSchdulManage.selectIndvdlSchdulManage", searchVO);
 	}
 
     /**
@@ -74,7 +74,7 @@ public class IndvdlSchdulManageDao extends EgovAbstractMapper {
 	 * @throws Exception
 	 */
 	public List<?> selectIndvdlSchdulManageDetail(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception{
-		return list("IndvdlSchdulManage.selectIndvdlSchdulManageDetail", indvdlSchdulManageVO);
+		return selectList("IndvdlSchdulManage.selectIndvdlSchdulManageDetail", indvdlSchdulManageVO);
 	}
 
     /**
