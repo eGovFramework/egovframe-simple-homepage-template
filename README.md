@@ -24,7 +24,7 @@
 
 ### 메인 화면
 
-![sh1 (1)](https://user-images.githubusercontent.com/30619379/229413223-31bc7778-6fd9-4d37-9b62-1611b2524421.jpg)
+![sh1 (1)](https://github.com/user-attachments/assets/7ac1b0ab-4649-4df9-ae5f-2da1899c44d9)
 
 1. 홈페이지 템플릿은 관리자만 로그인 가능하다는 전제로 구성되었으며 최초 관리자 계정 설정은 **[ 로그인계정 : admin , 로그인암호 : 1 ]** 로 설정되어 있다.
 2. 관리자 추가 및 변경 기능은 추가 구성되어 있지 않으므로 필요 시 DB를 통해 직접 변경한다. (암호 셋팅 값은 공통컴포넌트의 암호화 로직에 따라 생성해야 함)
@@ -40,7 +40,7 @@
 
 ### 사이트 소개 화면
 
-![sh2 (1)](https://user-images.githubusercontent.com/30619379/229413242-2a28416c-73a4-430b-8d8f-bfae320ac0d5.jpg)
+![sh2 (1)](https://github.com/user-attachments/assets/f933e510-acb3-4c08-bc00-7456513b21b1)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -50,7 +50,7 @@
 
 ### 정보마당 화면
 
-![sh3 (1)](https://user-images.githubusercontent.com/30619379/229413265-2ca23e56-4d3b-47e1-b5d0-ee4d65a10323.jpg)
+![sh3 (1)](https://github.com/user-attachments/assets/4fb1ff98-f200-4407-a430-4fb8e19a1927)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -60,7 +60,7 @@
 
 ### 고객지원 화면
 
-![sh4 (1)](https://user-images.githubusercontent.com/30619379/229413293-844c0cf1-1066-4967-b2b0-073f1c5a759b.jpg)
+![sh4 (1)](https://github.com/user-attachments/assets/00c43af4-bf25-41c3-aee9-8974175a8ad3)
 
 - **해당 화면 및 세부 메뉴 화면은 구성을 위한 샘플페이지가 제공되며 기능은 구현되지 않은 상태입니다.**
 
@@ -70,7 +70,7 @@
 
 ### 알림마당 화면
 
-![sh5 (1)](https://user-images.githubusercontent.com/30619379/229413343-cf1061ce-0cd9-47b1-88e4-77ea5cf170f6.jpg)
+![sh5 (1)](https://github.com/user-attachments/assets/b43812ca-4375-47a4-983b-f74b438b50bb)
 
 1. 세부메뉴 : 오늘의행사, 금주의행사, 공지사항, 사이트갤러리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)와 게시판 기능을 커스터마이징하여 사용한다.
@@ -78,7 +78,7 @@
 
 ### 사이트관리 화면
 
-![sh6 (1)](https://user-images.githubusercontent.com/30619379/229413357-3d802dad-cbaf-4fcb-84d9-2b508e883f4f.jpg)
+![sh6 (1)](https://github.com/user-attachments/assets/5ba4bef3-d7dd-4f5c-b454-bc70195476b8)
 
 1. 세부메뉴 : 일정관리, 게시판생성관리, 게시판사용관리, 공지사항관리, 사이트갤러리관리
 2. 기능설명 : 공통컴포넌트 일정관리(부서일정)과 게시판 기능을 커스터마이징하여 사용한다.
@@ -86,11 +86,12 @@
 
 ## 환경 설정
 
-프로젝트에서 사용된 환경 프로그램 정보는 다음과 같다.
-| 프로그램 명 | 버전 명 |
+| 항목 | 버전 |
 | :--------- | :------ |
-| java | 1.8 이상 |
-| maven | 3.8.4 |
+| JDK | 17 |
+| Jakarta EE | 9 |
+| Servlet | 5.0 |
+| Spring Framework | 6.2.11 |
 
 ## 프로젝트 실행
 
