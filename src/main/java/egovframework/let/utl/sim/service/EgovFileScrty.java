@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 
@@ -31,12 +32,13 @@ import org.slf4j.LoggerFactory;
  * </pre>
  */
 public class EgovFileScrty {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileScrty.class);
+
 	// 파일구분자
 	static final char FILE_SEPARATOR = File.separatorChar;
 	// 버퍼사이즈
 	static final int BUFFER_SIZE = 1024;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileScrty.class);
 
 	/**
 	 * 파일을 암호화하는 기능
@@ -80,15 +82,15 @@ public class EgovFileScrty {
 			if (input != null) {
 				try {
 					input.close();
-				} catch (Exception ignore) {
-					LOGGER.debug("IGNORE: {}" + ignore);
+				} catch (IOException ignore) {
+					LOGGER.debug("IGNORE: {}", ignore);
 				}
 			}
 			if (output != null) {
 				try {
 					output.close();
-				} catch (Exception ignore) {
-					LOGGER.debug("IGNORE: {}" + ignore);
+				} catch (IOException ignore) {
+					LOGGER.debug("IGNORE: {}", ignore);
 				}
 			}
 		}
@@ -135,15 +137,15 @@ public class EgovFileScrty {
 			if (input != null) {
 				try {
 					input.close();
-				} catch (Exception ignore) {
-					LOGGER.debug("IGNORE: {}" + ignore);
+				} catch (IOException ignore) {
+					LOGGER.debug("IGNORE: {}", ignore);
 				}
 			}
 			if (output != null) {
 				try {
 					output.close();
-				} catch (Exception ignore) {
-					LOGGER.debug("IGNORE: {}" + ignore);
+				} catch (IOException ignore) {
+					LOGGER.debug("IGNORE: {}", ignore);
 				}
 			}
 		}

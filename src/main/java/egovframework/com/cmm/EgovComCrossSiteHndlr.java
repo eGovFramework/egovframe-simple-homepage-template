@@ -3,10 +3,10 @@ package egovframework.com.cmm;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Cross-Site Scripting 체크하여 값을 되돌려 받는 핸들러 JSP TLD, 자바에서 사용가능
@@ -77,55 +77,37 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 		init();
 	}
 
-	// resets local state
 	private void init() {
 		value = def = null;
 		escapeXml = true;
 		needBody = false;
 	}
 
-	// Releases any resources we may have (or inherit)
 	@Override
 	public void release() {
 		super.release();
 		init();
 	}
 
-	// *********************************************************************
-	// Tag logic
-
-	// evaluates 'value' and determines if the body should be evaluted
 	@Override
 	public int doStartTag() throws JspException {
 
-		needBody = false; // reset state related to 'default'
-		this.bodyContent = null; // clean-up body (just in case container is
-									// pooling tag handlers)
+		needBody = false;
+		this.bodyContent = null;
 
 		JspWriter out = pageContext.getOut();
-		//System.out.println("EgovComCrossSiteFilter> ============================");
 		try {
-			// print value if available; otherwise, try 'default'
 			if (value != null) {
-				//System.out.println("EgovComCrossSiteFilter> =value");
 				String sWriteEscapedXml = getWriteEscapedXml();
-				//System.out.println("EgovComCrossSiteFilter sWriteEscapedXml>" + sWriteEscapedXml);
 				out.print(sWriteEscapedXml);
 				return SKIP_BODY;
 			} else {
-				// if we don't have a 'default' attribute, just go to the body
 				if (def == null) {
 					needBody = true;
 					return EVAL_BODY_BUFFERED;
 				}
-
-				//System.out.println("EgovComCrossSiteFilter def> ="+def);
-
-				// if we do have 'default', print it
 				if (def != null) {
-					// good 'default'
 					out(pageContext, escapeXml, def);
-				//System.out.println("EgovComCrossSiteFilter> ="+def);
 				}
 				return SKIP_BODY;
 			}
@@ -134,21 +116,14 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 		}
 	}
 
-	// prints the body if necessary; reports errors
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			//System.out.println("EgovComCrossSiteFilter ==== doEndTag");
 			if (!needBody){
-				return EVAL_PAGE; // nothing more to do
+				return EVAL_PAGE;
 			}
 
-			// trim and print out the body
 			if (bodyContent != null && bodyContent.getString() != null){
-				//String sWriteEscapedXml = getWriteEscapedXml();
-				//out2(pageContext, escapeXml, sWriteEscapedXml.toString());
-				//System.out.println("EgovComCrossSiteFilter> end");
-				//System.out.println("EgovComCrossSiteFilter sWriteEscapedXml > sWriteEscapedXml");
 				out(pageContext, escapeXml, bodyContent.getString().trim());
 
 			}
@@ -157,9 +132,6 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 			throw new JspException(ex.toString(), ex);
 		}
 	}
-
-	// *********************************************************************
-	// Public utility methods
 
 	/**
 	 * Outputs <tt>text</tt> to <tt>pageContext</tt>'s current JspWriter. If
@@ -187,7 +159,6 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 				w.write(obj.toString());
 			}
 		} else {
-			// escape XML chars
 			if (obj instanceof Reader) {
 				Reader reader = (Reader) obj;
 				char[] buf = new char[4096];
@@ -225,17 +196,14 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 			if (c <= HIGHEST_SPECIAL) {
 				char[] escaped = specialCharactersRepresentation[c];
 				if (escaped != null) {
-					// add unescaped portion
 					if (start < i) {
 						w.write(buffer, start, i - start);
 					}
-					// add escaped xml
 					w.write(escaped);
 					start = i + 1;
 				}
 			}
 		}
-		// add rest of unescaped portion
 		if (start < length) {
 			w.write(buffer, start, length - start);
 		}
@@ -259,8 +227,6 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 		int length = text.length();
 		char[] buffer = text.toCharArray();
 		boolean booleanDiff = false;
-		//String sDiffChar
-		//String sArrDiffChar
 		char[] cDiffChar =  this.m_sDiffChar.toCharArray();
 
 		for(int i = 0; i < length; i++) {
@@ -281,19 +247,9 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 			if (c <= HIGHEST_SPECIAL) {
 				char[] escaped = specialCharactersRepresentation[c];
 				if (escaped != null) {
-					// add unescaped portion
-					//if (start < i) {
-					//	sRtn = sRtn + text.substring(start, i - start);
-					//}
-					// add escaped xml
-					//sRtn = sRtn + escaped;
-					//System.out.println(buffer[i]+" :: " + escaped);
 					for (int j = 0; j < escaped.length; j++) {
-						//System.out.println(buffer[i]+" :>: " + escaped[j]);
 						sRtn = sRtn + escaped[j];
 					}
-					//sRtn = sRtn+ escaped.toString();
-					//sRtn = sRtn + String.valueOf(buffer[i]);
 					start = i + 1;
 				}else{
 					sRtn = sRtn + c;
@@ -325,8 +281,6 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 		int length = text.length();
 		char[] buffer = text.toCharArray();
 		boolean booleanDiff = false;
-		//String sDiffChar
-		//String sArrDiffChar
 		char[] cDiffChar =  this.m_sDiffChar.toCharArray();
 
 		for(int i = 0; i < length; i++) {
@@ -347,19 +301,9 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 			if (c <= HIGHEST_SPECIAL) {
 				char[] escaped = specialCharactersRepresentation[c];
 				if (escaped != null) {
-					// add unescaped portion
-					//if (start < i) {
-					//	sRtn = sRtn + text.substring(start, i - start);
-					//}
-					// add escaped xml
-					//sRtn = sRtn + escaped;
-					//System.out.println(buffer[i]+" :: " + escaped);
 					for (int j = 0; j < escaped.length; j++) {
-						//System.out.println(buffer[i]+" :>: " + escaped[j]);
 						sRtn = sRtn + escaped[j];
 					}
-					//sRtn = sRtn+ escaped.toString();
-					//sRtn = sRtn + String.valueOf(buffer[i]);
 					start = i + 1;
 				}else{
 					sRtn = sRtn + c;
@@ -372,45 +316,17 @@ public class EgovComCrossSiteHndlr extends BodyTagSupport {
 		return sRtn;
 	}
 
-    // for tag attribute
     public void setValue(Object value) {
         this.value = value;
     }
 
-    // for tag attribute
     public void setDefault(String def) {
         this.def = def;
     }
 
-    // for tag attribute
     public void setEscapeXml(boolean escapeXml) {
         this.escapeXml = escapeXml;
     }
-    /*
-    public static void main(String[] args) throws IOException
-    {
-
-    	EgovComCrossSiteHndlr egovComCrossSiteHndlr = new EgovComCrossSiteHndlr();
-
-    	egovComCrossSiteHndlr.value = "TRNSMIT";
-
-    	String sCrossSiteHndlr = egovComCrossSiteHndlr.getWriteEscapedXml();
-    	//System.out.println("writeEscapedXml " + egovComCrossSiteHndlr.getWriteEscapedXml());
-
-    	System.out.println("sCrossSiteHndlr|"+ sCrossSiteHndlr + "|");
-
-    	try{
-    		System.out.println("TRY TEST 1");
-    		throw new Exception();
-    	}catch(Exception e){
-    		System.out.println("TRY TEST 2");
-    	}finally{
-    		System.out.println("TRY TEST 3");
-
-    	}
-
-    }
-    */
  }
 
 

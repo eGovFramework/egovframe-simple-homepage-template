@@ -4,23 +4,25 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
-import org.egovframe.rte.fdl.cryptography.EgovCryptoService;
+import org.egovframe.rte.fdl.crypto.EgovCryptoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 파일 조회, 삭제, 다운로드 처리를 위한 컨트롤러 클래스
@@ -61,22 +63,22 @@ public class EgovFileMngController {
     // 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
  	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");
 
-    /**
-     * 첨부파일에 대한 목록을 조회한다.
-     *
-     * @param fileVO
-     * @param atchFileId
-     * @param sessionVO
-     * @param model
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/cmm/fms/selectFileInfs.do")
-    public String selectFileInfs(@ModelAttribute("searchVO") FileVO fileVO,
-    		HttpServletRequest request,
-    		@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
-    	
-    	String param_atchFileId = (String) commandMap.get("param_atchFileId");
+	/**
+	 * 첨부파일에 대한 목록을 조회한다.
+	 *
+	 * @param fileVO
+	 * @param atchFileId
+	 * @param sessionVO
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/cmm/fms/selectFileInfs.do")
+	public String selectFileInfs(@ModelAttribute("searchVO") FileVO fileVO,
+			HttpServletRequest request,
+			@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
+		
+		String param_atchFileId = (String) commandMap.get("param_atchFileId");
 		byte[] encrypted_atchFileId = Base64.getDecoder().decode(param_atchFileId);
 		String decodedAtchFileId = "";
 		if (param_atchFileId != null && !"".equals(param_atchFileId) ) {
@@ -100,25 +102,25 @@ public class EgovFileMngController {
 		model.addAttribute("atchFileId", param_atchFileId);
 
 		return "cmm/fms/EgovFileList";
-    }
+	}
 
-    /**
-     * 첨부파일 변경을 위한 수정페이지로 이동한다.
-     *
-     * @param fileVO
-     * @param atchFileId
-     * @param sessionVO
-     * @param model
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/cmm/fms/selectFileInfsForUpdate.do")
-    public String selectFileInfsForUpdate(@ModelAttribute("searchVO") FileVO fileVO,
-    		@RequestParam Map<String, Object> commandMap,
-    		HttpServletRequest request,
-	    ModelMap model) throws Exception {
+	/**
+	 * 첨부파일 변경을 위한 수정페이지로 이동한다.
+	 *
+	 * @param fileVO
+	 * @param atchFileId
+	 * @param sessionVO
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/cmm/fms/selectFileInfsForUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String selectFileInfsForUpdate(@ModelAttribute("searchVO") FileVO fileVO,
+			@RequestParam Map<String, Object> commandMap,
+			HttpServletRequest request,
+			ModelMap model) throws Exception {
 
-    	String param_atchFileId = (String) commandMap.get("param_atchFileId");
+		String param_atchFileId = (String) commandMap.get("param_atchFileId");
 		byte[] encrypted_atchFileId = Base64.getDecoder().decode(param_atchFileId);
 		String decodedAtchFileId = "";
 		if (param_atchFileId != null && !"".equals(param_atchFileId) ) {
@@ -141,66 +143,67 @@ public class EgovFileMngController {
 		model.addAttribute("updateFlag", "Y");
 		model.addAttribute("fileListCnt", result.size());
 		model.addAttribute("atchFileId", param_atchFileId);
-	
+		
 		return "cmm/fms/EgovFileList";
-    }
-
-    /**
-     * 첨부파일에 대한 삭제를 처리한다.
-     *
-     * @param fileVO
-     * @param returnUrl
-     * @param sessionVO
-     * @param model
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/cmm/fms/deleteFileInfs.do")
-    public String deleteFileInf(@ModelAttribute("searchVO") FileVO fileVO, @RequestParam("returnUrl") String returnUrl,
-	    HttpServletRequest request,
-	    ModelMap model) throws Exception {
-
-	Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-
-	if (isAuthenticated) {
-	    fileService.deleteFileInf(fileVO);
 	}
 
-	//--------------------------------------------
-	// contextRoot가 있는 경우 제외 시켜야 함
-	//--------------------------------------------
-	////return "forward:/cmm/fms/selectFileInfs.do";
-	//return "forward:" + returnUrl;
+	/**
+	 * 첨부파일에 대한 삭제를 처리한다.
+	 *
+	 * @param fileVO
+	 * @param returnUrl
+	 * @param sessionVO
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/cmm/fms/deleteFileInfs.do")
+	public String deleteFileInf(@ModelAttribute("searchVO") FileVO fileVO,
+			@RequestParam("returnUrl") String returnUrl,
+			HttpServletRequest request, ModelMap model)
+			throws Exception {
 
-	if ("".equals(request.getContextPath()) || "/".equals(request.getContextPath())) {
-	    return "forward:" + returnUrl;
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+
+		if (isAuthenticated) {
+			fileService.deleteFileInf(fileVO);
+		}
+
+		// --------------------------------------------
+		// contextRoot가 있는 경우 제외 시켜야 함
+		// --------------------------------------------
+		String contextPath = request.getContextPath() == null ? "" : request.getContextPath();
+		String redirectUrl = returnUrl;
+
+		if (StringUtils.isBlank(contextPath) || "/".equals(contextPath)) {
+			return "redirect:" + redirectUrl;
+		}
+
+		if (redirectUrl.startsWith(contextPath)) {
+			redirectUrl = redirectUrl.substring(contextPath.length());
+		}
+
+		return "redirect:" + redirectUrl;
+		//// ------------------------------------------
 	}
 
-	if (returnUrl.startsWith(request.getContextPath())) {
-	    return "forward:" + returnUrl.substring(returnUrl.indexOf("/", 1));
-	} else {
-	    return "forward:" + returnUrl;
-	}
-	////------------------------------------------
-    }
+	/**
+	 * 이미지 첨부파일에 대한 목록을 조회한다.
+	 *
+	 * @param fileVO
+	 * @param atchFileId
+	 * @param sessionVO
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/cmm/fms/selectImageFileInfs.do")
+	public String selectImageFileInfs(@ModelAttribute("searchVO") FileVO fileVO,
+			@RequestParam Map<String, Object> commandMap,
+			HttpServletRequest request,
+			ModelMap model) throws Exception {
 
-    /**
-     * 이미지 첨부파일에 대한 목록을 조회한다.
-     *
-     * @param fileVO
-     * @param atchFileId
-     * @param sessionVO
-     * @param model
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/cmm/fms/selectImageFileInfs.do")
-    public String selectImageFileInfs(@ModelAttribute("searchVO") FileVO fileVO,
-    		@RequestParam Map<String, Object> commandMap,
-    		HttpServletRequest request,
-	    ModelMap model) throws Exception {
-
-    	String param_atchFileId = (String) commandMap.get("atchFileId");
+		String param_atchFileId = (String) commandMap.get("atchFileId");
 		String decodedAtchFileId = "";
 		if (param_atchFileId != null && !"".equals(param_atchFileId) ) {
 			byte[] encrypted_atchFileId = Base64.getDecoder().decode(param_atchFileId);
@@ -219,11 +222,11 @@ public class EgovFileMngController {
 		}
 		
 		model.addAttribute("fileList", result);
-	
+
 		return "cmm/fms/EgovImgFileList";
-    }
-    
-    /**
+	}
+	
+	/**
 	 * 원본 문자열을 암호화 하는 메서드.
 	 * 
 	 * @param source 원본 문자열
@@ -259,7 +262,12 @@ public class EgovFileMngController {
 			try {
 				byte[] encrypted_atchFileId = Base64.getDecoder().decode(base64AtchFileId);
 				returnVal = new String(cryptoService.decrypt(encrypted_atchFileId, ALGORITHM_KEY));
-			} catch (Exception e) {
+			// 26.03.04 KISA 보안취약점 조치 : 구체적 Exception 추가
+			} catch (IllegalArgumentException e) {
+				// Base64 디코딩 실패 또는 패스워드 불일치
+				LOGGER.debug(e.getMessage());
+			} catch (RuntimeException e) {
+				// ARIACipher가 InvalidKeyException을 RuntimeException으로 래핑하여 throw
 				LOGGER.debug(e.getMessage());
 			}
 		}

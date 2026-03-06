@@ -3,10 +3,11 @@
   Description : 일정관리 등록 페이지
   Modification Information
  
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2008.03.09    장동한          최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2008.03.09  장동한        최초 생성
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.12  신용호        신규 디자인 적용
  
     author   : 공통서비스 개발팀 장동한
     since    : 2009.03.09
@@ -19,27 +20,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
 <c:set var="ImgUrl" value="/images/egovframework/cop/smt/sim/"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<title>일정 등록</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일정 등록 - 표준프레임워크 심플 홈페이지템플릿</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/jqueryui.css'/>">
+    <script src="<c:url value='/js/jquery-1.11.2.min.js'/>"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
+    <script src="<c:url value='/js/jqueryui.js'/>"></script>
 
-<style type="text/css">
-    h1 {font-size:12px;}
-    caption {visibility:hidden; font-size:0; height:0; margin:0; padding:0; line-height:0;}
-</style>
-
-<meta http-equiv="Content-Language" content="ko" >
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
-
-<script type="text/javascript" src="<c:url value='/js/EgovCalPopup.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/EgovMultiFile.js'/>" ></script>
-
-<script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="indvdlSchdulManageVO" staticJavascript="false" xhtml="true" cdata="false"/>
-
+<script type="text/javascript" src="<c:url value='/js/EgovValidation.js'/>" ></script>
 <script type="text/javaScript" language="javascript">
 
 
@@ -65,12 +64,61 @@
      if("${indvdlSchdulManageVO.schdulBgnde}".length > 0){
          var schdulBgnde = "${indvdlSchdulManageVO.schdulBgnde}";
          document.getElementById("schdulBgndeYYYMMDD").value = schdulBgnde.substring(0,4) + "-" + schdulBgnde.substring(4,6) + "-" + schdulBgnde.substring(6,8);
+     } else {
+         var now = new Date();
+         var year = now.getFullYear();
+         var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+         var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+         document.getElementById("schdulBgndeYYYMMDD").value = year + "-" + mon + "-" + day;
      }
 
      if("${indvdlSchdulManageVO.schdulEndde}".length > 0){
          var schdulEndde = "${indvdlSchdulManageVO.schdulEndde}";
          document.getElementById("schdulEnddeYYYMMDD").value = schdulEndde.substring(0,4) + "-" + schdulEndde.substring(4,6) + "-" + schdulEndde.substring(6,8);
+     } else {
+         var now = new Date();
+         var year = now.getFullYear();
+         var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+         var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+         document.getElementById("schdulEnddeYYYMMDD").value = year + "-" + mon + "-" + day;
      }
+}
+/* ********************************************************
+| * 달력 초기화 (jQuery UI Datepicker)
+| ******************************************************** */
+function fn_egov_init_datepicker(){
+    
+    $("#schdulBgndeYYYMMDD").datepicker(
+        {dateFormat:'yy-mm-dd'
+         , showOn: 'button'
+         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+         , buttonImageOnly: true
+         
+         , showMonthAfterYear: true
+         , showOtherMonths: true
+         , selectOtherMonths: true
+         , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+            
+         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+    });
+
+    $("#schdulEnddeYYYMMDD").datepicker( 
+        {dateFormat:'yy-mm-dd'
+         , showOn: 'button'
+         , buttonImage: '<c:url value='/images/ico_calendar.png'/>'
+         , buttonImageOnly: true
+         
+         , showMonthAfterYear: true
+         , showOtherMonths: true
+         , selectOtherMonths: true
+         , monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+            
+         , changeMonth: true // 월선택 select box 표시 (기본은 false)
+         , changeYear: true  // 년선택 selectbox 표시 (기본은 false)
+         , showButtonPanel: true // 하단 today, done  버튼기능 추가 표시 (기본은 false)
+    });
 }
 /* ********************************************************
 * 목록 으로 가기
@@ -85,7 +133,7 @@ function fn_egov_save_IndvdlSchdulManage(){
   //form.submit();return;
   var form = document.getElementById("indvdlSchdulManageVO");
   if(confirm("<spring:message code="common.save.msg" />")){
-      if(!validateIndvdlSchdulManageVO(document.indvdlSchdulManageVO)){  
+	  if(!validateIndvdlSchdulManageVO(document.indvdlSchdulManageVO)){  
           return;
       }else{
           var schdulBgndeYYYMMDD = document.getElementById('schdulBgndeYYYMMDD').value;
@@ -148,175 +196,233 @@ String.prototype.replaceAll = function(src, repl){
 }
 </script>
 
+
+<style type="text/css">
+.ui-datepicker-trigger {
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+</style>
+
 </head>
-<body onLoad="fn_egov_init_IndvdlSchdulManage()">
-<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>    
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-    <!-- header 시작 -->
-    <div id="header_mainsize"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/></div>
-    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>        
-    <!-- //header 끝 --> 
-    <!-- container 시작 -->
-    <div id="container">
-        <!-- 좌측메뉴 시작 -->
-        <div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-        <!-- //좌측메뉴 끝 -->
-            <!-- 현재위치 네비게이션 시작 -->
-            <div id="content">
-                <div id="cur_loc">
-                    <div id="cur_loc_align">
-                        <ul>
-                            <li>HOME</li>
-                            <li>&gt;</li>
-                            <li>사용자관리</li>
-                            <li>&gt;</li>
-                            <li><strong>일정관리 등록</strong></li>
-                        </ul>
+<body onLoad="fn_egov_init_IndvdlSchdulManage(); fn_egov_init_datepicker();">
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/cmm/main/mainPage.do'/>">Home</a></li>
+                                    <li><a href="#">알림마당</a></li>
+                                    <li>일정관리 등록</li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">알림마당</h1>
+                            <p class="txt_1">일정을 등록합니다.</p>
+                            <h2 class="tit_2">일정관리</h2>
+                            <h3 class="tit_3">일정 등록</h3>
+
+                            <!-- 등록 폼 -->
+                            <form:form modelAttribute="indvdlSchdulManageVO" action="${pageContext.request.contextPath}/cop/smt/sim/EgovIndvdlSchdulManageRegistActor.do" name="indvdlSchdulManageVO" method="post" enctype="multipart/form-data">
+                                <div class="board_view2">
+                                    <table>
+                                        <caption>일정 등록 정보</caption>
+                                        <colgroup>
+                                            <col style="width: 190px;">
+                                            <col style="width: auto;">
+                                        </colgroup>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="schdulSe">일정구분</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <label class="f_select" for="schdulSe">
+                                                    <form:select path="schdulSe">
+                                                        <form:option value="" label="선택"/>
+                                                        <form:options items="${schdulSe}" itemValue="code" itemLabel="codeNm"/>
+                                                    </form:select>
+                                                </label>
+                                                <form:errors path="schdulSe" cssClass="error"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="schdulIpcrCode">중요도</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <label class="f_select" for="schdulIpcrCode">
+                                                    <form:select path="schdulIpcrCode">
+                                                        <form:option value="" label="선택"/>
+                                                        <form:options items="${schdulIpcrCode}" itemValue="code" itemLabel="codeNm"/>
+                                                    </form:select>
+                                                </label>
+                                                <form:errors path="schdulIpcrCode" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="schdulDeptName">부서</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <form:input path="schdulDeptName" cssClass="f_txt w_full" readonly="true" maxlength="1000" title="부서명" />
+                                                <form:hidden path="schdulDeptId" />
+                                                <form:errors path="schdulDeptName" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="schdulNm">일정명</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <form:input path="schdulNm" cssClass="f_txt w_full" maxlength="200" title="일정명" />
+                                                <form:errors path="schdulNm" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="schdulCn">일정 내용</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <form:textarea path="schdulCn" cssClass="f_txtar w_full h_200" rows="5" title="일정 내용" />
+                                                <form:errors path="schdulCn" cssClass="error"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="lb">
+                                                <label>반복구분</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <span class="radio_wrap">
+                                                    <label for="reptit1"><form:radiobutton path="reptitSeCode" value="1" id="reptit1" /> 당일</label>
+                                                    <label for="reptit2"><form:radiobutton path="reptitSeCode" value="2" id="reptit2" /> 반복</label>
+                                                    <label for="reptit3"><form:radiobutton path="reptitSeCode" value="3" id="reptit3" /> 연속</label>
+                                                </span>
+                                                <form:errors path="reptitSeCode" cssClass="error"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="lb">
+                                                <label>날짜/시간</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <div class="date_sec">
+                                                    <form:input path="schdulBgndeYYYMMDD" cssClass="f_date" maxlength="10" title="일정 시작일" />
+                                                    <label class="f_select" for="schdulBgndeHH">
+                                                        <form:select path="schdulBgndeHH">
+                                                            <form:options items="${schdulBgndeHH}" itemValue="code" itemLabel="codeNm"/>
+                                                        </form:select>
+                                                    </label>
+                                                    <span class="txt">시</span>
+                                                    <label class="f_select" for="schdulBgndeMM">
+                                                        <form:select path="schdulBgndeMM">
+                                                            <form:options items="${schdulBgndeMM}" itemValue="code" itemLabel="codeNm"/>
+                                                        </form:select>
+                                                    </label>
+                                                    <span class="txt">분</span>
+                                                    <span class="txt bar">~</span>
+                                                    <form:input path="schdulEnddeYYYMMDD" cssClass="f_date" maxlength="10" title="일정 종료일" />
+                                                    <label class="f_select" for="schdulEnddeHH">
+                                                        <form:select path="schdulEnddeHH">
+                                                            <form:options items="${schdulEnddeHH}" itemValue="code" itemLabel="codeNm"/>
+                                                        </form:select>
+                                                    </label>
+                                                    <span class="txt">시</span>
+                                                    <label class="f_select" for="schdulEnddeMM">
+                                                        <form:select path="schdulEnddeMM">
+                                                            <form:options items="${schdulEnddeMM}" itemValue="code" itemLabel="codeNm"/>
+                                                        </form:select>
+                                                    </label>
+                                                    <span class="txt">분</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="schdulChargerName">담당자</label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <form:input path="schdulChargerName" cssClass="f_txt w_full" readonly="true" maxlength="10" title="담당자명" />
+                                                <form:errors path="schdulChargerName" cssClass="error"/>
+                                                <form:hidden path="schdulChargerId" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="egovComFileUploader">파일첨부</label>
+                                            </td>
+                                            <td>
+                                                <input name="file_1" id="egovComFileUploader" title="파일첨부" type="file" class="w_full" />
+                                                <div id="egovComFileList" class="file_list"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!-- 버튼 영역 -->
+                                <div class="board_view_bot">
+                                    <div class="left_col btn3">
+                                    </div>
+                                    <div class="right_col btn1">
+                                        <a href="#LINK" class="btn btn_blue_46" onclick="JavaScript:fn_egov_save_IndvdlSchdulManage();">저장</a>
+                                        <a href="${pageContext.request.contextPath}/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do" class="btn btn_blue_46" onclick="JavaScript:fn_egov_list_IndvdlSchdulManage(); return false;">목록</a>
+                                    </div>
+                                </div>
+                                <!--// 버튼 영역 -->
+
+                                <!-- Hidden Fields -->
+                                <input name="cmd" id="cmd" type="hidden" value="<c:out value='save'/>"/>
+                                <input type="hidden" name="schdulKindCode" id="schdulKindCode" value="2" />
+                                <input type="hidden" name="cal_url" id="cal_url" value="<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>" />
+                                <input type="hidden" name="schdulBgnde" id="schdulBgnde" value="" />
+                                <input type="hidden" name="schdulEndde" id="schdulEndde" value="" />
+                                <input type="hidden" name="posblAtchFileNumber" id="posblAtchFileNumber" value="3" />
+                            </form:form>
+                            <!--// 등록 폼 -->
+
+                        </div>
                     </div>
                 </div>
-                <!-- 검색 필드 박스 시작 -->
-                <div id="search_field">
-                    <div id="search_field_loc"><h2><strong>일정관리 등록</strong></h2></div>
-                </div>
-                <form:form modelAttribute="indvdlSchdulManageVO" action="${pageContext.request.contextPath}/cop/smt/sim/EgovIndvdlSchdulManageRegistActor.do" name="indvdlSchdulManageVO" method="post" enctype="multipart/form-data">
-                    <div class="modify_user" >
-                        <table>
-                            <tr>
-                                <th width="20%" height="23" class="required_text"  >일정구분<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                                <td width="80%" >
-                                    <form:select path="schdulSe">
-                                        <form:option value="" label="선택"/>
-                                        <form:options items="${schdulSe}" itemValue="code" itemLabel="codeNm"/>
-                                    </form:select>
-                                    <form:errors path="schdulSe" cssClass="error"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th width="20%" height="23" class="required_text"  >중요도<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                                <td width="80%" >
-                                    <form:select path="schdulIpcrCode">
-                                        <form:option value="" label="선택"/>
-                                        <form:options items="${schdulIpcrCode}" itemValue="code" itemLabel="codeNm"/>
-                                    </form:select>
-                                    <form:errors path="schdulIpcrCode" cssClass="error"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th width="20%" height="23" class="required_text"  >부서<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                                <td width="80%" >
-                                    <form:input path="schdulDeptName" size="73" cssClass="txaIpt" readonly="true" maxlength="1000" />
-                                    <form:hidden path="schdulDeptId" />
-                                    <form:errors path="schdulDeptName" cssClass="error"/>
-                               </td>
-                            </tr>
-                            <tr>
-                                <th width="20%" height="23" class="required_text"  >일정명<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                                <td width="80%" >
-                                    <form:input path="schdulNm" size="73" cssClass="txaIpt"  />
-                                    <form:errors path="schdulNm" cssClass="error"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th height="23" class="required_text" >일정 내용<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                                <td>
-                                    <form:textarea path="schdulCn" rows="3" cols="80" />
-                                    <form:errors path="schdulCn" cssClass="error"/>
-                                </td>
-                            </tr>
-                            <tr> 
-                              <th width="20%" height="23" class="required_text"  >반복구분<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                              <td width="80%">
-                                  <form:radiobutton path="reptitSeCode" value="1" />당일
-                                  <form:radiobutton path="reptitSeCode" value="2"/>반복
-                                  <form:radiobutton path="reptitSeCode" value="3"/>연속
-                                  <form:errors path="reptitSeCode" cssClass="error"/>
-                              </td>
-                            </tr>
-                        
-                          <tr> 
-                            <th width="20%" height="23" class="required_text"  >날짜/시간<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                            <td width="80%" >
-                                <form:input path="schdulBgndeYYYMMDD" size="11" readonly="true" maxlength="10" />
-                                <a href="#LINK" onClick="javascript:fn_egov_NormalCalendar(document.indvdlSchdulManageVO, document.indvdlSchdulManageVO.schdulBgndeYYYMMDD,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');">
-                                <img src="<c:url value='/images/calendar.gif' />"  align="middle" style="border:0px" alt="일정시작달력" title="일정시작달력">
-                                </a>
-                                &nbsp;&nbsp;~&nbsp;&nbsp;
-                                <form:input path="schdulEnddeYYYMMDD" size="11" readonly="true" maxlength="10" />
-                                <a href="#LINK" onClick="javascript:fn_egov_NormalCalendar(document.indvdlSchdulManageVO, document.indvdlSchdulManageVO.schdulEnddeYYYMMDD,'','<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>');">
-                                <img src="<c:url value='/images/calendar.gif' />" align="middle" style="border:0px" alt="일정종료달력" title="일정종료달력">
-                                </a>&nbsp;&nbsp;
-                                    
-                                    <form:select path="schdulBgndeHH">
-                                        <form:options items="${schdulBgndeHH}" itemValue="code" itemLabel="codeNm"/>
-                                    </form:select>시
-                                    <form:select path="schdulBgndeMM">
-                                        <form:options items="${schdulBgndeMM}" itemValue="code" itemLabel="codeNm"/>
-                                    </form:select>분
-                                    ~
-                                    <form:select path="schdulEnddeHH">
-                                        <form:options items="${schdulEnddeHH}" itemValue="code" itemLabel="codeNm"/>
-                                    </form:select>시
-                                    <form:select path="schdulEnddeMM">
-                                        <form:options items="${schdulEnddeMM}" itemValue="code" itemLabel="codeNm"/>
-                                    </form:select>분
-                            </td>
-                          </tr>
-                          
-                          <tr> 
-                            <th width="20%" height="23" class="required_text"  >담당자<img alt="required" src="<c:url value="/images/required.gif"/>" width="15" height="15" ></th>
-                            <td width="80%" >
-                                <form:input path="schdulChargerName" size="73" cssClass="txaIpt" readonly="true" maxlength="10" />
-                                <form:errors path="schdulChargerName" cssClass="error"/>
-                                <form:hidden path="schdulChargerId" />
-                            </td>
-                          </tr>
-                          
-                        <!-- 첨부파일 테이블 레이아웃 설정 Start.. -->
-                          <tr>
-                            <th height="23" class="required_text" >파일첨부</th>
-                            <td>
-                                           <input name="file_1" id="egovComFileUploader" title="파일첨부" type="file" />
-                                           <div id="egovComFileList"></div>
-                             </td>
-                          </tr>
-                        <!-- 첨부파일 테이블 레이아웃 End. -->
+            </div>
+        </div>
+    </div>
 
-                        </table>
-                    </div>
-                    <!-- 버튼 시작(상세지정 style로 div에 지정) -->
-                    <div class="buttons" style="padding-top:10px;padding-bottom:10px;">
-                        <!-- 목록/저장버튼  -->
-                        <table border="0" cellspacing="0" cellpadding="0" align="center">
-                        <tr> 
-                          <td>
-                              <a href="${pageContext.request.contextPath}/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do" onclick="JavaScript:fn_egov_list_IndvdlSchdulManage(); return false;"><spring:message code="button.list" /></a> 
-                          </td>
-                          <td>
-                              <a href="#LINK" onclick="JavaScript:fn_egov_save_IndvdlSchdulManage();"><spring:message code="button.save" /></a> 
-                          </td>  
-                        </tr>
-                        </table>
-                    </div>
-                    <!-- 버튼 끝 -->                           
-                    <input name="cmd" id="cmd"type="hidden" value="<c:out value='save'/>"/>
-                    <input type="hidden" name="schdulKindCode" id="schdulKindCode" value="2" />
-                    <input type="hidden" name="cal_url" id="cal_url" value="<c:url value='/sym/cmm/EgovselectNormalCalendar.do'/>" />
-                    <input type="hidden" name="schdulBgnde" id="schdulBgnde" value="" />  
-                    <input type="hidden" name="schdulEndde" id="schdulEndde" value="" /> 
-                    <!-- 첨부파일 갯수를 위한 hidden -->
-                    <input type="hidden" name="posblAtchFileNumber" id="posblAtchFileNumber" value="3" />
-                </form:form>
-
-            </div>  
-            <!-- //content 끝 -->    
-    </div>  
-    <!-- //container 끝 -->
-    <!-- footer 시작 -->
-    <div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-    <!-- //footer 끝 -->
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
 </div>
-<!-- //전체 레이어 끝 -->
+
 </body>
 </html>
 

@@ -3,207 +3,226 @@
   Description : 샘플화면 - 묻고답하기 목록조회(sample)
   Modification Information
 
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2011.08.31   JJY       경량환경 버전 생성
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.09  신용호        신규 디자인 적용
 
     author   : 실행환경개발팀 JJY
     since    : 2011.08.31
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<title>표준프레임워크 경량환경 홈페이지템플릿</title>
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>묻고답하기 - 표준프레임워크 심플 홈페이지템플릿</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
 </head>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-	<!-- header 시작 -->
-    <div id="header_mainsize">
-        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+<!-- 현재 페이지는 기능이 없는 디자인 샘플 페이지 입니다! -->
+
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+    
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/cmm/main/mainPage.do'/>">Home</a></li>
+                                    <li><a href="<c:url value='/EgovPageLink.do?menuNo=31&linkIndex=15'/>">고객지원</a></li>
+                                    <li>묻고답하기</li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">고객지원</h1>
+                            <p class="txt_1">각종 문의사항에 대한 답변을 친절하게 제공해 드립니다.</p>
+                            <h2 class="tit_2">묻고답하기 (Q&A)</h2>
+
+                            <!-- 검색 영역 -->
+                            <div class="search_area">
+                                <form action="<c:url value='/EgovPageLink.do?linkIndex=16'/>" method="post">
+                                    <select name="search_select" id="search_select">
+                                        <option value="0" selected="selected">전체</option>
+                                        <option value="1">제목</option>
+                                        <option value="2">제목/내용</option>
+                                        <option value="3">작성자</option>
+                                    </select>
+                                    <input type="text" name="search_keyword" placeholder="검색어를 입력하세요" />
+                                    <button type="submit">검색</button>
+                                </form>
+                            </div>
+                            <!--// 검색 영역 -->
+
+                            <!-- Q&A 목록 테이블 -->
+                            <div class="data_table">
+                                <table>
+                                    <caption>묻고답하기 목록</caption>
+                                    <colgroup>
+                                        <col style="width: 80px;">
+                                        <col style="width: auto;">
+                                        <col style="width: 120px;">
+                                        <col style="width: 100px;">
+                                        <col style="width: 120px;">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>작성자</th>
+                                            <th>조회수</th>
+                                            <th>등록일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>10</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다 <span style="color: #169bd5;">(15)</span></a>
+                                            </td>
+                                            <td>홍길동</td>
+                                            <td>1,232</td>
+                                            <td>2026-01-09</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>9</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">validation 처리 시 패스워드에 대한 메소드를 찾지 못합니다</a>
+                                            </td>
+                                            <td>이영희</td>
+                                            <td>111</td>
+                                            <td>2026-01-08</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>8</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">Spring Boot 연동 관련 문의드립니다</a>
+                                            </td>
+                                            <td>김철수</td>
+                                            <td>324</td>
+                                            <td>2026-01-07</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>7</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">데이터베이스 연결 설정 방법 문의</a>
+                                            </td>
+                                            <td>박민수</td>
+                                            <td>521</td>
+                                            <td>2026-01-06</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>6</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">파일 업로드 시 용량 제한 설정 문의</a>
+                                            </td>
+                                            <td>최지영</td>
+                                            <td>755</td>
+                                            <td>2026-01-05</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>5</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">로그인 세션 타임아웃 설정 방법</a>
+                                            </td>
+                                            <td>정수현</td>
+                                            <td>324</td>
+                                            <td>2026-01-04</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>4</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 커스터마이징 가이드</a>
+                                            </td>
+                                            <td>강동훈</td>
+                                            <td>521</td>
+                                            <td>2026-01-03</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>3</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">REST API 개발 시 권한 체크 방법</a>
+                                            </td>
+                                            <td>윤서아</td>
+                                            <td>755</td>
+                                            <td>2026-01-02</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>2</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">메일 발송 기능 설정 문의</a>
+                                            </td>
+                                            <td>송민지</td>
+                                            <td>521</td>
+                                            <td>2026-01-01</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>1</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=7'/>">배치 작업 스케줄링 설정 방법</a>
+                                            </td>
+                                            <td>한태영</td>
+                                            <td>755</td>
+                                            <td>2025-12-31</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--// Q&A 목록 테이블 -->
+
+                            <!-- 페이지네이션 -->
+                            <div class="pagination">
+                                <a href="#">◀</a>
+                                <span class="active">1</span>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <a href="#">▶</a>
+                            </div>
+                            <!--// 페이지네이션 -->
+
+                            <!-- 문의하기 버튼 -->
+                            <div class="btn_area">
+                                <a href="<c:url value='/EgovPageLink.do?linkIndex=17'/>" class="btn_upload">✏️ 문의하기</a>
+                            </div>
+                            <!--// 문의하기 버튼 -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="topnavi">
-        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/>
-    </div>
-    <!-- //header 끝 -->
-	<!-- container 시작 -->
-	<div id="container">
-		<!-- 좌측메뉴 시작 -->
-		<div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-		<!-- //좌측메뉴 끝 -->
-			<!-- content 시작 -->
-			<div id="content">
-				<!-- 현재위치 네비게이션 시작 -->
-				<div id="cur_loc">
-					<div id="cur_loc_align">
-						<ul>
-                            <li>HOME</li>
-                            <li>&gt;</li>
-                            <li>고객지원</li>
-                            <li>&gt;</li>
-                            <li><strong>묻고/답하기</strong></li>
-						</ul>
-					</div>
-				</div>
-				<!-- //현재위치 네비게이션 끝 -->
-				<div><span class="sample_guide">본 화면은 디자인 예시임</span></div>
-				<!-- 타이틀 이미지 -->
-				<div id="content_img_div"><img src="<c:url value='/'/>images/subtitle/img_subtitle03-02.gif" width="776" height="230" alt="둗고/답하기 각종 문의 사항에 대한 답변을 친절하게 제공해 드리고 있습니다."/></div>
-				<!-- main content 시작 -->
-				<div class="content_field"><h2>묻고 답하기(Q&amp;A)</h2></div>
-				<!-- //main content 끝 -->
 
-				 <!-- 검색 필드 박스 시작 -->
-				<div id="search_field">
-					<form action="form_action.jsp" method="post">
-					  	<fieldset><legend>조건정보 영역</legend>
-					  	<div class="sf_start">
-					  		<ul id="search_first_ul">
-					  			<li>
-					  				<div class="search_leftselect">
-									<select name="search_select" id="search_select">
-									    <option value="0" selected="selected">전체</option>
-									    <option value="1">제목</option>
-									    <option value="2">제목/내용</option>
-									    <option value="3">작성자</option>
-									</select>
-									</div>
-					  			</li>
-					  			<li><div class="inputbox_style01"><input type="text" name="st_date" /></div></li>
-					  			<li>
-				  				    <div class="buttons" style="float:left;padding-left:2px;">
-									<a href="#"><img src="<c:url value='/'/>images/img_search.gif" alt="search" />검색 </a>
-									</div>
-					  			</li>
-					  		</ul>
-						</div>
-						</fieldset>
-					</form>
-				</div>
-				<!-- //검색 필드 박스 끝 -->
- 				<div id="page_info"><div id="page_info_align"></div></div>
-				<!-- table add start -->
-				<div class="default_tablestyle">
-					<table summary="사용자목록관리" cellpadding="0" cellspacing="0">
-					<caption>사용자목록관리</caption>
-					<colgroup>
-    					<col width="38" >
-    					<col width="500" >
-    					<col width="50" >
-    					<col width="150" >
-    					<col width="%" >
-					</colgroup>
-					<thead>
-					<tr>
-						<th scope="col" class="f_field">번호</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
-						<th scope="col">조회수</th>
-						<th scope="col">등록일</th>
-					</tr>
-					</thead>
-					<tbody>
-					<!-- loop 시작 -->
-					<tr>
-						<td><strong>10</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다(15)</a></td>
-						<td>홍길동</td>
-						<td>1232</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>9</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">validation 처리 시.패스워드에 대한 메소드를 찾지 못합니다.</a></td>
-						<td>홍길동</td>
-						<td>111</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>8</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>324</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>7</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>521</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>6</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>755</td>
-						<td>2011-04-04</td>
-					</tr>
-										<tr>
-						<td><strong>5</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>324</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>4</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>521</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>3</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>755</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>2</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>521</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>1</strong></td>
-						<td class="align_left_text"><a href="<c:url value='EgovPageLink.do?linkIndex=7'/>">공통컴포넌트 중 모니터링 관련 서비스 실행시 오류가 발생합니다</a></td>
-						<td>홍길동</td>
-						<td>755</td>
-						<td>2011-04-04</td>
-					</tr>
-					</tbody>
-					</table>
-				</div>
-				<!-- 페이지 네비게이션 시작 -->
-				<div id="paging_div">
-					<ul class="paging_align">
-						<li class="first"><img src="<c:url value='/'/>images/btn/btn_prev.gif" alt="prev" /></li>
-						<li><a href="#">1</a></li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-						<li class="first"><img src="<c:url value='/'/>images/btn/btn_next.gif" alt="next" /></li>
-					</ul>
-				</div>
-			</div>
-			<!-- //페이지 네비게이션 끝 -->
-
-
-			</div>
-	<!-- //container 끝 -->
-	<!-- footer 시작 -->
-	<div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-	<!-- //footer 끝 -->
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
 </div>
-<!-- //전체 레이어 끝 -->
+
 </body>
 </html>

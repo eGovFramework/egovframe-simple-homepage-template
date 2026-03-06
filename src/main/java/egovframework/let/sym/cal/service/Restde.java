@@ -2,6 +2,8 @@ package egovframework.let.sym.cal.service;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * 휴일 모델 클래스
  * @author 공통서비스 개발팀 이중호
@@ -15,6 +17,7 @@ import java.io.Serializable;
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  *   2009.04.01  이중호          최초 생성
+ *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
  *
  * </pre>
  */
@@ -403,5 +406,11 @@ public class Restde implements Serializable {
 		this.lastDayMonth = lastDayMonth;
 	}
 
+	/**
+     * toString 메소드를 대치한다.
+     */
+    public String toString() {
+    	return ToStringBuilder.reflectionToString(this);
+    }
     
 }

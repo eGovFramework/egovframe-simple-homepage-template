@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import org.egovframe.rte.ptl.reactive.validation.EgovNullCheck;
+
 
 /**
  * 게시판의 이용정보를 관리하기 위한 모델 클래스
@@ -28,8 +30,9 @@ public class BoardUseInf implements Serializable {
 	 *  serialVersion UID
 	 */
 	private static final long serialVersionUID = -8164785314697750055L;
-	
+
 	/** 게시판 명 */
+	@EgovNullCheck(message="{cop.bbsNm}")
 	private String bbsNm = "";
 
 	/** 게시판 아이디 */
@@ -42,6 +45,7 @@ public class BoardUseInf implements Serializable {
     private String trgetType = "";
     
     /** 커뮤니티, 동호회 정보 */
+	@EgovNullCheck(message="{cop.trgetNm}")
     private String trgetNm = "";
 
 	/** 최초 등록자 아이디 */

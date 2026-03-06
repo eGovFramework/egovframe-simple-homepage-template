@@ -3,32 +3,42 @@
   Description : 게시판 속성 조회 팝업
   Modification Information
  
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2009.03.12   이삼섭          최초 생성
-     2011.08.31  JJY       경량환경 버전 생성
-  <input name="searchWrd" type="text" 
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2009.03.12  이삼섭        최초 생성
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.12  신용호        신규 디자인 적용
+ 
     author   : 공통서비스 개발팀 이삼섭
     since    : 2009.03.12
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-<meta http-equiv="content-language" content="ko">
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
-<script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 정보</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
+
 <script type="text/javascript">
     function press(event) {
         if (event.keyCode==13) {
             fn_egov_select_brdMstr('1');
         }
     }
+    
     function fn_egov_select_brdMstr(pageNo){
         document.frm.pageIndex.value = pageNo; 
         document.frm.action = "<c:url value='/cop/bbs/SelectBBSMasterInfsPop.do'/>";
@@ -39,127 +49,127 @@
         var retVal = bbsId +"|"+bbsNm;
         parent.fn_egov_returnValue(retVal);
     }
+    
+    /* ********************************************************
+     * 취소처리
+     ******************************************************** */
+    function fn_egov_cancel_popup() {
+        parent.fn_egov_modal_remove();
+    }
 </script>
-<title>게시판 정보</title>
-
-<style type="text/css">
-    h1 {font-size:12px;}
-    caption {visibility:hidden; font-size:0; height:0; margin:0; padding:0; line-height:0;}
-</style>
-
-
 </head>
 <body>
-<form name="frm" method="post" action="<c:url value='/cop/bbs/SelectBBSMasterInfsPop.do'/>">
-    <input type="submit" value="실행" onclick="fn_egov_select_brdMstr('1'); return false;" id="invisible" class="invisible" />
+    
+    <form name="frm" method="post" action="<c:url value='/cop/bbs/SelectBBSMasterInfsPop.do'/>">
+    
     <input type="hidden" name="bbsId" value="">
+    
+    <!-- 게시판 정보 팝업 -->
+    <div class="popup EgovBoardMstrListPop" style="background-color: white;">
+        <div class="pop_inner">
+            <div class="pop_header">
+                <h1>게시판 정보</h1>
+                <button type="button" class="close" onclick="fn_egov_cancel_popup(); return false;">닫기</button>
+            </div>
 
-    <!-- 검색 필드 박스 시작 -->
-    <div id="search_field">
-        <div id="search_field_loc"><h2><strong>게시판 정보</strong></h2></div>
-            <fieldset><legend>조건정보 영역</legend>    
-            <div class="sf_start">
-                <ul id="search_first_ul">
-                    <li>
-                        <label for="searchCnd">검색유형선력</label>
-			            <select id="searchCnd" name="searchCnd" class="select" title="검색유형선력">
-			               <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if> >게시판명</option>
-			               <option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if> >게시판유형</option>   
+            <div class="pop_container">
+                <!-- 검색조건 -->
+                <div class="condition">
+                    <label class="item f_select" for="searchCnd">
+                        <select id="searchCnd" name="searchCnd" title="검색조건 선택">
+                            <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>게시판명</option>
+                            <option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if>>게시판유형</option>
                         </select>
-                    </li>
-                    <li>
-                        <label for="searchWrd" class="invisible">검색어</label>
-                        <input id="searchWrd" name="searchWrd" title="검색어" type="text" size="35" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);">
-                    </li>
-                    <li>
-                        <div class="buttons" style="float:right;">
-                            <a href="<c:url value='/cop/bbs/SelectBBSMasterInfsPop.do'/>" onclick="javascript:fn_egov_select_brdMstr('1'); return false;"><img src="<c:url value='/images/img_search.gif' />" alt="search" />조회 </a>
-                        </div>                              
-                    </li>   
-                </ul>
-            </div>          
-            </fieldset>
+                    </label>
+
+                    <span class="item f_search">
+                        <input class="f_input w_500" id="searchWrd" name="searchWrd" title="검색어" type="text" 
+                            value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" onkeypress="press(event);"/>
+                        <button class="btn" type="submit" onclick="javascript:fn_egov_select_brdMstr('1'); return false;">
+                            <spring:message code='button.inquire' />
+                        </button>
+                    </span>
+                </div>
+                <!--// 검색조건 -->
+
+                <!-- 게시판 목록 -->
+                <div class="board_list">
+                    <table>
+                        <caption>게시판정보</caption>
+                        <colgroup>
+                            <col style="width: 80px;">
+                            <col style="width: auto;">
+                            <col style="width: 100px;">
+                            <col style="width: 100px;">
+                            <col style="width: 120px;">
+                            <col style="width: 100px;">
+                            <col style="width: 100px;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">게시판명</th>
+                                <th scope="col">게시판유형</th>
+                                <th scope="col">게시판속성</th>
+                                <th scope="col">생성일</th>
+                                <th scope="col">사용여부</th>
+                                <th scope="col">선택</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:if test="${fn:length(resultList) == 0}">
+                                <tr>
+                                    <td colspan="7"><spring:message code="common.nodata.msg" /></td>
+                                </tr>
+                            </c:if>
+                            
+                            <c:forEach var="result" items="${resultList}" varStatus="status">
+                            <tr>
+                                <td><c:out value="${(searchVO.pageIndex-1) * searchVO.pageSize + status.count}"/></td>
+                                <td class="al"><c:out value="${result.bbsNm}"/></td>
+                                <td><c:out value="${result.bbsTyCodeNm}"/></td>
+                                <td><c:out value="${result.bbsAttrbCodeNm}"/></td>
+                                <td><c:out value="${result.frstRegisterPnttm}"/></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${result.useAt == 'Y'}">
+                                            <span class="badge_active"><spring:message code="button.use" /></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge_inactive"><spring:message code="button.notUsed" /></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <a href="#LINK" class="btn btn_blue_30 w_80" 
+                                        onclick="javascript:fn_egov_select_brdMstrInfo('<c:out value="${result.bbsId}"/>','<c:out value="${result.bbsNm}"/>'); return false;">
+                                        선택
+                                    </a>
+                                </td>
+                            </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <!--// 게시판 목록 -->
+
+                <!-- 페이지 네비게이션 -->
+                <div class="board_list_bot">
+                    <div class="paging" id="paging_div">
+                        <ul>
+                            <ui:pagination paginationInfo="${paginationInfo}" type="renew" jsFunction="fn_egov_select_brdMstr" />
+                        </ul>
+                    </div>
+                </div>
+                <!--// 페이지 네비게이션 -->
+            </div>
+        </div>
     </div>
-    <!-- //검색 필드 박스 끝 -->
-
-    <!-- div id="page_info"><div id="page_info_align">총 <strong>321</strong>건 (<strong>1</strong> / 12 page)</div></div-->                    
-    <!-- table add start -->
-    <div class="default_tablestyle">
-        <table  cellpadding="0" cellspacing="0">
-        <caption>게시판정보</caption>
-        <colgroup>
-	        <col width="10%" >  
-	        <col width="36%" >
-	        <col width="10%" >
-	        <col width="10%" >
-	        <col width="15%" >
-	        <col width="8%" >
-	        <col width="8%" >
-        </colgroup>
-        <thead>
-        <tr>
-            <th scope="col" class="f_field" nowrap="nowrap">번호</th>
-            <th scope="col" nowrap="nowrap">게시판명</th>
-            <th scope="col" nowrap="nowrap">게시판유형</th>
-            <th scope="col" nowrap="nowrap">게시판속성</th>
-            <th scope="col" nowrap="nowrap">생성일</th>
-            <th scope="col" nowrap="nowrap">사용여부</th>
-            <th scope="col" nowrap="nowrap">선택</th>
-        </tr>
-        </thead>
-        <tbody>                 
-
-        <c:forEach var="result" items="${resultList}" varStatus="status">
-        <!-- loop 시작 -->                                
-             <tr>
-	            <!--td class="lt_text3" nowrap="nowrap"><input type="checkbox" name="check1" class="check2"></td-->
-	            <td nowrap="nowrap"><strong><c:out value="${(searchVO.pageIndex-1) * searchVO.pageSize + status.count}"/></strong></td>
-	            <td nowrap="nowrap">
-	                <c:out value="${result.bbsNm}"/>
-	            </td>
-	            <td nowrap="nowrap"><c:out value="${result.bbsTyCodeNm}"/></td>
-	            <td nowrap="nowrap"><c:out value="${result.bbsAttrbCodeNm}"/></td>
-	            <td nowrap="nowrap"><c:out value="${result.frstRegisterPnttm}"/></td>
-	            <td nowrap="nowrap">
-	                <c:if test="${result.useAt == 'N'}"><spring:message code="button.notUsed" /></c:if>
-	                <c:if test="${result.useAt == 'Y'}"><spring:message code="button.use" /></c:if>
-	            </td>
-	            <td nowrap="nowrap">
-                    <input type="button" value="선택"  
-                        onClick="javascript:fn_egov_select_brdMstrInfo('<c:out value="${result.bbsId}"/>','<c:out value="${result.bbsNm}"/>');" />
-	            </td>
-	          </tr>
-         </c:forEach>     
-         <c:if test="${fn:length(resultList) == 0}">
-	          <tr>
-	            <td nowrap colspan="7" ><spring:message code="common.nodata.msg" /></td>  
-	          </tr>      
-         </c:if>
-        </tbody>
-        </table>
-    </div>
-
-    <!-- 페이지 네비게이션 시작 -->
-    <div id="paging_div">
-        <ul class="paging_align">
-           <ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fn_egov_select_brdMstr" />
-        </ul>
-    </div>                          
-    <!-- //페이지 네비게이션 끝 -->  
+    <!--// 게시판 정보 팝업 -->
+    
     <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr> 
-        <td height="10"></td>
-      </tr>
-    </table>
-    <div class="buttons" align="center" >
-        <table border="0" cellspacing="0" cellpadding="0" align="center">
-            <tr> 
-                <td><a href="#LINK" onclick="javascript:parent.close(); return false;">닫기</a></td>
-            </tr>
-        </table>    
-    </div>
-</form>
+    
+    </form>
+    
 </body>
 </html>

@@ -32,7 +32,7 @@ class EgovLoginControllerTestSelenium {
 		// given
 
 		// 로그인 화면 이동
-		driver.get("http://localhost:8080/sht_webapp/uat/uia/egovLoginUsr.do");
+		driver.get("http://localhost:8080/egovframe-template-simple/uat/uia/egovLoginUsr.do");
 
 		JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
 

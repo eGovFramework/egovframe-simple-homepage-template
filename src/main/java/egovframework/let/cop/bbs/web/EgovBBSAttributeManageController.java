@@ -1,6 +1,19 @@
 package egovframework.let.cop.bbs.web;
+
 import java.util.List;
 import java.util.Map;
+
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -10,24 +23,8 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.bbs.service.BoardMaster;
 import egovframework.let.cop.bbs.service.BoardMasterVO;
 import egovframework.let.cop.bbs.service.EgovBBSAttributeManageService;
-import egovframework.let.utl.fcc.service.EgovStringUtil;
-
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springmodules.validation.commons.DefaultBeanValidator;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 게시판 속성관리를 위한 컨트롤러  클래스
@@ -61,10 +58,6 @@ public class EgovBBSAttributeManageController {
     /** EgovPropertyService */
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
-
-    /** DefaultBeanValidator */
-    @Autowired
-    private DefaultBeanValidator beanValidator;
 
     /** EgovMessageSource */
     @Resource(name="egovMessageSource")
@@ -128,7 +121,7 @@ public class EgovBBSAttributeManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/bbs/insertBBSMasterInf.do")
-    public String insertBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
+    public String insertBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    BindingResult bindingResult, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
@@ -136,7 +129,6 @@ public class EgovBBSAttributeManageController {
     	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
-		beanValidator.validate(boardMaster, bindingResult);
 		if (bindingResult.hasErrors()) {
 
 		    ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -160,7 +152,13 @@ public class EgovBBSAttributeManageController {
 		    boardMaster.setFrstRegisterId(user.getUniqId());
 		    boardMaster.setUseAt("Y");
 		    boardMaster.setTrgetId("SYSTEMDEFAULT_REGIST");
-		    boardMaster.setPosblAtchFileSize(propertyService.getString("posblAtchFileSize"));
+
+		    // 첨부 가능 파일 크기 설정
+		    String fileSize = propertyService.getString("Globals.posblAtchFileSize");
+		    if (fileSize == null || fileSize.trim().isEmpty()) {
+		        fileSize = "10485760"; // 기본값: 10MB
+		    }
+		    boardMaster.setPosblAtchFileSize(fileSize);
 
 		    bbsAttrbService.insertBBSMastetInf(boardMaster);
 		}
@@ -243,7 +241,7 @@ public class EgovBBSAttributeManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/bbs/UpdateBBSMasterInf.do")
-    public String updateBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
+    public String updateBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    BindingResult bindingResult, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
@@ -251,7 +249,6 @@ public class EgovBBSAttributeManageController {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
-		beanValidator.validate(boardMaster, bindingResult);
 		if (bindingResult.hasErrors()) {
 		    BoardMasterVO vo = bbsAttrbService.selectBBSMasterInf(boardMasterVO);
 
@@ -262,7 +259,14 @@ public class EgovBBSAttributeManageController {
 
 		if (isAuthenticated) {
 		    boardMaster.setLastUpdusrId(user.getUniqId());
-		    boardMaster.setPosblAtchFileSize(propertyService.getString("posblAtchFileSize"));
+
+		    // 첨부 가능 파일 크기 설정
+		    String fileSize = propertyService.getString("Globals.posblAtchFileSize");
+		    if (fileSize == null || fileSize.trim().isEmpty()) {
+		        fileSize = "10485760"; // 기본값: 10MB
+		    }
+		    boardMaster.setPosblAtchFileSize(fileSize);
+
 		    bbsAttrbService.updateBBSMasterInf(boardMaster);
 		}
 

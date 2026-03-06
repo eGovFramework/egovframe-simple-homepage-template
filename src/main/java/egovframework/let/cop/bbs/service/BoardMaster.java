@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import org.egovframe.rte.ptl.reactive.validation.EgovNullCheck;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * 게시판 속성정보를 담기위한 엔티티 클래스
  * @author 공통 서비스 개발팀 이삼섭
@@ -29,21 +33,28 @@ public class BoardMaster implements Serializable {
 	private static final long serialVersionUID = 2821358749509367821L;
 
 	/** 게시판 속성코드 */
+	@EgovNullCheck(message="{cop.bbsAttrbCode}")
     private String bbsAttrbCode = "";
 
     /** 게시판 아이디 */
     private String bbsId = "";
 
     /** 게시판 소개 */
+	@EgovNullCheck(message="{cop.bbsIntrcn}")
+	@Size(max=2000, message="{cop.bbsIntrcn}")
     private String bbsIntrcn = "";
 
     /** 게시판 명 */
+	@EgovNullCheck(message="{cop.bbsNm}")
+	@Size(max=120, message="{cop.bbsNm}")
     private String bbsNm = "";
 
     /** 게시판 유형코드 */
+	@EgovNullCheck(message="{cop.bbsTyCode}")
     private String bbsTyCode = "";
 
     /** 파일첨부가능여부 */
+	@EgovNullCheck(message="{cop.fileAtchPosblAt}")
     private String fileAtchPosblAt = "";
 
     /** 최초등록자 아이디 */
@@ -59,12 +70,14 @@ public class BoardMaster implements Serializable {
     private String lastUpdusrPnttm = "";
 
     /** 첨부가능파일숫자 */
+	@NotNull(message="{cop.posblAtchFileNumber}")
     private int posblAtchFileNumber = 0;
 
     /** 첨부가능파일사이즈 */
-    private String posblAtchFileSize = "";
+    private String posblAtchFileSize = "0";
 
     /** 답장가능여부 */
+	@EgovNullCheck(message="{cop.replyPosblAt}")
     private String replyPosblAt = "";
 
     /** 템플릿 아이디 */
@@ -86,6 +99,7 @@ public class BoardMaster implements Serializable {
     private String uniqId = "";
 
     /** 템플릿 명 */
+	@EgovNullCheck(message="{cop.tmplatId}")
     private String tmplatNm = "";
 
     //---------------------------------

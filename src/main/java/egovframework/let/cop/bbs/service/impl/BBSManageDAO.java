@@ -2,12 +2,11 @@ package egovframework.let.cop.bbs.service.impl;
 import java.util.Iterator;
 import java.util.List;
 
+import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import org.springframework.stereotype.Repository;
+
 import egovframework.let.cop.bbs.service.Board;
 import egovframework.let.cop.bbs.service.BoardVO;
-
-import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
-
-import org.springframework.stereotype.Repository;
 
 /**
  * 게시물 관리를 위한 데이터 접근 클래스
@@ -36,10 +35,10 @@ public class BBSManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public void insertBoardArticle(Board board) throws Exception {
-		long nttId = (Long)selectOne("BBSManageDAO.selectMaxNttId");
-		board.setNttId(nttId);
-	
-		insert("BBSManageDAO.insertBoardArticle", board);
+    	long nttId = (Long)selectOne("BBSManageDAO.selectMaxNttId");
+    	board.setNttId(nttId);
+
+    	insert("BBSManageDAO.insertBoardArticle", board);
     }
 
     /**
@@ -161,12 +160,12 @@ public class BBSManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public void updateSortOrder(List<BoardVO> sortList) throws Exception {
-		BoardVO vo;
-		Iterator<BoardVO> iter = sortList.iterator();
-		while (iter.hasNext()) {
-		    vo = (BoardVO)iter.next();
-		    update("BBSManageDAO.updateSortOrder", vo);
-		}
+    	BoardVO vo;
+    	Iterator<BoardVO> iter = sortList.iterator();
+    	while (iter.hasNext()) {
+    		vo = iter.next();
+    		update("BBSManageDAO.updateSortOrder", vo);
+    	}
     }
 
     /**

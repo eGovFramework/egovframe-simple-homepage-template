@@ -190,5 +190,4 @@ public class CmmnDetailCode implements Serializable {
 		this.lastUpdusrId = lastUpdusrId;
 	}
 
-
 }

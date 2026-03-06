@@ -1,10 +1,9 @@
 package egovframework.let.uat.uia.service.impl;
 
-import egovframework.com.cmm.LoginVO;
-
 import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
-
 import org.springframework.stereotype.Repository;
+
+import egovframework.com.cmm.LoginVO;
 
 /**
  * 일반 로그인을 처리하는 비즈니스 구현 클래스

@@ -2,9 +2,7 @@ package egovframework.com.cmm.web;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-
+import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import egovframework.com.cmm.EgovWebUtil;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 공통유틸리티성 작업을 위한 Controller 클래스
@@ -37,53 +36,51 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 public class EgovComUtlController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovComUtlController.class);
-	
+
     /** EgovPropertyService */
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertiesService;
-    
+
 	@Resource(name = "egovPageLinkWhitelist")
     protected List<String> egovWhitelist;
-	
+
     /**
 	 * JSP 호출작업만 처리하는 공통 함수
 	 */
 	@RequestMapping(value="/EgovPageLink.do")
-	public String moveToPage(@RequestParam(value="linkIndex",required=true,defaultValue="0") Integer linkIndex,
-			HttpSession session, 
-			@RequestParam(value="menuNo", required=false) String menuNo){
-		
+	public String moveToPage(@RequestParam(value="linkIndex",required=true,defaultValue="0") Integer linkIndex, 
+			HttpSession session, @RequestParam(value = "menuNo", required = false) String menuNo){
+
 		String link = "";
-		
-		
-		if(link.indexOf(",")>-1){
-		    link=link.substring(0,link.indexOf(","));
-		}
-		
+
 		// 화이트 리스트가 비었는지 확인
 		if (egovWhitelist == null || egovWhitelist.isEmpty() || egovWhitelist.size() <= linkIndex) {
-			
+
 			LOGGER.debug("Page Link WhiteList Error! Please check whitelist!");
-			
-			link="egovframework/com/cmm/egovError";
-			
+
+			link="cmm/error/egovError";
+
 			return link;
 		}
-		
-		// 선택된 메뉴정보를 세션으로 등록한다.
-		if (menuNo!=null && !menuNo.equals("")){
-			session.setAttribute("menuNo",menuNo);
-		}
-		
+
 		link = egovWhitelist.get(linkIndex);
-		
+
 		link = link.replace(";", "");
 		link = link.replace("%", "");
 		link = link.replace(".", "");
-		
+
+		if(link.indexOf(",")>-1){
+		    link=link.substring(0,link.indexOf(","));
+		}
+
+		// 선택된 메뉴정보를 세션으로 등록한다.
+		if (menuNo != null && !menuNo.equals("")) {
+			session.setAttribute("menuNo", menuNo);
+		}
+
 		// 안전한 경로 문자열로 조치
 		link = EgovWebUtil.filePathBlackList(link);
-				
+
 		return link;
 	}
 

@@ -5,6 +5,20 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import jakarta.validation.Valid;
+
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -16,24 +30,9 @@ import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.smt.sim.service.EgovIndvdlSchdulManageService;
 import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
-
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springmodules.validation.commons.DefaultBeanValidator;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 일정관리를 처리하는 Controller Class 구현
@@ -52,9 +51,6 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  */
 @Controller
 public class EgovIndvdlSchdulManageController {
-
-	@Autowired
-	private DefaultBeanValidator beanValidator;
 
 	/** EgovMessageSource */
     @Resource(name="egovMessageSource")
@@ -86,7 +82,7 @@ public class EgovIndvdlSchdulManageController {
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageDailyList"
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageDailyList.do")
+	@GetMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageDailyList.do")
 	public String EgovIndvdlSchdulManageDailyList(
 			HttpSession session, 
 			@RequestParam(value="menuNo", required=false) String menuNo,
@@ -156,7 +152,7 @@ public class EgovIndvdlSchdulManageController {
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageWeekList"
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do")
+	@GetMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do")
 	public String EgovIndvdlSchdulManageWeekList(
 			HttpSession session, 
 			@RequestParam(value="menuNo", required=false) String menuNo,
@@ -484,7 +480,7 @@ public class EgovIndvdlSchdulManageController {
 			final MultipartHttpServletRequest multiRequest,
 			ComDefaultVO searchVO,
 			@RequestParam Map <String, Object> commandMap,
-			@ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
+			@Valid @ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
 			BindingResult bindingResult,
     		ModelMap model,
     		HttpServletRequest request)
@@ -507,7 +503,7 @@ public class EgovIndvdlSchdulManageController {
 
         if(sCmd.equals("save")){
     		//서버  validate 체크
-            beanValidator.validate(indvdlSchdulManageVO, bindingResult);
+
     		if(bindingResult.hasErrors()){
 
     	     	//공통코드  중요도 조회
@@ -648,7 +644,7 @@ public class EgovIndvdlSchdulManageController {
 			final MultipartHttpServletRequest multiRequest,
 			@ModelAttribute("searchVO") ComDefaultVO searchVO,
 			@RequestParam Map <String, Object> commandMap,
-			@ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
+			@Valid @ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
 			BindingResult bindingResult,
     		ModelMap model,
     		HttpServletRequest request)
@@ -665,7 +661,7 @@ public class EgovIndvdlSchdulManageController {
 
         if(sCmd.equals("save")){
     		//서버  validate 체크
-            beanValidator.validate(indvdlSchdulManageVO, bindingResult);
+
     		if(bindingResult.hasErrors()){
 
     			return sLocationUrl;
@@ -773,6 +769,7 @@ public class EgovIndvdlSchdulManageController {
      */
     protected boolean checkAuthority(ModelMap model) throws Exception {
     	// 사용자권한 처리
+    	System.out.println("##### EgovIndvdlSchdulManageController authenticate >>> " + EgovUserDetailsHelper.isAuthenticated());
     	if(!EgovUserDetailsHelper.isAuthenticated()) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
         	return false;

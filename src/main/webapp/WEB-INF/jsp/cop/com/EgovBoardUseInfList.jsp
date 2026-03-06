@@ -1,205 +1,203 @@
 <%--
   Class Name : EgovBoardUseInfList.jsp
-  Description : 게시판  사용정보  목록화면
+  Description : 게시판 사용정보 목록화면
   Modification Information
  
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2009.04.02   이삼섭          최초 생성
-     2011.08.31   JJY       경량환경 버전 생성
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2009.04.02  이삼섭        최초 생성
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.12  신용호        신규 디자인 적용
  
     author   : 공통서비스 개발팀 이삼섭
     since    : 2009.04.02 
 --%>
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<title>게시판 사용정보 조회</title>
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 사용정보 조회 - 표준프레임워크 심플 홈페이지템플릿</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
 
 <script type="text/javascript">
     function press(event) {
-        if (event.keyCode==13) {
+        if (event.keyCode == 13) {
             fn_egov_select_bbsUseInfs('1');
         }
     }
 
-    function fn_egov_select_bbsUseInfs(pageNo){
-        document.frm.pageIndex.value = pageNo; 
+    function fn_egov_select_bbsUseInfs(pageNo) {
+        document.frm.pageIndex.value = pageNo;
         document.frm.action = "<c:url value='/cop/com/selectBBSUseInfs.do'/>";
         document.frm.submit();
     }
-    function fn_egov_insert_addbbsUseInf(){
+
+    function fn_egov_insert_addbbsUseInf() {
         document.frm.action = "<c:url value='/cop/com/addBBSUseInf.do'/>";
-        document.frm.submit();      
+        document.frm.submit();
     }
-    function fn_egov_select_bbsUseInf(bbsId, trgetId){
+
+    function fn_egov_select_bbsUseInf(bbsId, trgetId) {
         document.frm.bbsId.value = bbsId;
         document.frm.trgetId.value = trgetId;
         document.frm.action = "<c:url value='/cop/com/selectBBSUseInf.do'/>";
         document.frm.submit();
     }
 
+    function linkPage(pageNo) {
+        fn_egov_select_bbsUseInfs(pageNo);
+    }
 </script>
-
-<style type="text/css">
-    h1 {font-size:12px;}
-    caption {visibility:hidden; font-size:0; height:0; margin:0; padding:0; line-height:0;}
-    
-    A:link    { color: #000000; text-decoration:none; }
-    A:visited { color: #000000; text-decoration:none; }
-    A:active  { color: #000000; text-decoration:none; }
-    A:hover   { color: #fa2e2e; text-decoration:none; }
-</style>
 
 </head>
 <body>
-<noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-    <!-- header 시작 -->
-    <div id="header_mainsize"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/></div>
-    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>        
-    <!-- //header 끝 --> 
-    <!-- container 시작 -->
-    <div id="container">
-        <!-- 좌측메뉴 시작 -->
-        <div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-        <!-- //좌측메뉴 끝 -->
-            <!-- 현재위치 네비게이션 시작 -->
-            <div id="content">
-                <div id="cur_loc">
-                    <div id="cur_loc_align">
-                        <ul>
-                            <li>HOME</li>
-                            <li>&gt;</li>
-                            <li>사이트관리</li>
-                            <li>&gt;</li>
-                            <li><strong>게시판사용관리</strong></li>
-                        </ul>
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/cmm/main/mainPage.do'/>">Home</a></li>
+                                    <li><a href="#">사이트관리</a></li>
+                                    <li>게시판사용관리</li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">사이트관리</h1>
+                            <p class="txt_1">게시판 사용정보 목록입니다.</p>
+                            <h2 class="tit_2">게시판 사용정보 조회</h2>
+
+                            <form name="frm" method="post" action="<c:url value='/cop/com/selectBBSUseInfs.do'/>">
+                                <input type="hidden" name="bbsId">
+                                <input type="hidden" name="trgetId">
+                                <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+
+                                <!-- 검색조건 -->
+                                <div class="condition">
+                                    <label class="item f_select" for="searchCnd">
+                                        <select id="searchCnd" name="searchCnd" title="검색조건 선택">
+                                            <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if>>게시판명</option>
+                                        </select>
+                                    </label>
+
+                                    <span class="item f_search">
+                                        <input class="f_input w_500" id="searchWrd" name="searchWrd" type="text" value="<c:out value='${searchVO.searchWrd}'/>" title="검색어 입력" maxlength="35" onkeypress="press(event);">
+                                        <button class="btn" type="submit" onclick="fn_egov_select_bbsUseInfs('1'); return false;">조회</button>
+                                    </span>
+
+                                    <a href="<c:url value='/cop/com/addBBSUseInf.do'/>" class="item btn btn_blue_46 w_100" onclick="fn_egov_insert_addbbsUseInf(); return false;">등록</a>
+                                </div>
+                                <!--// 검색조건 -->
+
+                                <!-- 게시판 -->
+                                <div class="board_list">
+                                    <table>
+                                        <caption>게시판 사용정보 목록</caption>
+                                        <colgroup>
+                                            <col style="width: 8%;">
+                                            <col style="width: auto;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 10%;">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">번호</th>
+                                                <th scope="col">게시판명</th>
+                                                <th scope="col">사용 커뮤니티 명</th>
+                                                <th scope="col">사용 동호회 명</th>
+                                                <th scope="col">등록일시</th>
+                                                <th scope="col">사용여부</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="result" items="${resultList}" varStatus="status">
+                                            <tr>
+                                                <td><c:out value="${(searchVO.pageIndex-1) * searchVO.pageSize + status.count}"/></td>
+                                                <td class="al">
+                                                    <a href="<c:url value='/cop/com/selectBBSUseInf.do'/>?bbsId=<c:out value='${result.bbsId}'/>&amp;trgetId=<c:out value='${result.trgetId}'/>" class="lnk">
+                                                        <c:out value="${result.bbsNm}"/>
+                                                    </a>
+                                                </td>
+                                                <td><c:out value="${result.cmmntyNm}"/></td>
+                                                <td><c:out value="${result.clbNm}"/></td>
+                                                <td><c:out value="${result.frstRegisterPnttm}"/></td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${result.useAt == 'Y'}">
+                                                            <span class="badge badge_active"><spring:message code="button.use" /></span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="badge badge_inactive"><spring:message code="button.notUsed" /></span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                            </tr>
+                                            </c:forEach>
+                                            
+                                            <c:if test="${fn:length(resultList) == 0}">
+                                            <tr>
+                                                <td colspan="6"><spring:message code="common.nodata.msg" /></td>
+                                            </tr>
+                                            </c:if>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- 페이징 -->
+                                <div class="board_list_bot">
+                                    <div class="paging" id="paging_div">
+                                        <ul>
+                                            <ui:pagination paginationInfo="${paginationInfo}" type="renew" jsFunction="linkPage" />
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--// 페이징 -->
+                            </form>
+                            <!--// 게시판 -->
+
+                        </div>
                     </div>
                 </div>
-                <!-- 검색 필드 박스 시작 -->
-                <div id="search_field">
-                    <div id="search_field_loc"><h2><strong>게시판 사용정보 조회</strong></h2></div>
-                    <form name="frm" method="post" action = "<c:url value='/cop/com/selectBBSUseInf.do'/>">
-						<div style="visibility:hidden;display:none;"><input name="iptSubmit" type="submit" value="전송" title="전송"></div>
-						<input type="hidden" name="bbsId" >
-						<input type="hidden" name="trgetId" >
-                        <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
-                        
-                        <fieldset><legend>조건정보 영역</legend>    
-                        <div class="sf_start">
-                            <ul id="search_first_ul">
-                                <li>
-                                    <select id="search_select" name="searchCnd" title="검색유형선력">
-						               <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if> >게시판명</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <input name="searchWrd" type="text" size="35" title="명" value='<c:out value="${searchVO.searchWrd}" />'  maxlength="35" onkeypress="press(event);"> 
-                                </li>       
-                            </ul>
-                            <ul id="search_second_ul">
-                                <li>
-                                    <div class="buttons" style="position:absolute;left:870px;top:182px;">
-                                        <a href="<c:url value='/cop/com/selectBBSUseInfs.do'/>" onclick="fn_egov_select_bbsUseInfs('1'); return false;"><img src="<c:url value='/images/img_search.gif' />" alt="search" />조회 </a>
-                                        <a href="<c:url value='/cop/com/addBBSUseInf.do'/>" onclick="fn_egov_insert_addbbsUseInf(); return false;">등록</a>
-                                    </div>                              
-                                </li>
-                            </ul>           
-                        </div>          
-                        </fieldset>
-                    </form>
-                </div>
-                <!-- //검색 필드 박스 끝 -->
-
-                <!-- div id="page_info"><div id="page_info_align">총 <strong>321</strong>건 (<strong>1</strong> / 12 page)</div></div-->                    
-                <!-- table add start -->
-                <div class="default_tablestyle">
-                    <table summary="번호,게시판명,사용 커뮤니티 명,사용 동호회 명,등록일시,사용여부   목록입니다" cellpadding="0" cellspacing="0">
-                    <caption>사용자목록관리</caption>
-                    <colgroup>
-                    <col width="10%">
-                    <col width="30%">  
-                    <col width="20%">
-                    <col width="15%">
-                    <col width="15%">
-                    <col width="7%">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th scope="col" class="f_field" nowrap="nowrap">번호</th>
-                        <th scope="col" nowrap="nowrap">게시판명</th>
-                        <th scope="col" nowrap="nowrap">사용 커뮤니티 명</th>
-                        <th scope="col" nowrap="nowrap">사용 동호회 명</th>
-                        <th scope="col" nowrap="nowrap">등록일시</th>
-                        <th scope="col" nowrap="nowrap">사용여부</th>
-                    </tr>
-                    </thead>
-                    <tbody>                 
-
-                    <c:forEach var="result" items="${resultList}" varStatus="status">
-                    <!-- loop 시작 -->                                
-                      <tr>
-				        <td nowrap="nowrap"><strong><c:out value="${(searchVO.pageIndex-1) * searchVO.pageSize + status.count}"/></strong></td>
-				        <td nowrap="nowrap">
-				            <!-- 2010.11.1
-				            <form name="item" method="post" action="<c:url value='/cop/com/selectBBSUseInf.do'/>"  target="_blank">
-				                <input type=hidden name="bbsId" value="<c:out value="${result.bbsId}"/>">
-				                <input type=hidden name="trgetId" value="<c:out value="${result.trgetId}"/>">
-				                <span class="link"><input type="submit" value="<c:out value="${result.bbsNm}"/>" onclick="fn_egov_select_bbsUseInf('<c:out value="${result.bbsId}"/>','<c:out value="${result.trgetId}"/>'); return false;"></span>
-				            </form>
-				            -->
-				
-				            <input type=hidden name="bbsId" value="<c:out value="${result.bbsId}"/>">
-				            <input type=hidden name="trgetId" value="<c:out value="${result.trgetId}"/>">
-				            
-				            <a href="<c:url value='/cop/com/selectBBSUseInf.do'/>?bbsId=<c:out value='${result.bbsId}'/>&amp;trgetId=<c:out value='${result.trgetId}'/>">
-				                <c:out value="${result.bbsNm}"/>
-				            </a>
-				            
-				        </td>
-				        <td nowrap="nowrap"><c:out value="${result.cmmntyNm}"/></td>
-				        <td nowrap="nowrap"><c:out value="${result.clbNm}"/></td>    
-				        <td nowrap="nowrap"><c:out value="${result.frstRegisterPnttm}"/></td>
-				        <td nowrap="nowrap">
-				            <c:if test="${result.useAt == 'N'}"><spring:message code="button.notUsed" /></c:if>
-				            <c:if test="${result.useAt == 'Y'}"><spring:message code="button.use" /></c:if>     
-				        </td>  
-				      </tr>
-				     </c:forEach>
-                      
-                     <c:if test="${fn:length(resultList) == 0}">
-                      <tr>
-                        <td nowrap colspan="6"><spring:message code="common.nodata.msg" /></td>  
-                      </tr>      
-                     </c:if>
-                    </tbody>
-                    </table>
-                </div>
-                <!-- 페이지 네비게이션 시작 -->
-                <div id="paging_div">
-                    <ul class="paging_align">
-                       <ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fn_egov_select_bbsUseInfs"  />
-                    </ul>
-                </div>                          
-                <!-- //페이지 네비게이션 끝 -->  
             </div>
-            <!-- //content 끝 -->    
-        </div>  
-        <!-- //container 끝 -->
-        <!-- footer 시작 -->
-        <div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-        <!-- //footer 끝 -->
+        </div>
     </div>
-    <!-- //전체 레이어 끝 -->
- </body>
+
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
+</div>
+
+</body>
 </html>

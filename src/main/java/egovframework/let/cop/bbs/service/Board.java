@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import org.egovframe.rte.ptl.reactive.validation.EgovNullCheck;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * 게시물에 대한 데이터 처리 모델 클래스
  * @author 공통 서비스 개발팀 이삼섭
@@ -54,10 +58,12 @@ public class Board implements Serializable {
 	/**
 	 * 게시시작일
 	 */
+	@EgovNullCheck // (message="{cop.ntceBgnde}")
 	private String ntceBgnde = "";
 	/**
 	 * 게시종료일
 	 */
+	@EgovNullCheck // (message="{cop.ntceEndde}")
 	private String ntceEndde = "";
 	/**
 	 * 게시자 아이디
@@ -66,10 +72,12 @@ public class Board implements Serializable {
 	/**
 	 * 게시자명
 	 */
+	@EgovNullCheck // (message="{cop.ntcrNm}")
 	private String ntcrNm = "";
 	/**
 	 * 게시물 내용
 	 */
+	@EgovNullCheck // (message="{cop.nttCn}")
 	private String nttCn = "";
 	/**
 	 * 게시물 아이디
@@ -82,6 +90,8 @@ public class Board implements Serializable {
 	/**
 	 * 게시물 제목
 	 */
+	@EgovNullCheck // (message="{cop.nttSj}")
+	@Size(min=5, max=200)
 	private String nttSj = "";
 	/**
 	 * 부모글번호
@@ -90,6 +100,7 @@ public class Board implements Serializable {
 	/**
 	 * 패스워드
 	 */
+	@EgovNullCheck // (message="{cop.password}")
 	private String password = "";
 	/**
 	 * 조회수

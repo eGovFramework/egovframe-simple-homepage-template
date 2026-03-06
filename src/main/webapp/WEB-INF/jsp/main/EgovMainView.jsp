@@ -6,7 +6,8 @@
       수정일         수정자                   수정내용
     -------    --------    ---------------------------
      2011.08.31   JJY       경량환경 버전 생성
- 
+     2025.01.06   System    모던 디자인 개선
+
     author   : 실행환경개발팀 JJY
     since    : 2011.08.31 
 --%>
@@ -15,139 +16,209 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page import ="egovframework.com.cmm.LoginVO" %>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<title>표준프레임워크 경량환경 홈페이지 템플릿</title>
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>표준프레임워크 심플 홈페이지 템플릿</title>
+<link href="<c:url value='/css/base.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/css/layout.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/css/component.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/css/page.css'/>" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="<c:url value='/js/ui.js'/>"></script>
 </head>
 <body>
-<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>	
-<!-- 전체 레이어 시작 -->
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 
-<div id="wrap">
-	<!-- header 시작 -->
-	<div id="header_mainsize">
-	    <c:import url="/EgovPageLink.do?linkIndex=0" />
-	</div>
-	<div id="topnavi">
-	    <c:import url="/EgovPageLink.do?linkIndex=1" />
-	</div>		
-	<!-- //header 끝 -->
-	<!-- container 시작 -->
-	<div id="main_container">
-		<div class="lefttitle_image">
-		    <img src="<c:url value='/images/index/main_titleimage.gif' />" 
-		         alt="경량환경 내부업무 홈페이지/전자정부 표준프레임워크의 경량환경 내부 업무에 대한 최신정보와 기술을 제공하고 있습니다." />
-		</div>
-		
-		<!-- code layer -->
-		<div class="rightmain_wrap">			
-			<div class="board_wrap">
-				<!-- 공지사항 시작 -->
-				<div class="notice_area">
-					<h3 class="notice_title"><img src="<c:url value='/images/index/img_subtitle01.gif' />" alt="공지사항" /></h3>
-					<a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43" class="more"><img src="<c:url value='/images/index/btn_more.gif' />" alt="more" /></a>
-					<ul>
-    					<c:forEach var="result" items="${notiList}" varStatus="status">
-        					<li>
-                                <div class="notice_lefttext">
-            					    <a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43">    
-            					        <c:if test="${result.replyLc!=0}">
-                                            <c:forEach begin="0" end="${result.replyLc}" step="1">&nbsp;</c:forEach>
-                                            <img src="<c:url value='/images/reply_arrow.gif'/>" alt="reply arrow"/>
-                                        </c:if>
-                                        <c:choose>
-                                            <c:when test="${result.isExpired=='Y' || result.useAt == 'N'}">
-                                                <c:out value="${result.nttSj}" />
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:out value="${result.nttSj}" />
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </a>
-        					    </div>
-        					    <div class="notice_righttext"><c:out value="${result.frstRegisterPnttm}"/></div>
-        					</li>
-    					</c:forEach>
-                        <c:if test="${fn:length(notiList) == 0}">
-                            <li>등록된 공지사항이 없습니다.</li>
-                        </c:if>
+<!-- Skip navigation -->
+<a href="#main_container" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp" />
+    <!--// Header -->
+
+    <div class="container">
+        <div class="p_main">
+            <!-- Main Visual Banner -->
+            <div class="visual">
+                <div class="banner_inner">
+                    <span class="t1">표준프레임워크</span>
+                    <span class="t2">심플 홈페이지</span>
+                    <span class="t3">표준프레임워크 경량환경 템플릿에 대한 최신정보와 기술을 제공하고 있습니다.</span>
+                </div>
+            </div>
+            <!--// Main Visual Banner -->
+
+            <!-- Dashboard: 공지사항 & 갤러리 -->
+            <div class="dash_board">
+                <div class="inner">
+                    <ul class="tab">
+                        <li><a href="#" class="cur">공지사항</a></li>
+                        <li><a href="#">갤러리</a></li>
                     </ul>
-    				<!-- //공지사항 끝 -->
-    				<!-- 갤러리 시작 -->
-    				<div class="notice_area">
-    					<h3 class="notice_title"><img src="<c:url value='/images/index/img_subtitle02.gif' />" alt="갤러리" /></h3> 
-    					<a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_BBBBBBBBBBBB&menuNo=43" class="more"><img src="<c:url value='/images/index/btn_more.gif' />" alt="more" /></a>
-    					<ul>
-    						<c:forEach var="result" items="${galList}" varStatus="status">
-                                <li>
-                                    <div class="notice_lefttext">
-                                        <a href="/sht_webapp/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_BBBBBBBBBBBB&menuNo=43">
-                                            <c:if test="${result.replyLc!=0}">
-                                                <c:forEach begin="0" end="${result.replyLc}" step="1">&nbsp;</c:forEach>
-                                                <img src="<c:url value='/images/reply_arrow.gif'/>" alt="reply arrow"/>
-                                            </c:if>
-                                            <c:choose>
-                                                <c:when test="${result.isExpired=='Y' || result.useAt == 'N'}">
-                                                    <c:out value="${result.nttSj}" />
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:out value="${result.nttSj}" />
-                                                </c:otherwise>
-                                            </c:choose>
+
+                    <div class="tab_contents">
+                        <!-- 공지사항 Tab -->
+                        <div class="tab_item">
+                            <h2 class="blind">공지사항</h2>
+                            <ul>
+                                <c:if test="${fn:length(notiList) == 0}">
+                                    <li>
+                                        <a href="<c:url value='/EgovPageLink.do?menuNo=31&linkIndex=15'/>">
+                                            <span class="tit">등록된 공지사항이 없습니다.</span>
+                                            <span class="desc">공지사항 게시판을 확인해주세요.</span>
+                                            <span class="dates"><c:out value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()) %>"/></span>
                                         </a>
-                                    </div>
-                                    <div class="notice_righttext"><c:out value="${result.frstRegisterPnttm}"/></div>
-                                </li>
-                            </c:forEach>
-                        <c:if test="${fn:length(galList) == 0}">
-                            <li>등록된 갤러리가 없습니다.</li>
-                        </c:if>
-    					</ul>
-    				</div>
-				</div>
-				<!--  //갤러리 끝 -->			
-				<div class="info_divwrap"> 
-					<div class="righttop_banner"> 
-						<ul>							
-							<li><a href="/sht_webapp/EgovPageLink.do?menuNo=21&linkIndex=13"><img src="<c:url value='/images/index/img_product.gif' />" alt="주요사업 소개" title="샘플화면으로 이동합니다.(주요사업 소개)" /></a></li>
-							<li><a href="/sht_webapp/EgovPageLink.do?menuNo=22&linkIndex=14"><img src="<c:url value='/images/index/img_service.gif' />" alt="대표서비스 소개" title="샘플화면으로 이동합니다.(대표서비스 소개)" /></a></li>
-						</ul>
-					</div>
-					<div class="middle_banner" style="">
-						<ul>
-							<li class="li_btm"><a href="/sht_webapp/EgovPageLink.do?menuNo=31&linkIndex=15"><img src="<c:url value='/images/index/img_download.gif' />" alt="자료실:다양한자료를 다운로드 받으실 수 있습니다." title="샘플화면으로 이동합니다.(자료실)" /></a></li>
-							<li><a href="/sht_webapp/EgovPageLink.do?menuNo=14&linkIndex=12"><img src="<c:url value='/images/index/img_location.gif' />" alt="표준프레임워크센터:찾아오시는 길" title="샘플화면으로 이동합니다.(찾아오시는길)" /></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!-- 하단 서비스 영역  -->
-			<div id="main_btm_area">
-				<ul>
-					<li><a href="/sht_webapp/EgovPageLink.do?menuNo=33&linkIndex=17">
-					    <img src="<c:url value='/images/index/img_service_btm.gif' />" alt="서비스 신청" title="샘플화면으로 이동합니다.(서비스 신청)"/></a>
-					</li>
-					<li><div class="mainbtm_text1">표준프레임워크 경량환경 홈페이지의 다양한 서비스를 신청 하실 수 있습니다.</div></li>  
-					<li><div class="mainbtm_vline"><img src="<c:url value='/images/index/img_vline.gif' />" alt="" /></div></li> 
-					<li><div class="img_div01">
-					    <a href="/sht_webapp/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do?menuNo=42"><img src="<c:url value='/images/index/img_schedule.gif' />" alt="일정 현황" /></a></div>
-					</li>
-					<li><div class="mainbtm_text2">표준프레임워크 경량환경 홈페이지의 전체적인 일정현황을 조회하실 수 있습니다.</div></li>   
-				</ul>
-			</div>
-		</div>
-		<!-- //code layer -->		
-	</div>
-	<!-- footer 시작 -->
-	<div id="footer">
-		<c:import url="/EgovPageLink.do?linkIndex=3" />
-	</div>
-	<!-- //footer 끝 -->
-<!-- //전체 레이어 끝 -->
+                                    </li>
+                                </c:if>
+                                
+                                <c:forEach var="result" items="${notiList}" begin="0" end="2" step="1" varStatus="status">
+                                    <li>
+                                        <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43'/>">
+                                            <c:if test="${!(result.isExpired=='Y' || result.useAt == 'N')}">
+                                                <span class="tit">
+                                                    <c:choose>
+                                                        <c:when test="${fn:length(result.nttSj) > 51}">
+                                                            <c:out value="${fn:substring(result.nttSj, 0, 50)}" />...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:out value="${result.nttSj}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                                <span class="desc">
+                                                    <c:choose>
+                                                        <c:when test="${fn:length(result.nttCn) > 101}">
+                                                            <c:out value="${fn:substring(result.nttCn, 0, 100)}" />...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:out value="${result.nttCn}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                                <span class="dates">
+                                                    <c:out value="${result.frstRegisterPnttm}"/>
+                                                </span>
+                                            </c:if>
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                            <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_AAAAAAAAAAAA&menuNo=43'/>" class="more">더보기</a>
+                        </div>
+                        
+                        <!-- 갤러리 Tab -->
+                        <div class="tab_item">
+                            <h2 class="blind">갤러리</h2>
+                            <ul>
+                                <c:if test="${fn:length(galList) == 0}">
+                                    <li>
+                                        <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_BBBBBBBBBBBB&menuNo=43'/>">
+                                            <span class="tit">등록된 갤러리가 없습니다.</span>
+                                            <span class="desc">갤러리 게시판을 확인해주세요.</span>
+                                            <span class="dates"><c:out value="<%= new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()) %>"/></span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                
+                                <c:forEach var="result" items="${galList}" begin="0" end="2" step="1" varStatus="status">
+                                    <li>
+                                        <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_BBBBBBBBBBBB&menuNo=43'/>">
+                                            <c:if test="${!(result.isExpired=='Y' || result.useAt == 'N')}">
+                                                <span class="tit">
+                                                    <c:choose>
+                                                        <c:when test="${fn:length(result.nttSj) > 51}">
+                                                            <c:out value="${fn:substring(result.nttSj, 0, 50)}" />...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:out value="${result.nttSj}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                                <span class="desc">
+                                                    <c:choose>
+                                                        <c:when test="${fn:length(result.nttCn) > 101}">
+                                                            <c:out value="${fn:substring(result.nttCn, 0, 100)}" />...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:out value="${result.nttCn}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </span>
+                                                <span class="dates">
+                                                    <c:out value="${result.frstRegisterPnttm}"/>
+                                                </span>
+                                            </c:if>
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                            <a href="<c:url value='/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_BBBBBBBBBBBB&menuNo=43'/>" class="more">더보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--// Dashboard -->
+
+            <!-- Banner Section: 주요 사업, 대표서비스, 자료실, 찾아오시는 길 -->
+            <div class="banner_section">
+                <div class="banner_wrap">
+                    <h2>주요 서비스</h2>
+                    <div class="banner_grid">
+                        <div class="banner_item business">
+                            <a href="<c:url value='/EgovPageLink.do?menuNo=21&linkIndex=13'/>">
+                                <span class="text">주요 사업 소개</span>
+                            </a>
+                        </div>
+                        <div class="banner_item service">
+                            <a href="<c:url value='/EgovPageLink.do?menuNo=22&linkIndex=14'/>">
+                                <span class="text">대표서비스 소개</span>
+                            </a>
+                        </div>
+                        <div class="banner_item download">
+                            <a href="<c:url value='/EgovPageLink.do?menuNo=31&linkIndex=15'/>">
+                                <span class="text">자료실</span>
+                            </a>
+                        </div>
+                        <div class="banner_item location">
+                            <a href="<c:url value='/EgovPageLink.do?menuNo=14&linkIndex=12'/>">
+                                <span class="text">표준프레임워크센터<br>찾아오시는 길</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--// Banner Section -->
+
+            <!-- Service Section: 서비스 신청, 일정 현황 -->
+            <div class="service_section">
+                <div class="service_grid">
+                    <div class="service_item">
+                        <h3>서비스 <span>신청</span></h3>
+                        <p>표준프레임워크 심플 홈페이지의<br>다양한 서비스를 신청하실 수 있습니다.</p>
+                        <a href="<c:url value='/EgovPageLink.do?menuNo=33&linkIndex=17'/>">신청하기</a>
+                    </div>
+                    <div class="service_item">
+                        <h3>일정 <span>현황</span></h3>
+                        <p>표준프레임워크 심플 홈페이지의<br>전체적인 일정현황을 조회하실 수 있습니다.</p>
+                        <a href="<c:url value='/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do?menuNo=42'/>">조회하기</a>
+                    </div>
+                </div>
+            </div>
+            <!--// Service Section -->
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp" />
+    <!--// Footer -->
 </div>
+
 </body>
 </html>
-

@@ -14,7 +14,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  *
  * <pre>
  * << 개정이력(Modification Information) >>
- *   
+ *
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  *   2009.03.11  이문준          최초 생성
@@ -27,27 +27,27 @@ public class EgovMessageSource extends ReloadableResourceBundleMessageSource imp
 	private ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource;
 
 	/**
-	 * getReloadableResourceBundleMessageSource() 
+	 * getReloadableResourceBundleMessageSource()
 	 * @param reloadableResourceBundleMessageSource - resource MessageSource
 	 * @return ReloadableResourceBundleMessageSource
-	 */	
+	 */
 	public void setReloadableResourceBundleMessageSource(ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource) {
 		this.reloadableResourceBundleMessageSource = reloadableResourceBundleMessageSource;
 	}
-	
+
 	/**
-	 * getReloadableResourceBundleMessageSource() 
+	 * getReloadableResourceBundleMessageSource()
 	 * @return ReloadableResourceBundleMessageSource
-	 */	
+	 */
 	public ReloadableResourceBundleMessageSource getReloadableResourceBundleMessageSource() {
 		return reloadableResourceBundleMessageSource;
 	}
-	
+
 	/**
 	 * 정의된 메세지 조회
 	 * @param code - 메세지 코드
 	 * @return String
-	 */	
+	 */
 	public String getMessage(String code) {
 		return getReloadableResourceBundleMessageSource().getMessage(code, null, Locale.getDefault());
 	}

@@ -3,130 +3,172 @@
   Description : 샘플화면 - 자료실 상세조회(sample)
   Modification Information
  
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2011.08.31   JJY       경량환경 버전 생성
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.09  신용호        신규 디자인 적용
  
     author   : 실행환경개발팀 JJY
     since    : 2011.08.31 
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<title>표준프레임워크 경량환경 홈페이지템플릿</title>
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자료실 상세 - 표준프레임워크 심플 홈페이지템플릿</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
 </head>
 <body>
-<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>	
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-	<!-- header 시작 -->
-    <div id="header_mainsize">
-        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+<!-- 현재 페이지는 기능이 없는 디자인 샘플 페이지 입니다! -->
+
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+    
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/cmm/main/mainPage.do'/>">Home</a></li>
+                                    <li><a href="<c:url value='/EgovPageLink.do?menuNo=31&linkIndex=15'/>">고객지원</a></li>
+                                    <li>자료실</li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">고객지원</h1>
+                            <p class="txt_1">자료실 상세 정보입니다.</p>
+                            <h2 class="tit_2">자료 상세</h2>
+
+                            <!-- 자료 헤더 -->
+                            <div class="detail_header">
+                                <h3>📦 eGovFrame Installer v5.0</h3>
+                                <div class="meta">
+                                    <span>👤 작성자: innovate</span>
+                                    <span>📅 등록일: 2026-01-09 14:30:00</span>
+                                    <span>👁️ 조회: 1,234</span>
+                                </div>
+                            </div>
+                            <!--// 자료 헤더 -->
+
+                            <!-- 자료 상세 내용 -->
+                            <div class="detail_content">
+                                <div class="detail_image">
+                                    <img src="<c:url value='/images/sample/img_download.gif'/>" alt="다운로드 자료 이미지"/>
+                                </div>
+                                <div class="detail_info">
+                                    <a href="#" class="download_btn">⬇️ 다운로드</a>
+                                    
+                                    <div class="specs_table">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width: 150px;">
+                                                <col style="width: auto;">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <th>운영체제</th>
+                                                    <td>Windows 10/11, macOS, Linux</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>권장사양</th>
+                                                    <td>Intel Core i5 이상, RAM 8GB 이상</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>파일정보</th>
+                                                    <td>256MB (총 1개) / egovframework-installer-v5.0.zip [268,435,456 byte]</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>등록일자</th>
+                                                    <td>2026-01-09 14:30:00</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>언어</th>
+                                                    <td>한국어, 영어</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// 자료 상세 내용 -->
+
+                            <!-- 자료 상세 설명 -->
+                            <div class="description_section">
+                                <h3>📝 자료 상세 설명</h3>
+                                <div class="description_content">안녕하세요.
+
+전자정부 표준프레임워크 5.0 인스톨러입니다.
+
+이 인스톨러는 전자정부 표준프레임워크 개발환경을 손쉽게 설치할 수 있도록 지원합니다.
+
+<strong>주요 기능:</strong>
+• 개발환경 자동 설치 및 설정
+• Eclipse 기반 통합 개발 환경 제공
+• Maven, Git 등 필수 도구 포함
+• 샘플 프로젝트 자동 생성
+
+<strong>설치 방법:</strong>
+1. 다운로드 받은 파일의 압축을 해제합니다.
+2. installer.exe (또는 installer.sh) 파일을 실행합니다.
+3. 설치 마법사의 안내에 따라 진행합니다.
+4. 설치 완료 후 Eclipse를 실행하여 개발을 시작합니다.
+
+관련된 자세한 내용은 다음 가이드를 참조하십시오.
+https://www.egovframe.go.kr/wiki/doku.php?id=egovframework:com:v5:init_guide
+
+감사합니다.
+                                </div>
+                            </div>
+                            <!--// 자료 상세 설명 -->
+
+                            <!-- 목록 버튼 -->
+                            <div class="btn_list">
+                                <a href="<c:url value='/EgovPageLink.do?linkIndex=15'/>">📋 목록</a>
+                            </div>
+                            <!--// 목록 버튼 -->
+
+                            <!-- 이전/다음 글 네비게이션 -->
+                            <div class="nav_buttons">
+                                <a href="#" class="prev">이전글: 표준프레임워크 개발자 가이드 v5.0</a>
+                                <a href="#" class="next">다음글: 공통 컴포넌트 샘플 소스</a>
+                            </div>
+                            <!--// 이전/다음 글 네비게이션 -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="topnavi">
-        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/>
-    </div>
-    <!-- //header 끝 -->
-	<!-- container 시작 -->
-	<div id="container">
-		<!-- 좌측메뉴 시작 -->
-		<div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-		<!-- //좌측메뉴 끝 -->			
-			<!-- content 시작 -->			
-			<div id="content">
-				<!-- 현재위치 네비게이션 시작 -->
-				<div id="cur_loc">
-					<div id="cur_loc_align">
-						<ul>
-							<li>HOME</li>
-                            <li>&gt;</li>
-                            <li>고객지원</li>
-                            <li>&gt;</li>
-                            <li><strong>자료실</strong></li>
-                        </ul>
-					</div>
-				</div>	
-				<!-- //현재위치 네비게이션 끝 -->
-				<div><span class="sample_guide">본 화면은 디자인 예시임</span></div>
-				<!-- 타이틀 이미지 -->			
-				<div id="content_img_div"><img src="<c:url value='/'/>images/subtitle/img_subtitle03-01.gif" width="776" height="230" alt="자료실 전자정부표준프레임워크 경량환경 페이지의 다양한 종류의 자룔르 다운 받으실 수 있습니다."/></div>
-	
-				<div id="download_div02">
-					<div class="downloadDetail_title">
-						<div class="downloadDetail_program_loc"><span class="downloadDetail_titletxt">egovframe installer v1.03</span></div>
-						<span>작성자 : innovate</span>
-						<span>2011-08-01 23:22:11</span> 
-					</div>
-					<div class="sum_img_div_wrap">
-						<div class="sum_img_div_loc"> 
-							<div><img src="<c:url value='/'/>images/sample/img_download.gif" alt="다운로드 받을 프로그램 이미지"/></div>							
-						</div> 
-					<div class="download_btn_area"><a href="#"><img src="<c:url value='/'/>images/btn/btn_download.gif"  alt="download" /></a></div>
-					</div>
-					<div class="download_modify_table">
-						<div id="download_detailtable">
-						<table summary="권장사항" cellpadding="0" cellspacing="0">
-							<colgroup> 
-								<col width="100">
-								<col width="%">
-							</colgroup>
-							<tbody>
-							<tr>
-								<th>운영체제 </th>
-								<td>Win95/Win98/WinME/WinNT/Win2000/WinXP/WinVISTA/Win7/</td>
-							</tr>
-							<tr>
-								<th>권장사양</th>
-								<td>펜티엄3</td>
-							</tr>
-							<tr>
-								<th>파일정보</th> 
-								<td>7MB (총 1 개)/ egovframework-common-all.zip [15,083,713 byte]</td>
-							</tr>
-							<tr>
-								<th>등록일자</th>
-								<td>2011-08-08 11:11:11</td>
-							</tr>
-							<tr>
-								<th>언어</th>
-								<td>영어</td>
-							</tr>
-							</tbody>
-						</table>	
-						</div>				
-					</div>
-				</div>
-		        <!-- main content 시작 -->
-				<div class="content_field"><h3>자료상세설명</h3></div>
-				<!-- //main content 끝 -->		
-				<div class="download_modify_txtarea_wrap">
-					<div class="download_modify_content">
-                    안녕하세요..
-                    
-                    공통컴포넌트 전체 소스입니다.
-                    
-                    관련된 내용은 다음 가이드를 참조하십시오.
-                    http://www.egovframe.go.kr/wiki/doku.php?id=egovframework:com:v3:init_guide
-                    
-                    감사합니다.				
-					</div>
-				</div>
-				<div class="buttons" style="clear:both;float:right;padding-top:10px;padding-bottom:10px;"><a href="<c:url value='/EgovPageLink.do?linkIndex=15'/>">목록 </a></div> 
-				<div class="btm_prev">이전글 egovframe installer v1.03</div>
-				<div class="btm_next">다음글 egovframe installer v1.03 </div> 	
-			</div>			
-		</div>
-						
-			<!-- //content 끝 -->
-	<!-- //container 끝 -->
-	<!-- footer 시작 -->
-	<div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-	<!-- //footer 끝 -->				
+
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
 </div>
-<!-- //전체 레이어 끝 -->
+
 </body>
 </html>

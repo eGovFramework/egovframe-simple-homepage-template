@@ -1,23 +1,20 @@
 package egovframework.let.uat.uia.web;
 
-import egovframework.com.cmm.EgovMessageSource;
-import egovframework.com.cmm.LoginVO;
-import egovframework.com.cmm.util.EgovUserDetailsHelper;
-import egovframework.let.uat.uia.service.EgovLoginService;
-
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
+
+import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import egovframework.let.uat.uia.service.EgovLoginService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 일반 로그인을 처리하는 컨트롤러 클래스
@@ -75,22 +72,16 @@ public class EgovLoginController {
 	 */
 	@RequestMapping(value = "/uat/uia/actionLogin.do")
 	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
-
-		// 1. 일반 로그인 처리
+		// 일반 로그인 처리
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
-		boolean loginPolicyYn = true;
-
-		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("") && loginPolicyYn) {
-
+		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")) {
 			request.getSession().setAttribute("LoginVO", resultVO);
 			return "forward:/cmm/main/mainPage.do";
 		} else {
-
 			model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
 			return "cmm/uat/uia/EgovLoginUsr";
 		}
-
 	}
 
 	/**
@@ -101,7 +92,6 @@ public class EgovLoginController {
 	 */
 	@RequestMapping(value = "/uat/uia/actionMain.do")
 	public String actionMain(ModelMap model) throws Exception {
-
 		// 1. 사용자 인증 처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
@@ -119,9 +109,11 @@ public class EgovLoginController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/uat/uia/actionLogout.do")
-	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
-
-		RequestContextHolder.getRequestAttributes().removeAttribute("LoginVO", RequestAttributes.SCOPE_SESSION);
+	public String actionLogout(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        session.invalidate();
+	    }
 
 		return "forward:/cmm/main/mainPage.do";
 	}

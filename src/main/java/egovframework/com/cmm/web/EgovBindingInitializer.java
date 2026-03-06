@@ -10,7 +10,6 @@ import org.springframework.web.bind.support.WebBindingInitializer;
 
 public class EgovBindingInitializer implements WebBindingInitializer {
 
-
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);

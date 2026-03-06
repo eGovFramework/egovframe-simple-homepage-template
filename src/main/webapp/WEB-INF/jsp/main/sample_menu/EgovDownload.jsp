@@ -1,265 +1,278 @@
 <%--
-  Class Name : EgovAboutSite.jsp
+  Class Name : EgovDownload.jsp
   Description : 샘플화면 - 자료실목록조회(sample)
   Modification Information
  
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2011.08.31   JJY       경량환경 버전 생성
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.09  신용호        신규 디자인 적용
  
     author   : 실행환경개발팀 JJY
     since    : 2011.08.31 
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<title>표준프레임워크 경량환경 홈페이지템플릿</title>
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자료실 - 표준프레임워크 심플 홈페이지템플릿</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
 </head>
 <body>
-<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>	
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-	<!-- header 시작 -->
-    <div id="header_mainsize">
-        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
-    </div>
-    <div id="topnavi">
-        <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/>
-    </div>      
-    <!-- //header 끝 -->
-	<!-- container 시작 -->
-	<div id="container">
-		<!-- 좌측메뉴 시작 -->
-		<div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-		<!-- //좌측메뉴 끝 -->			
-			<!-- content 시작 -->			
-			<div id="content">
-				<!-- 현재위치 네비게이션 시작 -->
-				<div id="cur_loc">
-					<div id="cur_loc_align">
-						<ul>
-							<li>HOME</li>
-							<li>&gt;</li>
-							<li>고객지원</li>
-							<li>&gt;</li>
-							<li><strong>자료실</strong></li>
-						</ul>
-					</div>
-				</div>	
-				<!-- //현재위치 네비게이션 끝 -->
-				<div><span class="sample_guide">본 화면은 디자인 예시임</span></div>
-				<!-- 타이틀 이미지 -->			
-				<div id="content_img_div"><img src="<c:url value='/'/>images/subtitle/img_subtitle03-01.gif" width="776" height="230" alt="자료실 전자정부표준프레임워크 경량환경 페이지의 다양한 종류의 쟈료를 다운 받으실 수 있습니다."/></div>
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+<!-- 현재 페이지는 기능이 없는 디자인 샘플 페이지 입니다! -->
 
-                <!-- 검색 필드 박스 시작 -->
-				<div id="search_field">
-					<form action="form_action.jsp" method="post">
-					  	<fieldset><legend>조건정보 영역</legend>	  
-					  	<div class="sf_start">
-					  		<ul id="search_first_ul">
-					  			<li>
-					  				<div class="search_leftselect">
-									<select name="search_select" id="search_select">
-									    <option value="0" selected="selected">전체</option>
-									    <option value="1">제목</option>
-									    <option value="2">제목/내용</option>
-									    <option value="3">작성자</option>
-									</select>	
-									</div>					
-					  			</li>
-					  			<li><div class="inputbox_style01"><input type="text" name="st_date" /></div></li>
-					  			<li><div class="buttons" style="float:left;padding-left:2px;">
-									<a href="#"><img src="<c:url value='/'/>images/img_search.gif" alt="search" />검색 </a>
-									</div></li>		
-					  		</ul>		
-						</div>			
-						</fieldset>
-					</form>
-				</div>
-				<!-- //검색 필드 박스 끝 -->		
-				<!-- 추천다운로드 시작 -->
-				<div id="download_div01">
-					<h3>추천 다운로드 자료</h3>
-					<div class="download_loc">
-						<div class="download_content_top_wrap">
-							<div class="download_img_loc">
-								<img src="<c:url value='/'/>images/sample/img_download.gif" alt="다운로드 자료 이미지"/>
-							</div>
-							<div class="download_text_loc">
-								<ul>
-									<li><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">egovframe installer v1.03</a></li>
-									<li>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</li>
-								</ul>	
-							</div>
-						</div>
-						<div class="download_content_btm_wrap">
-							<div class="download_img_loc">
-								<img src="<c:url value='/'/>images/sample/img_download.gif" alt="다운로드 자료 이미지"/>
-							</div>
-							<div class="download_text_loc">
-								<ul>
-									<li>egovframe installer v1.03</li>
-									<li>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</li>
-								</ul>	
-							</div>
-						</div>
-					
-					</div>
-					<div style="float:left;width:400px;height:270px;padding-top:10px; background-color:#f7f7f7">
-						<div class="download_content_top_wrap">
-							<div class="download_img_loc">
-								<img src="<c:url value='/'/>images/sample/img_download.gif" alt="다운로드 자료 이미지"/>
-							</div>
-							<div class="download_text_loc">
-								<ul>
-									<li>egovframe installer v1.03</li>
-									<li>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</li>
-								</ul>	
-							</div>
-						</div>
-						<div class="download_content_btm_wrap">
-							<div class="download_img_loc">
-								<img src="<c:url value='/'/>images/sample/img_download.gif" alt="다운로드 자료 이미지"/>
-							</div>
-							<div class="download_text_loc">
-								<ul>
-									<li>egovframe installer v1.03</li>
-									<li>egovframe의 템플릿 설치를 도와주는 인스톨러.....egovframe의 템플릿 설치를 도와주는 인스톨러</li>
-								</ul>	
-							</div>
-						</div>					
-					</div>
-				</div>
-				<!-- //추천다운로드 끝-->
-				<!-- 최신등록자료 시작 -->
-				<div id="download_new"><h3>최신등록자료</h3></div>
-				<div id="top10_div">
-					<div class="top10_loc">
-						<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number01.gif" alt="" /></span><a class="top10name" href="#">2011년도 표준프레임워크 기술지원 안내</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number02.gif" alt="" /></span><a class="top10name" href="#">2011년도 표준프레임워크 기술지원 안내</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>	
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number03.gif" alt="" /></span><a class="top10name" href="#">2011년도 표준프레임워크 기술지원 안내</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number04.gif" alt="" /></span><a class="top10name" href="#">2011년도 표준프레임워크 기술지원 안내</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>	
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number05.gif" alt="" /></span><a class="top10name" href="#">2011년도 표준프레임워크 기술지원 안내</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>				
-					</div>				
-					<div class="top10_rightloc">						
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number06.gif" alt="" /></span><a class="top10name" href="#">egovframework online installer v1.03</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>	
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number07.gif" alt="" /></span><a class="top10name" href="#">egovframework online installer v1.03</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number08.gif" alt="" /></span><a class="top10name" href="#">egovframework online installer v1.03</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>	
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number09.gif" alt="" /></span><a class="top10name" href="#">egovframework online installer v1.03</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>	
-					 	<ol>
-					 		<li><span class="top10_img"><img src="<c:url value='/'/>images/num/ico_number10.gif" alt="" /></span><a class="top10name" href="#">egovframework online installer v1.03</a><span class="top10date">2011-06-03</span></li>
-					 	</ol>		
-						</div>
-				</div>
-				<!-- //최신등록자료 끝 -->
-				<!-- 검색결과 시작 -->
-				<div id="page_info"><div id="page_info_align"></div></div>					
-				<!-- table add start -->
-				<div class="default_tablestyle">
-					<table summary="사용자목록관리" cellpadding="0" cellspacing="0">
-					<caption>사용자목록관리</caption>
-					<colgroup>
-    					<col width="38" >
-    					<col width="550" >  
-    					<col width="50" >
-    					<col width="50" >
-    					<col width="%" >
-					</colgroup>
-					<thead>
-					<tr>
-						<th scope="col" class="f_field">번호</th>
-						<th scope="col">소프트웨어명</th>
-						<th scope="col">다운</th>
-						<th scope="col">크기</th>
-						<th scope="col">등록일</th>
-					</tr>
-					</thead>
-					<tbody>		  			
-					<!-- loop 시작 -->								
-					<tr>
-						<td><strong>1</strong></td>
-						<td class="align_left_text"><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">전자정부표준프레임워크 인스톨러(Egovframework installer) V1.037</a></td>
-						<td>100</td>
-						<td>16MB</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>2</strong></td>
-						<td class="align_left_text"><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">전자정부표준프레임워크 인스톨러(Egovframework installer) V1.037</a></td>
-						<td>100</td>
-						<td>16MB</td>
-						<td>2011-04-04</td>
-					</tr>
-					<tr>
-						<td><strong>3</strong></td>
-						<td class="align_left_text"><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">전자정부표준프레임워크 인스톨러(Egovframework installer) V1.037</a></td>
-						<td>100</td>
-						<td>16MB</td>
-						<td>2011-04-04</td>
-					</tr>	
-					<tr>
-						<td><strong>4</strong></td>
-						<td class="align_left_text"><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">전자정부표준프레임워크 인스톨러(Egovframework installer) V1.037</a></td>
-						<td>100</td>
-						<td>16MB</td>
-						<td>2011-04-04</td>
-					</tr>	
-					<tr>
-						<td><strong>5</strong></td>
-						<td class="align_left_text"><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">전자정부표준프레임워크 인스톨러(Egovframework installer) V1.037</a></td>
-						<td>100</td>
-						<td>16MB</td>
-						<td>2011-04-04</td>
-					</tr>													
-					</tbody>
-					</table> 
-				</div>
-				<!-- //검색결과 끝 -->
-				<!-- 페이지 네비게이션 시작 -->
-				<div id="paging_div">
-					<ul class="paging_align">
-						<li class="first"><img src="<c:url value='/'/>images/btn/btn_prev.gif" alt="prev" /></li>
-						<li><a href="#">1</a></li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-						<li class="first"><img src="<c:url value='/'/>images/btn/btn_next.gif" alt="next" /></li>
-					</ul>
-				</div>	
-				<!-- //페이지 네비게이션 끝 -->
-				<div class="buttons" style="clear:both;float:right;padding-left:2px;"><a href="<c:url value='/EgovPageLink.do?linkIndex=6'/>">자료올리기 </a></div> 						
-			</div>
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+    
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/cmm/main/mainPage.do'/>">Home</a></li>
+                                    <li><a href="<c:url value='/EgovPageLink.do?menuNo=31&linkIndex=15'/>">고객지원</a></li>
+                                    <li>자료실</li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">고객지원</h1>
+                            <p class="txt_1">다양한 자료를 다운로드 받으실 수 있습니다.</p>
+                            <h2 class="tit_2">자료실</h2>
+
+
+                            <!-- 검색 영역 -->
+                            <div class="search_area">
+                                <form action="<c:url value='/EgovPageLink.do?linkIndex=5'/>" method="post">
+                                    <select name="search_select" id="search_select">
+                                        <option value="0" selected="selected">전체</option>
+                                        <option value="1">제목</option>
+                                        <option value="2">제목/내용</option>
+                                        <option value="3">작성자</option>
+                                    </select>
+                                    <input type="text" name="search_keyword" placeholder="검색어를 입력하세요" />
+                                    <button type="submit">🔍 검색</button>
+                                </form>
+                            </div>
+                            <!--// 검색 영역 -->		
 		
-			</div>				
-			<!-- //content 끝 -->
-	<!-- //container 끝 -->
-	<!-- footer 시작 -->
-	<div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-	<!-- //footer 끝 -->				
+                            <!-- 추천 다운로드 -->
+                            <div class="recommend_section">
+                                <h3>📥 추천 다운로드 자료</h3>
+                                <div class="recommend_grid">
+                                    <div class="recommend_item">
+                                        <img src="<c:url value='/images/sample/img_download.gif'/>" alt="다운로드 자료 이미지"/>
+                                        <div class="text">
+                                            <h4><a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">eGovFrame Installer v1.03</a></h4>
+                                            <p>eGovFrame의 템플릿 설치를 도와주는 인스톨러입니다. 간편하게 개발 환경을 구성할 수 있습니다.</p>
+                                        </div>
+                                    </div>
+                                    <div class="recommend_item">
+                                        <img src="<c:url value='/images/sample/img_download.gif'/>" alt="다운로드 자료 이미지"/>
+                                        <div class="text">
+                                            <h4>표준프레임워크 개발자 가이드</h4>
+                                            <p>표준프레임워크 개발 시 참고할 수 있는 상세한 개발 가이드 문서입니다.</p>
+                                        </div>
+                                    </div>
+                                    <div class="recommend_item">
+                                        <img src="<c:url value='/images/sample/img_download.gif'/>" alt="다운로드 자료 이미지"/>
+                                        <div class="text">
+                                            <h4>공통 컴포넌트 매뉴얼</h4>
+                                            <p>공통 컴포넌트 사용법을 설명하는 매뉴얼로, 다양한 예제가 포함되어 있습니다.</p>
+                                        </div>
+                                    </div>
+                                    <div class="recommend_item">
+                                        <img src="<c:url value='/images/sample/img_download.gif'/>" alt="다운로드 자료 이미지"/>
+                                        <div class="text">
+                                            <h4>샘플 프로젝트 소스</h4>
+                                            <p>실무에 바로 적용 가능한 샘플 프로젝트 소스 코드를 제공합니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// 추천 다운로드 -->
+
+                            <!-- 최신 등록 자료 -->
+                            <div class="latest_section">
+                                <h3>🆕 최신 등록 자료</h3>
+                                <div class="latest_grid">
+                                    <div class="latest_item">
+                                        <div class="number">1</div>
+                                        <a href="#" class="title">2026년도 표준프레임워크 기술지원 안내</a>
+                                        <span class="date">2026-01-09</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">2</div>
+                                        <a href="#" class="title">표준프레임워크 5.0 업데이트 가이드</a>
+                                        <span class="date">2026-01-08</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">3</div>
+                                        <a href="#" class="title">Spring Boot 3.x 통합 가이드</a>
+                                        <span class="date">2026-01-07</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">4</div>
+                                        <a href="#" class="title">공통 컴포넌트 활용 매뉴얼</a>
+                                        <span class="date">2026-01-06</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">5</div>
+                                        <a href="#" class="title">개발환경 설치 가이드 v5.0</a>
+                                        <span class="date">2026-01-05</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">6</div>
+                                        <a href="#" class="title">eGovFrame Online Installer v5.0</a>
+                                        <span class="date">2026-01-04</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">7</div>
+                                        <a href="#" class="title">표준프레임워크 아키텍처 설명서</a>
+                                        <span class="date">2026-01-03</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">8</div>
+                                        <a href="#" class="title">REST API 개발 가이드</a>
+                                        <span class="date">2026-01-02</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">9</div>
+                                        <a href="#" class="title">보안 설정 가이드</a>
+                                        <span class="date">2026-01-01</span>
+                                    </div>
+                                    <div class="latest_item">
+                                        <div class="number">10</div>
+                                        <a href="#" class="title">마이그레이션 가이드</a>
+                                        <span class="date">2025-12-31</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// 최신 등록 자료 -->
+
+                            <!-- 자료 목록 테이블 -->
+                            <div class="data_table">
+                                <table>
+                                    <caption>자료실 목록</caption>
+                                    <colgroup>
+                                        <col style="width: 80px;">
+                                        <col style="width: auto;">
+                                        <col style="width: 100px;">
+                                        <col style="width: 100px;">
+                                        <col style="width: 120px;">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>소프트웨어명</th>
+                                            <th>다운로드</th>
+                                            <th>크기</th>
+                                            <th>등록일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>5</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">전자정부표준프레임워크 인스톨러 (eGovFrame Installer) V5.0</a>
+                                            </td>
+                                            <td>1,234</td>
+                                            <td>256MB</td>
+                                            <td>2026-01-09</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>4</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">표준프레임워크 개발자 가이드 v5.0</a>
+                                            </td>
+                                            <td>856</td>
+                                            <td>12MB</td>
+                                            <td>2026-01-08</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>3</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">공통 컴포넌트 샘플 소스</a>
+                                            </td>
+                                            <td>542</td>
+                                            <td>48MB</td>
+                                            <td>2026-01-07</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>2</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">모바일 표준프레임워크 가이드</a>
+                                            </td>
+                                            <td>321</td>
+                                            <td>8MB</td>
+                                            <td>2026-01-06</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>1</strong></td>
+                                            <td class="align_left">
+                                                <a href="<c:url value='/EgovPageLink.do?linkIndex=5'/>">표준프레임워크 아키텍처 설명서</a>
+                                            </td>
+                                            <td>198</td>
+                                            <td>5MB</td>
+                                            <td>2026-01-05</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--// 자료 목록 테이블 -->
+
+                            <!-- 페이지네이션 -->
+                            <div class="pagination">
+                                <a href="#">◀</a>
+                                <span class="active">1</span>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <a href="#">▶</a>
+                            </div>
+                            <!--// 페이지네이션 -->
+
+                            <!-- 자료 올리기 버튼 -->
+                            <div class="btn_area">
+                                <a href="<c:url value='/EgovPageLink.do?linkIndex=6'/>" class="btn_upload">📤 자료 올리기</a>
+                            </div>
+                            <!--// 자료 올리기 버튼 -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
 </div>
-<!-- //전체 레이어 끝 -->
+
 </body>
 </html>

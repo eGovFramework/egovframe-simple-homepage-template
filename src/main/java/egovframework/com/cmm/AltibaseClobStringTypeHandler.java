@@ -1,4 +1,5 @@
 package egovframework.com.cmm;
+
 /*
  * Copyright 2002-2005 the original author or authors.
  *
@@ -21,11 +22,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.egovframe.rte.psl.orm.ibatis.support.AbstractLobTypeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.support.lob.LobCreator;
 import org.springframework.jdbc.support.lob.LobHandler;
-import org.egovframe.rte.psl.orm.ibatis.support.AbstractLobTypeHandler;
 
 /**
  * iBATIS TypeHandler implementation for Strings that get mapped to CLOBs.
@@ -64,45 +65,40 @@ public class AltibaseClobStringTypeHandler extends AbstractLobTypeHandler {
 		super(lobHandler);
 	}
 
-	protected void setParameterInternal(
-			PreparedStatement ps, int index, Object value, String jdbcType, LobCreator lobCreator)
-			throws SQLException {
+	@Override
+	protected void setParameterInternal(PreparedStatement ps, int index, Object value, String jdbcType, LobCreator lobCreator) throws SQLException {
 		lobCreator.setClobAsString(ps, index, (String) value);
 	}
 
-
-	protected Object getResultInternal(ResultSet rs, int index, LobHandler lobHandler)
-			throws SQLException {
+	@Override
+	protected Object getResultInternal(ResultSet rs, int index, LobHandler lobHandler) throws SQLException {
 
 		StringBuffer read_data = new StringBuffer("");
-	    int read_length;
+		int read_length;
 
-		char [] buf = new char[1024];
+		char[] buf = new char[1024];
 
-		Reader rd =  lobHandler.getClobAsCharacterStream(rs, index);
-	    try {
-			while( (read_length=rd.read(buf))  != -1) {
+		Reader rd = lobHandler.getClobAsCharacterStream(rs, index);
+		try {
+			while ((read_length = rd.read(buf)) != -1) {
 				read_data.append(buf, 0, read_length);
 			}
-	    } catch (IOException ie) {
-	    	LOGGER.debug("ie: {}", ie);//SQLException sqle = new SQLException(ie.getMessage());
-	    	//throw sqle;
-    	// 2011.10.10 보안점검 후속조치
-	    } finally {
-		    if (rd != null) {
-			try {
-			    rd.close();
-			} catch (Exception ignore) {
-				LOGGER.debug("IGNORE: {}", ignore.getMessage());
+		} catch (IOException ie) {
+			LOGGER.debug("ie: {}", ie);
+		} finally {
+			if (rd != null) {
+				try {
+					rd.close();
+				} catch (IOException ignore) {
+					LOGGER.debug("IGNORE: {}", ignore.getMessage());
+				}
 			}
-		    }
 		}
 
-	    return read_data.toString();
-
-		//return lobHandler.getClobAsString(rs, index);
+		return read_data.toString();
 	}
 
+	@Override
 	public Object valueOf(String s) {
 		return s;
 	}

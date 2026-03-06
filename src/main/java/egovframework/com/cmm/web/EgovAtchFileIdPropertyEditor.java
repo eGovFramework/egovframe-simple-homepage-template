@@ -27,27 +27,24 @@ import org.slf4j.LoggerFactory;
 public class EgovAtchFileIdPropertyEditor extends PropertyEditorSupport {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovAtchFileIdPropertyEditor.class);
-		
-		public void setAsText(String text) throws IllegalArgumentException {
-			LOGGER.debug("===>>> setText : "+text);
-			String decryptText = "";
-			if (text != null && !"".equals(text) ) {
-				try {
-					decryptText = EgovFileMngController.decrypt(text);
-				} catch (Exception e) {
-					LOGGER.debug(e.getMessage());
-					decryptText = "FILE_ID_DECRIPT_EXCEPTION_01";
-				}
-			}
-			this.setValue(decryptText);
 	
+	public void setAsText(String text) throws IllegalArgumentException {
+		LOGGER.debug("===>>> setText : "+text);
+		String decryptText = "";
+		// 26.03.04 KISA 보안취약점 조치
+		// 불필요한 try-catch 제거
+		if (text != null && !"".equals(text) ) {
+			decryptText = EgovFileMngController.decrypt(text);
 		}
-	
-	
-		public String getAsText() {
-			LOGGER.debug("===>>> getText : "+getValue());
-			return String.valueOf(getValue());
-	
-		}	
+		this.setValue(decryptText);
+
+	}
+
+
+	public String getAsText() {
+		LOGGER.debug("===>>> getText : "+getValue());
+		return String.valueOf(getValue());
+
+	}
 
 }

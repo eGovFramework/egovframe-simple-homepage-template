@@ -1,7 +1,6 @@
 package egovframework.com.cmm;
 
 import org.egovframe.rte.fdl.cmmn.exception.handler.ExceptionHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +26,9 @@ public class EgovComExcepHndlr implements ExceptionHandler {
     /**
      * 발생된 Exception을 처리한다.
      */
-    public void occur(Exception ex, String packageName) {
-		LOGGER.debug("[HANDLER][PACKAGE]::: {}", packageName);
-		LOGGER.debug("[HANDLER][Exception]:::", ex);
+    @Override
+	public void occur(Exception ex, String packageName) {
+    	LOGGER.debug("[HANDLER][PACKAGE]::: {}", packageName);
+		LOGGER.debug("[HANDLER][Exception]:::{}", ex);
     }
 }

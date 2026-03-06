@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class ComDefaultVO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6062858939907510631L;
 
 	/** 검색조건 */
     private String searchCondition = "";
@@ -128,7 +128,8 @@ public class ComDefaultVO implements Serializable {
         this.pageSize = pageSize;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
 

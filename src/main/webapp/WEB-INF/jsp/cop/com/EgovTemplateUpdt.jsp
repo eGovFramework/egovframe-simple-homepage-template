@@ -17,190 +17,205 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
-<script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
-<validator:javascript formName="templateInf" staticJavascript="false" xhtml="true" cdata="false"/>
-<script type="text/javascript">
-    function fn_egov_update_tmplatInfo() {
-        if (!validateTemplateInf(document.templateInf)){
-            return;
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <script src="<c:url value='/js/jquery-1.11.2.min.js'/>"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/EgovValidation.js'/>" ></script>
+    <script type="text/javascript">
+        function fn_egov_update_tmplatInfo() {
+            if (!validateTemplateInf(document.templateInf)){
+                return;
+            }
+            if (confirm('<spring:message code="common.update.msg" />')) {
+                document.templateInf.action = "<c:url value='/cop/com/updateTemplateInf.do'/>";
+                document.templateInf.submit();
+            }
         }
         
-        if (confirm('<spring:message code="common.update.msg" />')) {
-            document.templateInf.action = "<c:url value='/cop/com/updateTemplateInf.do'/>";
-            document.templateInf.submit();
+        function fn_egov_select_tmplatInfo() {
+            document.templateInf.action = "<c:url value='/cop/com/selectTemplateInfs.do'/>";
+            document.templateInf.submit();  
         }
-    }
-    
-    function fn_egov_select_tmplatInfo() {
-        document.templateInf.action = "<c:url value='/cop/com/selectTemplateInfs.do'/>";
-        document.templateInf.submit();  
-    }
-    
-    function fn_egov_selectTmplatType(obj) {
-        if (obj.value == 'TMPT01') {
-            document.getElementById('sometext').innerHTML = "게시판 템플릿은 CSS만 가능합니다.";
-        } else if (obj.value == '') {
-            document.getElementById('sometext').innerHTML = "";
-        } else {
-            document.getElementById('sometext').innerHTML = "템플릿은 JSP만 가능합니다.";
-        }       
-    }
-
-    function fn_egov_previewTmplat() {
-        var frm = document.templateInf;
         
-        var url = frm.tmplatCours.value;
-
-        var target = "";
-        var width = "";
-
-        if (frm.tmplatSeCode.value == 'TMPT01') {
-            target = "<c:url value='/cop/bbs/previewBoardList.do'/>";
-            width = "1024";
-        } else {
-        	alert('<spring:message code="cop.tmplatCours" /> 지정 후 선택해 주세요.');
+        function fn_egov_selectTmplatType(obj) {
+            if (obj.value == 'TMPT01') {
+                document.getElementById('sometext').innerHTML = "게시판 템플릿은 CSS만 가능합니다.";
+            } else if (obj.value == '') {
+                document.getElementById('sometext').innerHTML = "";
+            } else {
+                document.getElementById('sometext').innerHTML = "템플릿은 JSP만 가능합니다.";
+            }       
         }
 
-        if (target != "") {
-            window.open(target + "?searchWrd="+url, "preview", "width=" + width + "px, height=500px;");
+        function fn_egov_previewTmplat() {
+            var frm = document.templateInf;
+            
+            var url = frm.tmplatCours.value;
+
+            var target = "";
+            var width = "";
+
+            if (frm.tmplatSeCode.value == 'TMPT01') {
+                target = "<c:url value='/cop/bbs/previewBoardList.do'/>";
+                width = "1024";
+            } else {
+                alert('<spring:message code="cop.tmplatCours" /> 지정 후 선택해 주세요.');
+            }
+
+            if (target != "") {
+                window.open(target + "?searchWrd="+url, "preview", "width=" + width + "px, height=800px;");
+            }
         }
-    }
-</script>
-<title>템플릿 정보수정</title>
-
-<style type="text/css">
-    h1 {font-size:12px;}
-    caption {visibility:hidden; font-size:0; height:0; margin:0; padding:0; line-height:0;}
-</style>
-
-
+    </script>
+    <title>템플릿 정보수정</title>
 </head>
 <body onload="fn_egov_selectTmplatType(document.templateInf.tmplatSeCode)">
-<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>    
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-    <!-- header 시작 -->
-    <div id="header_mainsize"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/></div>
-    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>        
-    <!-- //header 끝 --> 
-    <!-- container 시작 -->
-    <div id="container">
-        <!-- 좌측메뉴 시작 -->
-        <div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-        <!-- //좌측메뉴 끝 -->
-            <!-- 현재위치 네비게이션 시작 -->
-            <div id="content">
-                <div id="cur_loc">
-                    <div id="cur_loc_align">
-                        <ul>
-                            <li>HOME</li>
-                            <li>&gt;</li>
-                            <li>사이트관리</li>
-                            <li>&gt;</li>
-                            <li><strong>게시판템플릿관리</strong></li>
-                        </ul>
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/'/>">Home</a></li>
+                                    <li><a href="">사이트관리</a></li>
+                                    <li>게시판템플릿관리</li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">사이트관리</h1>
+
+                            <p class="txt_1">템플릿 정보를 수정합니다.</p>
+
+                            <h2 class="tit_2">게시판템플릿관리</h2>
+
+                            <form:form modelAttribute="templateInf" name="templateInf" method="post">
+                                <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" />
+                                <input name="tmplatNm" type="hidden" value='<c:out value="${TemplateInfVO.tmplatNm}"/>' />
+
+                                <!-- 템플릿 수정 폼 -->
+                                <div class="board_view2">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width: 190px;">
+                                            <col style="width: auto;">
+                                        </colgroup>
+                                        <tr>
+                                            <td class="lb">
+                                                <span><spring:message code="cop.tmplatNm" /></span>
+                                            </td>
+                                            <td>
+                                                <input name="tmplatId" type="hidden" value='<c:out value="${TemplateInfVO.tmplatId}"/>' />
+                                                <c:out value="${TemplateInfVO.tmplatNm}"/>
+                                                <form:errors path="tmplatId" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="tmplatSeCode"><spring:message code="cop.tmplatSeCode" /></label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <label class="f_select w_200" for="tmplatSeCode">
+                                                    <select id="tmplatSeCode" name="tmplatSeCode" onchange="fn_egov_selectTmplatType(this)">
+                                                        <option value=''>--선택하세요--</option>
+                                                        <c:forEach var="result" items="${resultList}" varStatus="status">
+                                                            <option value='<c:out value="${result.code}"/>' 
+                                                                <c:if test="${TemplateInfVO.tmplatSeCode == result.code}">selected="selected"</c:if>>
+                                                                <c:out value="${result.codeNm}"/>
+                                                            </option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </label>
+                                                <span id="sometext" style="margin-left: 15px; color: #666; font-size: 14px;"></span>
+                                                <form:errors path="tmplatSeCode" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label for="tmplatCours"><spring:message code="cop.tmplatCours" /></label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <input id="tmplatCours" name="tmplatCours" type="text" class="f_txt w_full" 
+                                                    value='<c:out value="${TemplateInfVO.tmplatCours}"/>' maxlength="60" title="템플릿경로입력">
+                                                <form:errors path="tmplatCours" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="lb">
+                                                <label><spring:message code="cop.useAt" /></label>
+                                                <span class="req">필수</span>
+                                            </td>
+                                            <td>
+                                                <span class="radio_wrap">
+                                                    <label class="radio_label">
+                                                        <input type="radio" name="useAt" value="Y" 
+                                                            <c:if test="${TemplateInfVO.useAt == 'Y'}"> checked="checked"</c:if>>
+                                                        사용
+                                                    </label>
+                                                    <label class="radio_label">
+                                                        <input type="radio" name="useAt" value="N" 
+                                                            <c:if test="${TemplateInfVO.useAt == 'N'}"> checked="checked"</c:if>>
+                                                        미사용
+                                                    </label>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!-- 버튼 영역 -->
+                                <div class="board_view_bot">
+                                    <div class="left_col btn3">
+                                        <a href="#LINK" class="btn btn_gray_48" onclick="javascript:fn_egov_previewTmplat(); return false;"><spring:message code="cop.preview" /></a>
+                                    </div>
+                                    <div class="right_col btn1">
+                                        <a href="#LINK" class="btn btn_blue_46" onclick="javascript:fn_egov_update_tmplatInfo(); return false;"><spring:message code="button.save" /></a>
+                                        <a href="<c:url value='/cop/com/selectTemplateInfs.do'/>" class="btn btn_blue_46" onclick="javascript:fn_egov_select_tmplatInfo(); return false;"><spring:message code="button.list" /></a>
+                                    </div>
+                                </div>
+                                <!--// 버튼 영역 -->
+                            </form:form>
+                            <!--// 템플릿 수정 폼 -->
+
+                        </div>
                     </div>
                 </div>
-                <!-- 검색 필드 박스 시작 -->
-                <div id="search_field">
-                    <div id="search_field_loc"><h2><strong>템플릿 정보수정 및 상세보기</strong></h2></div>
-                </div>
-				<form:form modelAttribute="templateInf" name="templateInf" method="post" >
-					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>" />
-					<input name="tmplatNm" type="hidden" value='<c:out value="${TemplateInfVO.tmplatNm}"/>' />
+            </div>
+        </div>
+    </div>
 
-                    <div class="modify_user" >
-                        <table >
-					      <tr> 
-					        <th width="20%" height="23" class="required_text" nowrap ><spring:message code="cop.tmplatNm" /></th>
-					        <td width="80%" nowrap="nowrap">
-					          <input name="tmplatId" type="hidden" size="60" value='<c:out value="${TemplateInfVO.tmplatId}"/>'  maxlength="60" >
-					          <c:out value="${TemplateInfVO.tmplatNm}"/>
-					          <br/><form:errors path="tmplatId" />   
-					        </td>
-					      </tr>
-					      <tr> 
-					        <th height="23" class="required_text" >
-					            <label for="tmplatSeCode">
-					                <spring:message code="cop.tmplatSeCode" />
-					            </label>    
-                                <img src="<c:url value='/images/required.gif' />" width="15" height="15" alt="required"/>
-					        </th>
-					        <td>
-					        <select id="tmplatSeCode" name="tmplatSeCode" class="select" onchange="fn_egov_selectTmplatType(this)">
-					               <option selected value=''>--선택하세요--</option>
-					            <c:forEach var="result" items="${resultList}" varStatus="status">
-					                <option value='<c:out value="${result.code}"/>' <c:if test="${TemplateInfVO.tmplatSeCode == result.code}">selected="selected"</c:if> ><c:out value="${result.codeNm}"/></option>
-					            </c:forEach>    
-					        </select>&nbsp;&nbsp;&nbsp;<span id="sometext"></span>
-					        <br/><form:errors path="tmplatSeCode" /> 
-					        </td>
-					      </tr> 
-					      <tr> 
-					        <th width="20%" height="23" class="required_text" nowrap >
-					            <label for="tmplatCours">
-					                <spring:message code="cop.tmplatCours" />
-					            </label>    
-                                <img src="<c:url value='/images/required.gif' />" width="15" height="15" alt="required"/>
-					        </th>
-					        <td width="80%" nowrap="nowrap">
-					          <input id="tmplatCours" name="tmplatCours" type="text" size="60" value='<c:out value="${TemplateInfVO.tmplatCours}"/>' maxlength="60" style="width:100%">
-					          <br/><form:errors path="tmplatCours" /> 
-					        </td>
-					      </tr>
-					      <tr> 
-					        <th width="20%" height="23" class="required_text" nowrap >
-					            <label for="useAt"> 
-					                <spring:message code="cop.useAt" />
-					            </label>    
-                                <img src="<c:url value='/images/required.gif' />" width="15" height="15" alt="required"/>
-					        </th>
-					        <td width="80%" nowrap="nowrap">
-					            Y : <input type="radio" name="useAt" class="radio2" value="Y"  <c:if test="${TemplateInfVO.useAt == 'Y'}"> checked="checked"</c:if> >&nbsp;
-					            N : <input type="radio" name="useAt" class="radio2" value="N" <c:if test="${TemplateInfVO.useAt == 'N'}"> checked="checked"</c:if>>
-					        </td>
-					      </tr>  
-                        </table>
-                    </div>
-
-
-                    <!-- 버튼 시작(상세지정 style로 div에 지정) -->
-                    <div class="buttons" style="padding-top:10px;padding-bottom:10px;">
-                      <!-- 목록/저장버튼  -->
-                      <table border="0" cellspacing="0" cellpadding="0" align="center">
-                        <tr> 
-                          <td>
-                              <a href="#LINK" onclick="javascript:fn_egov_update_tmplatInfo(); return false;"><spring:message code="button.save" /></a>
-                          </td>
-                          <td width="10"></td>
-                          <td>
-                              <a href="<c:url value='/cop/com/selectTemplateInfs.do'/>" onclick="javascript:fn_egov_select_tmplatInfo(); return false;"><spring:message code="button.list" /></a>
-                          </td>
-                          <td width="10"></td>
-                          <td>
-                              <a href="#LINK" onclick="javascript:fn_egov_previewTmplat(); return false;" title="새창" ><spring:message code="cop.preview" /></a>
-                          </td>  
-                        </tr>
-                      </table>
-                    </div>
-                    <!-- 버튼 끝 -->                           
-                </form:form>
-
-            </div>  
-            <!-- //content 끝 -->    
-    </div>  
-    <!-- //container 끝 -->
-    <!-- footer 시작 -->
-    <div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-    <!-- //footer 끝 -->
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
 </div>
-<!-- //전체 레이어 끝 -->
+
 </body>
 </html>
-

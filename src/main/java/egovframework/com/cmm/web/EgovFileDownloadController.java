@@ -5,17 +5,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
-import org.egovframe.rte.fdl.cryptography.EgovCryptoService;
+import org.egovframe.rte.fdl.crypto.EgovCryptoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -28,6 +23,9 @@ import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 파일 다운로드를 위한 컨트롤러 클래스
@@ -52,20 +50,20 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
  */
 @Controller
 public class EgovFileDownloadController {
-	
+
 	/** 로그설정 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileDownloadController.class);
 	
 	/** 암호화서비스 */
 	@Resource(name = "egovARIACryptoService")
-	EgovCryptoService cryptoService;
+	private EgovCryptoService cryptoService;
 
 	@Resource(name = "EgovFileMngService")
 	private EgovFileMngService fileService;
-	
+
 	// 주의 : 반드시 기본값 "egovframe"을 다른것으로 변경하여 사용하시기 바랍니다.
 	public static final String ALGORITHM_KEY = EgovProperties.getProperty("Globals.File.algorithmKey");
-	
+		
 
 	/**
 	 * 브라우저 구분 얻기.
@@ -121,7 +119,6 @@ public class EgovFileDownloadController {
 			}
 			encodedFilename = sb.toString();
 		} else {
-			//throw new RuntimeException("Not supported browser");
 			throw new IOException("Not supported browser");
 		}
 
@@ -145,15 +142,15 @@ public class EgovFileDownloadController {
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
 		if (isAuthenticated) {
-
+			
 			// 암호화된 atchFileId 를 복호화. (2022.12.06 추가) - 파일아이디가 유추 불가능하도록 조치
 			String param_atchFileId = (String) commandMap.get("atchFileId");
-	    	param_atchFileId = param_atchFileId.replaceAll(" ", "+");
+			param_atchFileId = param_atchFileId.replaceAll(" ", "+");
 			byte[] decodedBytes = Base64.getDecoder().decode(param_atchFileId);
 			String decodedString = new String(cryptoService.decrypt(decodedBytes, ALGORITHM_KEY));
 			String decodedFileId = StringUtils.substringAfter(decodedString, "|");
 			String fileSn = (String) commandMap.get("fileSn");
-
+	
 			FileVO fileVO = new FileVO();
 			fileVO.setAtchFileId(decodedFileId);
 			fileVO.setFileSn(fileSn);
@@ -167,18 +164,10 @@ public class EgovFileDownloadController {
 			if (fSize > 0) {
 				String mimetype = "application/x-msdownload";
 
-				//response.setBufferSize(fSize);	// OutOfMemeory 발생
 				response.setContentType(mimetype);
-				//response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fvo.getOrignlFileNm(), "utf-8") + "\"");
 				setDisposition(fvo.getOrignlFileNm(), request, response);
 				//response.setContentLength(fSize);
 
-				/*
-				 * FileCopyUtils.copy(in, response.getOutputStream());
-				 * in.close();
-				 * response.getOutputStream().flush();
-				 * response.getOutputStream().close();
-				 */
 				BufferedInputStream in = null;
 				BufferedOutputStream out = null;
 
@@ -188,38 +177,27 @@ public class EgovFileDownloadController {
 
 					FileCopyUtils.copy(in, out);
 					out.flush();
-				} catch (Exception ex) {
-					// 다음 Exception 무시 처리
-					// Connection reset by peer: socket write error
+				} catch (IOException ex) {
 					LOGGER.debug("IGNORED: {}", ex.getMessage());
 				} finally {
 					if (in != null) {
 						try {
 							in.close();
-						} catch (Exception ignore) {
+						} catch (IOException ignore) {
 							LOGGER.debug("IGNORED: {}", ignore.getMessage());
 						}
 					}
 					if (out != null) {
 						try {
 							out.close();
-						} catch (Exception ignore) {
+						} catch (IOException ignore) {
 							LOGGER.debug("IGNORED: {}", ignore.getMessage());
 						}
 					}
 				}
 
 			} else {
-				response.setContentType("application/x-msdownload");
-
-				PrintWriter printwriter = response.getWriter();
-				printwriter.println("<html>");
-				printwriter.println("<br><br><br><h2>Could not get file name:<br>" + fvo.getOrignlFileNm() + "</h2>");
-				printwriter.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
-				printwriter.println("<br><br><br>&copy; webAccess");
-				printwriter.println("</html>");
-				printwriter.flush();
-				printwriter.close();
+				request.getRequestDispatcher("/cmm/error/egovBizException.jsp").forward(request, response);
 			}
 		}
 	}

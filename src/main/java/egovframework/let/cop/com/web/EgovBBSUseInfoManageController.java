@@ -2,22 +2,9 @@ package egovframework.let.cop.com.web;
 
 import java.util.Map;
 
-import egovframework.com.cmm.EgovMessageSource;
-import egovframework.com.cmm.LoginVO;
-import egovframework.com.cmm.util.EgovUserDetailsHelper;
-import egovframework.let.cop.com.service.BoardUseInf;
-import egovframework.let.cop.com.service.BoardUseInfVO;
-import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
-
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,12 +12,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springmodules.validation.commons.DefaultBeanValidator;
-//SHT-CUSTOMIZING//import egovframework.let.cop.clb.service.ClubUser;
-//SHT-CUSTOMIZING//import egovframework.let.cop.clb.service.EgovClubManageService;
-//SHT-CUSTOMIZING//import egovframework.let.cop.cmy.service.CommunityUser;
-//SHT-CUSTOMIZING//import egovframework.let.cop.cmy.service.EgovCommunityManageService;
-//import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+
+import jakarta.validation.Valid;
+
+import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import egovframework.let.cop.com.service.BoardUseInf;
+import egovframework.let.cop.com.service.BoardUseInfVO;
+import egovframework.let.cop.com.service.EgovBBSUseInfoManageService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 게시판의 이용정보를 관리하기 위한 컨트롤러 클래스
@@ -59,10 +52,6 @@ public class EgovBBSUseInfoManageController {
     /** EgovPropertyService */
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
-
-    /** DefaultBeanValidator */
-    @Autowired
-    private DefaultBeanValidator beanValidator;
 
     /** EgovMessageSource */
     @Resource(name="egovMessageSource")
@@ -123,7 +112,7 @@ public class EgovBBSUseInfoManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/com/insertBBSUseInf.do")
-    public String insertBBSUseInf(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
+    public String insertBBSUseInf(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @Valid @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
 	    BindingResult bindingResult, @RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
@@ -131,9 +120,7 @@ public class EgovBBSUseInfoManageController {
 	    LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 	    Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
-		beanValidator.validate(boardUseInf, bindingResult);
-
-		if (bindingResult.hasErrors()) {
+	    if (bindingResult.hasErrors()) {
 		    return "cop/com/EgovBoardUseInfRegist";
 		}
 
@@ -312,7 +299,7 @@ public class EgovBBSUseInfoManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/com/updateBBSUseInfByTrget.do")
-    public String updateBBSUseInfByTrget(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
+    public String updateBBSUseInfByTrget(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @Valid @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
     		@RequestParam Map<String, Object> commandMap, SessionStatus status, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
@@ -340,7 +327,7 @@ public class EgovBBSUseInfoManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/com/insertBBSUseInfByTrget.do")
-    public String insertBBSUseInfByTrget(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
+    public String insertBBSUseInfByTrget(@ModelAttribute("searchVO") BoardUseInfVO bdUseVO, @Valid @ModelAttribute("boardUseInf") BoardUseInf boardUseInf,
     		@RequestParam Map<String, Object> commandMap, SessionStatus status, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인

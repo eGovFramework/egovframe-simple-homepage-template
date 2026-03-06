@@ -3,11 +3,12 @@
   Description : 게시물 조회 화면
   Modification Information
  
-      수정일         수정자                   수정내용
-    -------    --------    ---------------------------
-     2009.03.23   이삼섭          최초 생성
-     2009.06.26   한성곤          2단계 기능 추가 (댓글관리, 만족도조사)
-     2011.08.31   JJY       경량환경 버전 생성
+    수정일        수정자        수정내용
+    ----------  --------    ---------------------------
+    2009.03.23  이삼섭        최초 생성
+    2009.06.26  한성곤        2단계 기능 추가 (댓글관리, 만족도조사)
+    2011.08.31  JJY         경량환경 버전 생성
+    2026.01.12  신용호        신규 디자인 적용
  
     author   : 공통서비스 개발팀 이삼섭
     since    : 2009.03.23 
@@ -18,13 +19,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="egovc" uri="/WEB-INF/tlds/egovc.tld" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Language" content="ko" >
-<link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
-<link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><c:out value='${result.bbsNm}'/> - 글조회</title>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/layout.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/component.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/page.css'/>">
+    <link href="<c:url value='${brdMstrVO.tmplatCours}' />" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="<c:url value='/js/ui.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/EgovBBSMng.js' />"></script>
 <c:if test="${anonymous == 'true'}"><c:set var="prefix" value="/anonymous"/></c:if>
 <script type="text/javascript">
     function onloading() {
@@ -34,13 +43,13 @@
     }
     
     function fn_egov_select_noticeList() {
-    	event.preventDefault(); 
+        event.preventDefault(); 
         document.frm.action = "<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>";
         document.frm.submit();  
     }
     
     function fn_egov_delete_notice() {
-    	event.preventDefault();
+        event.preventDefault();
         if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
             alert('등록시 사용한 패스워드를 입력해 주세요.');
             document.frm.password.focus();
@@ -55,7 +64,7 @@
     }
     
     function fn_egov_moveUpdt_notice() {
-    	event.preventDefault();
+        event.preventDefault();
         if ("<c:out value='${anonymous}'/>" == "true" && document.frm.password.value == '') {
             alert('등록시 사용한 패스워드를 입력해 주세요.');
             document.frm.password.focus();
@@ -67,7 +76,7 @@
     }
     
     function fn_egov_addReply() {
-    	event.preventDefault();
+        event.preventDefault();
         document.frm.action = "<c:url value='/cop/bbs${prefix}/addReplyBoardArticle.do'/>";
         document.frm.submit();          
     }   
@@ -92,157 +101,154 @@
 </script>
 </c:if>
 <!-- 2009.06.29 : 2단계 기능 추가  -->
-<title><c:out value='${result.bbsNm}'/> - 글조회</title>
-
-<style type="text/css">
-    h1 {font-size:12px;}
-    caption {visibility:hidden; font-size:0; height:0; margin:0; padding:0; line-height:0;}
-</style>
-
 </head>
 <body onload="onloading();">
-<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>    
-<!-- 전체 레이어 시작 -->
-<div id="wrap">
-    <!-- header 시작 -->
-    <div id="header_mainsize"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/></div>
-    <div id="topnavi"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncTopnav.jsp"/></div>        
-    <!-- //header 끝 --> 
-    <!-- container 시작 -->
-    <div id="container">
-        <!-- 좌측메뉴 시작 -->
-        <div id="leftmenu"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/></div>
-        <!-- //좌측메뉴 끝 -->
-            <!-- 현재위치 네비게이션 시작 -->
-            <div id="content">
-                <div id="cur_loc">
-                    <div id="cur_loc_align">
-                        <ul>
-                            <li>HOME</li>
-                            <li>&gt;</li>
-                            <li>알림마당</li>
-                            <li>&gt;</li>
-                            <li><strong>${brdMstrVO.bbsNm}</strong></li>
-                        </ul>
+<noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
+
+<!-- Skip navigation -->
+<a href="#contents" class="skip_navi">본문 바로가기</a>
+
+<div class="wrap">
+    <!-- Header -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncHeader.jsp"/>
+    <!--// Header -->
+
+    <div class="container">
+        <div class="sub_layout">
+            <div class="sub_in">
+                <div class="layout">
+                    <!-- Left menu -->
+                    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncLeftmenu.jsp"/>
+                    <!--// Left menu -->
+
+                    <div class="content_wrap">
+                        <div id="contents" class="content">
+                            <!-- Location -->
+                            <div class="location">
+                                <ul>
+                                    <li><a class="home" href="<c:url value='/'/>">Home</a></li>
+                                    <li><a href="">알림마당</a></li>
+                                    <li><c:out value='${result.bbsNm}'/></li>
+                                </ul>
+                            </div>
+                            <!--// Location -->
+
+                            <h1 class="tit_1">알림마당</h1>
+
+                            <p class="txt_1">표준프레임워크센터에서 회원여러분들께 알려드리는 모든 소식을 모았습니다.</p>
+
+                            <h2 class="tit_2"><c:out value='${result.bbsNm}'/></h2>
+
+                            <form name="frm" method="get" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
+                                <input type="hidden" name="searchCnd" value="<c:out value="${searchVO.searchCnd}" />">
+                                <input type="hidden" name="searchWrd" value="<c:out value="${searchVO.searchWrd}" />">
+                                <input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
+                                <input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
+                                <input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
+                                <input type="hidden" name="nttId" value="<c:out value='${result.nttId}'/>" >
+                                <input type="hidden" name="parnts" value="<c:out value='${result.parnts}'/>" >
+                                <input type="hidden" name="sortOrdr" value="<c:out value='${result.sortOrdr}'/>" >
+                                <input type="hidden" name="replyLc" value="<c:out value='${result.replyLc}'/>" >
+                                <input type="hidden" name="nttSj" value="<c:out value='${result.nttSj}'/>" >
+
+                                <!-- 게시판 상세보기 -->
+                                <div class="board_view">
+                                    <!-- 게시글 헤더 -->
+                                    <div class="board_view_top">
+                                        <div class="tit"><c:out value="${result.nttSj}" /></div>
+                                        <div class="info">
+                                            <dl>
+                                                <dt>작성자</dt>
+                                                <dd><c:out value="${result.frstRegisterNm}" /></dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>작성일</dt>
+                                                <dd><c:out value="${result.frstRegisterPnttm}" /></dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>조회수</dt>
+                                                <dd><c:out value="${result.inqireCo}" /></dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+
+                                    <!-- 게시글 내용 -->
+                                    <div class="board_article">
+                                        <textarea id="nttCn" name="nttCn" class="textarea" cols="30" rows="20" readonly="readonly" title="글내용"><c:out value="${result.nttCn}" escapeXml="true" /></textarea>
+                                    </div>
+
+                                    <!-- 첨부파일 -->
+                                    <c:if test="${not empty result.atchFileId}">
+                                    <div class="board_attach">
+                                        <c:if test="${result.bbsAttrbCode == 'BBSA02'}">
+                                        <dl>
+                                            <dt>첨부이미지</dt>
+                                            <dd>
+                                                <c:import url="/cmm/fms/selectImageFileInfs.do" charEncoding="utf-8">
+                                                    <c:param name="atchFileId" value="${egovc:encryptSession(result.atchFileId, pageContext.session.id)}" />
+                                                </c:import>
+                                            </dd>
+                                        </dl>
+                                        </c:if>
+                                        <dl>
+                                            <dt>첨부파일</dt>
+                                            <dd>
+                                                <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+                                                    <c:param name="param_atchFileId" value="${egovc:encrypt(result.atchFileId)}" />
+                                                </c:import>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    </c:if>
+                                    <!--// 첨부파일 -->
+
+                                    <!-- 익명 게시판 패스워드 -->
+                                    <c:if test="${anonymous == 'true'}">
+                                    <div class="board_attach">
+                                        <dl>
+                                            <dt><label for="password"><spring:message code="cop.password" /></label></dt>
+                                            <dd>
+                                                <input name="password" id="password" title="암호" type="password" class="f_txt w_200" value="" maxlength="20">
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    </c:if>
+                                    <!--// 익명 게시판 패스워드 -->
+
+                                    <!-- 버튼 영역 -->
+                                    <div class="board_view_bot">
+                                        <div class="left_col btn3">
+                                            <% if(null != session.getAttribute("LoginVO")){ %>
+                                            <c:if test="${result.frstRegisterId == sessionUniqId}">
+                                                <a href="#LINK" class="btn btn_gray_48" onclick="fn_egov_moveUpdt_notice();">수정</a>
+                                                <a href="#LINK" class="btn btn_gray_48" onclick="fn_egov_delete_notice();">삭제</a>
+                                            </c:if>
+                                            <c:if test="${result.replyPosblAt == 'Y'}">
+                                                <a href="#LINK" class="btn btn_gray_48" onclick="fn_egov_addReply();">답글작성</a>
+                                            </c:if>
+                                            <% } %>
+                                        </div>
+
+                                        <div class="right_col btn1">
+                                            <a href="#LINK" class="btn btn_blue_46" onclick="fn_egov_select_noticeList();">목록</a>
+                                        </div>
+                                    </div>
+                                    <!--// 버튼 영역 -->
+                                </div>
+                                <!--// 게시판 상세보기 -->
+                            </form>
+
+                        </div>
                     </div>
                 </div>
-                <!-- 검색 필드 박스 시작 -->
-                <div id="search_field">
-                    <div id="search_field_loc"><h2><strong>글조회</strong></h2></div>
-                </div>
-				<form name="frm" method="get" action="<c:url value='/cop/bbs${prefix}/selectBoardList.do'/>">
-					<input type="hidden" name="searchCnd" value="<c:out value="${searchVO.searchCnd}" />">
-					<input type="hidden" name="searchWrd" value="<c:out value="${searchVO.searchWrd}" />">
-					<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>">
-					<input name="menuNo" type="hidden" value="<c:out value="${searchVO.menuNo}" />">
-					<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" >
-					<input type="hidden" name="nttId" value="<c:out value='${result.nttId}'/>" >
-					<input type="hidden" name="parnts" value="<c:out value='${result.parnts}'/>" >
-					<input type="hidden" name="sortOrdr" value="<c:out value='${result.sortOrdr}'/>" >
-					<input type="hidden" name="replyLc" value="<c:out value='${result.replyLc}'/>" >
-					<input type="hidden" name="nttSj" value="<c:out value='${result.nttSj}'/>" >
-					<input type="submit" id="invisible" class="invisible"/>
+            </div>
+        </div>
+    </div>
 
-                    <div class="modify_user" >
-                        <table>
-                          <tr> 
-					        <th width="15%" height="23" nowrap >제목</th>
-					        <td width="85%" colspan="5" nowrap="nowrap"><c:out value="${result.nttSj}" />
-					        </td>
-					      </tr>
-					      <tr> 
-					        <th width="15%" height="23" nowrap >작성자</th>
-					        <td width="15%" nowrap="nowrap">
-					            <c:out value="${result.frstRegisterNm}" />
-					        </td>
-					        <th width="15%" height="23" nowrap >작성시간</th>
-					        <td width="15%" nowrap="nowrap"><c:out value="${result.frstRegisterPnttm}" />
-					        </td>
-					        <th width="15%" height="23" nowrap >조회수</th>
-					        <td width="15%" nowrap="nowrap"><c:out value="${result.inqireCo}" />
-					        </td>
-					      </tr>    
-					      <tr> 
-					        <th height="23" >글내용</th>
-					        <td colspan="5">
-					         <div id="bbs_cn">
-					           <textarea id="nttCn" name="nttCn"  cols="75" rows="20"  style="width:99%" readonly="readonly" title="글내용"><c:out value="${result.nttCn}" escapeXml="true" /></textarea>
-					         </div>
-					        </td>
-					      </tr>
-					      <c:if test="${not empty result.atchFileId}">
-					          <c:if test="${result.bbsAttrbCode == 'BBSA02'}">
-					          <tr> 
-					            <th height="23" >첨부이미지</th>
-					            <td colspan="5">
-					                    <c:import url="/cmm/fms/selectImageFileInfs.do" charEncoding="utf-8">
-					                        <c:param name="atchFileId" value="${egovc:encryptSession(result.atchFileId, pageContext.session.id)}" />
-					                    </c:import>
-					            </td>
-					          </tr>
-					          </c:if>
-					          <tr> 
-					            <th height="23">첨부파일 목록</th>
-					            <td colspan="5">
-					                <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
-					                    <c:param name="param_atchFileId" value="${egovc:encrypt(result.atchFileId)}" />
-					                </c:import>
-					            </td>
-					          </tr>
-					      </c:if>
-					      <c:if test="${anonymous == 'true'}">
-					      <tr> 
-					        <th height="23"><label for="password"><spring:message code="cop.password" /></label></th>
-					        <td colspan="5">
-					            <input name="password" title="암호" type="password" size="20" value="" maxlength="20" >
-					        </td>
-					      </tr>
-					      </c:if>   
-                        </table>
-                    </div>
-
-                    <!-- 버튼 시작(상세지정 style로 div에 지정) -->
-                    <div class="buttons" style="padding-top:10px;padding-bottom:10px;">
-                      <!-- 목록/저장버튼  -->
-                      <table border="0" cellspacing="0" cellpadding="0" align="center">
-                        <tr>
-                         <% if(null != session.getAttribute("LoginVO")){ %>
-			             <c:if test="${result.frstRegisterId == sessionUniqId}">     
-			                  <td>
-			                     <a href="#LINK" onclick="fn_egov_moveUpdt_notice();">수정</a>
-			                  </td>
-			                  
-			                  <td width="10"></td>
-			                  <td>
-			                     <a href="#LINK" onclick="fn_egov_delete_notice();">삭제</a>
-			                  </td>
-			             </c:if>    
-			             <c:if test="${result.replyPosblAt == 'Y'}">     
-			                  <td width="10"></td>
-			                  <td>
-			                     <a href="#LINK" onclick="fn_egov_addReply();">답글작성</a>
-			                  </td>
-			              </c:if>
-			              <% } %>
-			              <td width="10"></td>
-                          <td>
-                             <a href="#LINK" onclick="fn_egov_select_noticeList();">목록</a>
-                          </td>
-			            </tr>
-                      </table>
-                    </div>
-                    <!-- 버튼 끝 -->                           
-                </form>
-
-            </div>  
-            <!-- //content 끝 -->    
-    </div>  
-    <!-- //container 끝 -->
-    <!-- footer 시작 -->
-    <div id="footer"><jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/></div>
-    <!-- //footer 끝 -->
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/jsp/main/inc/EgovIncFooter.jsp"/>
+    <!--// Footer -->
 </div>
-<!-- //전체 레이어 끝 -->
+
 </body>
 </html>
-

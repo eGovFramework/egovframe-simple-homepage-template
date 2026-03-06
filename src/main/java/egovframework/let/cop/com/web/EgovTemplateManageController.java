@@ -1,6 +1,20 @@
 package egovframework.let.cop.com.web;
+
 import java.util.List;
 import java.util.Map;
+
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+
+import jakarta.validation.Valid;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -10,23 +24,8 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.com.service.EgovTemplateManageService;
 import egovframework.let.cop.com.service.TemplateInf;
 import egovframework.let.cop.com.service.TemplateInfVO;
-
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springmodules.validation.commons.DefaultBeanValidator;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 템플릿 관리를 위한 컨트롤러 클래스
@@ -56,9 +55,6 @@ public class EgovTemplateManageController {
 
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
-
-    @Autowired
-    private DefaultBeanValidator beanValidator;
 
     /** EgovMessageSource */
     @Resource(name="egovMessageSource")
@@ -146,15 +142,13 @@ public class EgovTemplateManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/com/insertTemplateInf.do")
-    public String insertTemplateInf(@ModelAttribute("searchVO") TemplateInfVO searchVO, @ModelAttribute("templateInf") TemplateInf templateInf,
+    public String insertTemplateInf(@ModelAttribute("searchVO") TemplateInfVO searchVO, @Valid @ModelAttribute("templateInf") TemplateInf templateInf,
 	    BindingResult bindingResult, SessionStatus status, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-
-		beanValidator.validate(templateInf, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 		    ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -211,15 +205,13 @@ public class EgovTemplateManageController {
      * @throws Exception
      */
     @RequestMapping("/cop/com/updateTemplateInf.do")
-    public String updateTemplateInf(@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO, @ModelAttribute("templateInf") TemplateInf templateInf,
+    public String updateTemplateInf(@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO, @Valid @ModelAttribute("templateInf") TemplateInf templateInf,
 	    BindingResult bindingResult, SessionStatus status, ModelMap model) throws Exception {
 
     	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-
-		beanValidator.validate(templateInf, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 		    ComDefaultCodeVO codeVO = new ComDefaultCodeVO();
