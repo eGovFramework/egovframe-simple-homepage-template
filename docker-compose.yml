@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    image: egovframe-simple-homepage-template:${APP_VERSION:-5.0.0}
+    container_name: egov-simple-homepage
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
