@@ -58,11 +58,11 @@
 	<bean id="defaultTraceHandler" class="egovframework.com.cmm.EgovComTraceHandler" />
 	
 	<!-- For Pagination Tag 설정-->
-	<bean id="krdsRenderer" class="egovframework.com.cmm.EgovKrdsPaginationRenderer"/>
+	<bean id="renewRenderer" class="egovframework.com.cmm.RenewPaginationRenderer"/>
 	<bean id="paginationManager" class="org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
 		<property name="rendererType">
 			<map>
-				<entry key="krds" value-ref="krdsRenderer"/> 
+				<entry key="renew" value-ref="renewRenderer"/> 
 			</map>
 		</property>
 	</bean>
