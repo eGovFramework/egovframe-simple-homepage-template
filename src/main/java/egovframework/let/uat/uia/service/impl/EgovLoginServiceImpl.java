@@ -31,7 +31,7 @@ import jakarta.annotation.Resource;
 public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements EgovLoginService {
 
 	@Resource(name = "loginDAO")
-	private LoginDAO loginDAO;
+	private LoginMapper loginDAO;
 
 	/**
 	 * 일반 로그인을 처리한다
