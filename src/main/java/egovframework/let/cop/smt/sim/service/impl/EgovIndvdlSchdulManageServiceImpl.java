@@ -29,7 +29,7 @@ import jakarta.annotation.Resource;
 public class EgovIndvdlSchdulManageServiceImpl extends EgovAbstractServiceImpl implements EgovIndvdlSchdulManageService{
 
 	@Resource(name="indvdlSchdulManageDao")
-	private IndvdlSchdulManageDao dao;
+	private IndvdlSchdulManageMapper dao;
 
 
 	@Resource(name="deptSchdulManageIdGnrService")
@@ -77,7 +77,7 @@ public class EgovIndvdlSchdulManageServiceImpl extends EgovAbstractServiceImpl i
 	 */
 	@Override
 	public List<?> selectIndvdlSchdulManageList(ComDefaultVO searchVO) throws Exception{
-		return dao.selectIndvdlSchdulManageList(searchVO);
+		return dao.selectIndvdlSchdulManage(searchVO);
 	}
 
     /**
@@ -99,7 +99,7 @@ public class EgovIndvdlSchdulManageServiceImpl extends EgovAbstractServiceImpl i
 	 */
 	@Override
 	public int selectIndvdlSchdulManageListCnt(ComDefaultVO searchVO) throws Exception{
-		return dao.selectIndvdlSchdulManageListCnt(searchVO);
+		return dao.selectIndvdlSchdulManageCnt(searchVO);
 	}
 
     /**
