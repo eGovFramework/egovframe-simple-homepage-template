@@ -31,8 +31,8 @@ import jakarta.annotation.Resource;
 @Service("RestdeManageService")
 public class EgovCalRestdeManageServiceImpl extends EgovAbstractServiceImpl implements EgovCalRestdeManageService {
 
-    @Resource(name="RestdeManageDAO")
-    private RestdeManageDAO restdeManageDAO;
+    @Resource(name="restdeManageDao")
+    private RestdeManageMapper restdeManageDAO;
 
 	/**
 	 * 일반달력 팝업 정보를 조회한다.
