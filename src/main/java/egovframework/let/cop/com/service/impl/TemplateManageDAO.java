@@ -1,7 +1,9 @@
 package egovframework.let.cop.com.service.impl;
+
 import java.util.List;
 
-import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import jakarta.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 
 import egovframework.let.cop.com.service.TemplateInf;
@@ -25,7 +27,10 @@ import egovframework.let.cop.com.service.TemplateInfVO;
  * </pre>
  */
 @Repository("TemplateManageDAO")
-public class TemplateManageDAO extends EgovAbstractMapper {
+public class TemplateManageDAO {
+
+    @Resource(name = "TemplateManageDAO")
+    private TemplateManageMapper templateManageMapper;
 
     /**
      * 템플릿 정보를 삭제한다.
@@ -34,7 +39,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public void deleteTemplateInf(TemplateInf tmplatInf) throws Exception {
-    	update("TemplateManageDAO.deleteTemplateInf", tmplatInf);
+        templateManageMapper.deleteTemplateInf(tmplatInf);
     }
 
     /**
@@ -44,7 +49,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public void insertTemplateInf(TemplateInf tmplatInf) throws Exception {
-    	insert("TemplateManageDAO.insertTemplateInf", tmplatInf);
+        templateManageMapper.insertTemplateInf(tmplatInf);
     }
 
     /**
@@ -54,7 +59,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public void updateTemplateInf(TemplateInf tmplatInf) throws Exception {
-    	update("TemplateManageDAO.updateTemplateInf", tmplatInf);
+        templateManageMapper.updateTemplateInf(tmplatInf);
     }
 
     /**
@@ -65,7 +70,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public List<TemplateInfVO> selectTemplateInfs(TemplateInfVO tmplatInfVO) throws Exception {
-    	return selectList("TemplateManageDAO.selectTemplateInfs", tmplatInfVO);
+        return templateManageMapper.selectTemplateInfs(tmplatInfVO);
     }
 
     /**
@@ -76,7 +81,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public int selectTemplateInfsCnt(TemplateInfVO tmplatInfVO) throws Exception {
-    	return (Integer)selectOne("TemplateManageDAO.selectTemplateInfsCnt", tmplatInfVO);
+        return templateManageMapper.selectTemplateInfsCnt(tmplatInfVO);
     }
 
     /**
@@ -87,8 +92,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public TemplateInfVO selectTemplateInf(TemplateInfVO tmplatInfVO) throws Exception {
-    	return (TemplateInfVO)selectOne("TemplateManageDAO.selectTemplateInf", tmplatInfVO);
-
+        return templateManageMapper.selectTemplateInf(tmplatInfVO);
     }
 
     /**
@@ -99,7 +103,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public TemplateInfVO selectTemplatePreview(TemplateInfVO tmplatInfVO) throws Exception {
-    	return null;
+        return null;
     }
 
     /**
@@ -110,7 +114,7 @@ public class TemplateManageDAO extends EgovAbstractMapper {
      * @throws Exception
      */
     public List<TemplateInfVO> selectTemplateInfsByCode(TemplateInfVO tmplatInfVO) throws Exception {
-    	return selectList("TemplateManageDAO.selectTemplateInfsByCode", tmplatInfVO);
+        return templateManageMapper.selectTemplateInfsByCode(tmplatInfVO);
     }
 
 }
