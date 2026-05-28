@@ -3,15 +3,13 @@ package egovframework.let.cop.smt.sim.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.annotation.Resource;
-
-import org.springframework.stereotype.Repository;
+import org.egovframe.rte.psl.dataaccess.mapper.EgovMapper;
 
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
 
 /**
- * 일정관리를 처리하는 Dao Class 구현
+ * 일정관리를 처리하는 MyBatis 매퍼 인터페이스
  * @since 2009.04.10
  * @see
  * <pre>
@@ -23,11 +21,8 @@ import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
  * @version 1.0
  * @created 09-6-2011 오전 10:08:07
  */
-@Repository("indvdlSchdulManageDao")
-public class IndvdlSchdulManageDao {
-
-	@Resource(name = "IndvdlSchdulManage")
-	private IndvdlSchdulManageMapper indvdlSchdulManageMapper;
+@EgovMapper("IndvdlSchdulManage")
+public interface IndvdlSchdulManageMapper {
 
 	/**
 	 * 메인페이지/일정관리조회 목록을 Map(map)형식으로 조회한다.
@@ -35,9 +30,7 @@ public class IndvdlSchdulManageDao {
 	 * @return List
 	 * @throws Exception
 	 */
-	public List<?> selectIndvdlSchdulManageMainList(Map<?, ?> map) throws Exception {
-		return indvdlSchdulManageMapper.selectIndvdlSchdulManageMainList(map);
-	}
+	List<?> selectIndvdlSchdulManageMainList(Map<?, ?> map) throws Exception;
 
 	/**
 	 * 일정 목록을 Map(map)형식으로 조회한다.
@@ -45,9 +38,7 @@ public class IndvdlSchdulManageDao {
 	 * @return List
 	 * @throws Exception
 	 */
-	public List<?> selectIndvdlSchdulManageRetrieve(Map<?, ?> map) throws Exception {
-		return indvdlSchdulManageMapper.selectIndvdlSchdulManageRetrieve(map);
-	}
+	List<?> selectIndvdlSchdulManageRetrieve(Map<?, ?> map) throws Exception;
 
 	/**
 	 * 일정 목록을 VO(model)형식으로 조회한다.
@@ -55,9 +46,7 @@ public class IndvdlSchdulManageDao {
 	 * @return IndvdlSchdulManageVO
 	 * @throws Exception
 	 */
-	public IndvdlSchdulManageVO selectIndvdlSchdulManageDetailVO(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception {
-		return indvdlSchdulManageMapper.selectIndvdlSchdulManageDetailVO(indvdlSchdulManageVO);
-	}
+	IndvdlSchdulManageVO selectIndvdlSchdulManageDetailVO(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception;
 
 	/**
 	 * 일정 목록을 조회한다.
@@ -65,9 +54,7 @@ public class IndvdlSchdulManageDao {
 	 * @return List
 	 * @throws Exception
 	 */
-	public List<?> selectIndvdlSchdulManageList(ComDefaultVO searchVO) throws Exception {
-		return indvdlSchdulManageMapper.selectIndvdlSchdulManage(searchVO);
-	}
+	List<?> selectIndvdlSchdulManage(ComDefaultVO searchVO) throws Exception;
 
 	/**
 	 * 일정를(을) 상세조회 한다.
@@ -75,9 +62,7 @@ public class IndvdlSchdulManageDao {
 	 * @return List
 	 * @throws Exception
 	 */
-	public List<?> selectIndvdlSchdulManageDetail(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception {
-		return indvdlSchdulManageMapper.selectIndvdlSchdulManageDetail(indvdlSchdulManageVO);
-	}
+	List<?> selectIndvdlSchdulManageDetail(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception;
 
 	/**
 	 * 일정를(을) 목록 전체 건수를(을) 조회한다.
@@ -85,34 +70,27 @@ public class IndvdlSchdulManageDao {
 	 * @return int
 	 * @throws Exception
 	 */
-	public int selectIndvdlSchdulManageListCnt(ComDefaultVO searchVO) throws Exception {
-		return indvdlSchdulManageMapper.selectIndvdlSchdulManageCnt(searchVO);
-	}
+	int selectIndvdlSchdulManageCnt(ComDefaultVO searchVO) throws Exception;
 
 	/**
 	 * 일정를(을) 등록한다.
 	 * @param indvdlSchdulManageVO 일정 정보 담김 VO
 	 * @throws Exception
 	 */
-	public void insertIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception {
-		indvdlSchdulManageMapper.insertIndvdlSchdulManage(indvdlSchdulManageVO);
-	}
+	void insertIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception;
 
 	/**
 	 * 일정를(을) 수정한다.
 	 * @param indvdlSchdulManageVO 일정 정보 담김 VO
 	 * @throws Exception
 	 */
-	public void updateIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception {
-		indvdlSchdulManageMapper.updateIndvdlSchdulManage(indvdlSchdulManageVO);
-	}
+	void updateIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception;
 
 	/**
 	 * 일정를(을) 삭제한다.
 	 * @param indvdlSchdulManageVO 일정 정보 담김 VO
 	 * @throws Exception
 	 */
-	public void deleteIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception {
-		indvdlSchdulManageMapper.deleteIndvdlSchdulManage(indvdlSchdulManageVO);
-	}
+	void deleteIndvdlSchdulManage(IndvdlSchdulManageVO indvdlSchdulManageVO) throws Exception;
+
 }

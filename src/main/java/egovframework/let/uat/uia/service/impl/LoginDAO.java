@@ -1,6 +1,7 @@
 package egovframework.let.uat.uia.service.impl;
 
-import org.egovframe.rte.psl.dataaccess.EgovAbstractMapper;
+import jakarta.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 
 import egovframework.com.cmm.LoginVO;
@@ -23,7 +24,10 @@ import egovframework.com.cmm.LoginVO;
  *  </pre>
  */
 @Repository("loginDAO")
-public class LoginDAO extends EgovAbstractMapper {
+public class LoginDAO {
+
+	@Resource(name = "loginDAO")
+	private LoginMapper loginMapper;
 
 	/**
 	 * 일반 로그인을 처리한다
@@ -32,7 +36,7 @@ public class LoginDAO extends EgovAbstractMapper {
 	 * @exception Exception
 	 */
 	public LoginVO actionLogin(LoginVO vo) throws Exception {
-		return (LoginVO) selectOne("loginDAO.actionLogin", vo);
+		return loginMapper.actionLogin(vo);
 	}
 
 	/**
@@ -42,7 +46,7 @@ public class LoginDAO extends EgovAbstractMapper {
 	 * @exception Exception
 	 */
 	public LoginVO searchId(LoginVO vo) throws Exception {
-		return (LoginVO) selectOne("loginDAO.searchId", vo);
+		return null;
 	}
 
 	/**
@@ -52,7 +56,7 @@ public class LoginDAO extends EgovAbstractMapper {
 	 * @exception Exception
 	 */
 	public LoginVO searchPassword(LoginVO vo) throws Exception {
-		return (LoginVO) selectOne("loginDAO.searchPassword", vo);
+		return null;
 	}
 
 	/**
@@ -61,6 +65,6 @@ public class LoginDAO extends EgovAbstractMapper {
 	 * @exception Exception
 	 */
 	public void updatePassword(LoginVO vo) throws Exception {
-		update("loginDAO.updatePassword", vo);
+		// XML statement 미사용으로 처리 생략
 	}
 }
