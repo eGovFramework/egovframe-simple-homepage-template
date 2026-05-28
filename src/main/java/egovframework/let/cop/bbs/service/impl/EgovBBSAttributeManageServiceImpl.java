@@ -45,7 +45,7 @@ public class EgovBBSAttributeManageServiceImpl extends EgovAbstractServiceImpl i
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovBBSAttributeManageServiceImpl.class);
 
 	@Resource(name = "BBSAttributeManageDAO")
-	private BBSAttributeManageDAO attrbMngDAO;
+	private BBSAttributeManageMapper attrbMngDAO;
 
 	@Resource(name = "BBSUseInfoManageDAO")
 	private BBSUseInfoManageDAO bbsUseDAO;
@@ -158,7 +158,7 @@ public class EgovBBSAttributeManageServiceImpl extends EgovAbstractServiceImpl i
 	 * @see egovframework.let.cop.bbs.brd.service.EgovBBSAttributeManageService#selectAllBBSMasteInf(egovframework.let.cop.bbs.brd.service.BoardMasterVO)
 	 */
 	public List<BoardMasterVO> selectAllBBSMasteInf(BoardMasterVO vo) throws Exception {
-		return attrbMngDAO.selectAllBBSMasteInf(vo);
+		return attrbMngDAO.selectAllBBSMaster(vo);
 	}
 
 	/**
