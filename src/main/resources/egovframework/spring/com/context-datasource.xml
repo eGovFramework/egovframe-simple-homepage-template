@@ -18,7 +18,7 @@
     
     <!-- hsql -->
     <jdbc:embedded-database id="dataSource-hsql" type="HSQL">
-		<jdbc:script location="classpath:/db/shtdb.sql"/>
+		<jdbc:script location="classpath:/db/shtdb.sql" encoding="UTF-8"/>
     </jdbc:embedded-database>
 	
     <!-- <bean id="dataSource-hsql" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
