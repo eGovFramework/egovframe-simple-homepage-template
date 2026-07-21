@@ -69,7 +69,10 @@
                 <%
                    }else{
                 %>
-                <li><a href="<c:url value='/uat/uia/actionLogout.do'/>" class="logout">로그아웃</a></li>
+                <li>
+                    <a href="#" onclick="document.logoutForm.submit(); return false;" class="logout">로그아웃</a>
+                    <form name="logoutForm" method="post" action="<c:url value='/uat/uia/actionLogout.do'/>" style="display:none;"></form>
+                </li>
                 <%
                    }
                 %>

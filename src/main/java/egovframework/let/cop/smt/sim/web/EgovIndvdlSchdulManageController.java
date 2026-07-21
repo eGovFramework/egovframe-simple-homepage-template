@@ -97,6 +97,8 @@ public class EgovIndvdlSchdulManageController {
 			session.setAttribute("menuNo",menuNo);
 		}
 
+		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
+
 		//일정구분 검색 유지
         model.addAttribute("searchKeyword", commandMap.get("searchKeyword") == null ? "" : (String)commandMap.get("searchKeyword"));
         model.addAttribute("searchCondition", commandMap.get("searchCondition") == null ? "" : (String)commandMap.get("searchCondition"));
@@ -166,6 +168,8 @@ public class EgovIndvdlSchdulManageController {
 		if (menuNo!=null && !menuNo.equals("")){
 			session.setAttribute("menuNo",menuNo);
 		}
+
+		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		//일정구분 검색 유지
         model.addAttribute("searchKeyword", commandMap.get("searchKeyword") == null ? "" : (String)commandMap.get("searchKeyword"));
@@ -365,6 +369,15 @@ public class EgovIndvdlSchdulManageController {
     		ModelMap model)
     throws Exception {
 
+		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
+
+		// 소유권(등록자) 검증 - 본인 일정이거나 관리자만 조회·삭제할 수 있다.
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		IndvdlSchdulManageVO existingSchdul = egovIndvdlSchdulManageService.selectIndvdlSchdulManageDetailVO(indvdlSchdulManageVO);
+		if (!isScheduleOwner(user, existingSchdul == null ? null : existingSchdul.getFrstRegisterId())) {
+			return "cmm/error/accessDenied";
+		}
+
 		String sLocationUrl = "/cop/smt/sim/EgovIndvdlSchdulManageDetail";
 
 		String sCmd = commandMap.get("cmd") == null ? "" : (String)commandMap.get("cmd");
@@ -443,6 +456,12 @@ public class EgovIndvdlSchdulManageController {
 
     	IndvdlSchdulManageVO resultIndvdlSchdulManageVOReuslt = egovIndvdlSchdulManageService.selectIndvdlSchdulManageDetailVO(indvdlSchdulManageVO);
 
+    	// 소유권(등록자) 검증 - 본인 일정이거나 관리자만 수정폼을 조회할 수 있다.
+    	LoginVO modifyUser = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+    	if (!isScheduleOwner(modifyUser, resultIndvdlSchdulManageVOReuslt == null ? null : resultIndvdlSchdulManageVOReuslt.getFrstRegisterId())) {
+    		return "cmm/error/accessDenied";
+    	}
+
     	String sSchdulBgnde = resultIndvdlSchdulManageVOReuslt.getSchdulBgnde();
     	String sSchdulEndde = resultIndvdlSchdulManageVOReuslt.getSchdulEndde();
 
@@ -494,6 +513,12 @@ public class EgovIndvdlSchdulManageController {
     	if(!isAuthenticated) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
         	return "cmm/uat/uia/EgovLoginUsr";
+    	}
+
+    	// 소유권(등록자) 검증 - 본인 일정이거나 관리자만 수정할 수 있다.
+    	IndvdlSchdulManageVO existingSchdul = egovIndvdlSchdulManageService.selectIndvdlSchdulManageDetailVO(indvdlSchdulManageVO);
+    	if (!isScheduleOwner(user, existingSchdul == null ? null : existingSchdul.getFrstRegisterId())) {
+    		return "cmm/error/accessDenied";
     	}
 
 		String sLocationUrl = "/cop/smt/sim/EgovIndvdlSchdulManageModify";
@@ -776,6 +801,23 @@ public class EgovIndvdlSchdulManageController {
     	}else{
     		return true;
     	}
+    }
+
+    /**
+     * 일정 등록자 본인이거나 관리자 권한을 가진 사용자인지 확인한다.
+     *
+     * @param user 현재 로그인한 사용자
+     * @param frstRegisterId 일정 등록자 ID(frstRegisterId)
+     * @return 소유자이거나 관리자이면 true
+     */
+    private boolean isScheduleOwner(LoginVO user, String frstRegisterId) {
+    	if (user == null || user.getUniqId() == null) {
+    		return false;
+    	}
+    	if (frstRegisterId != null && frstRegisterId.equals(user.getUniqId())) {
+    		return true;
+    	}
+    	return EgovUserDetailsHelper.getAuthorities().contains("ROLE_ADMIN");
     }
 
 }

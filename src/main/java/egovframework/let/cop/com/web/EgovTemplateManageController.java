@@ -3,7 +3,6 @@ package egovframework.let.cop.com.web;
 import java.util.List;
 import java.util.Map;
 
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import jakarta.validation.Valid;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.annotation.RequireAdmin;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.com.service.EgovTemplateManageService;
@@ -68,18 +68,17 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/selectTemplateInfs.do")
-    public String selectTemplateInfs(HttpSession session, 
+    public String selectTemplateInfs(HttpSession session,
 			@RequestParam(value="menuNo", required=false) String menuNo,
-    		@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO, 
+    		@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO,
     		ModelMap model) throws Exception {
-    	
+
     	// 선택된 메뉴정보를 세션으로 등록한다.
     	if (menuNo!=null && !menuNo.equals("")){
     		session.setAttribute("menuNo",menuNo);
     	}
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 	    tmplatInfVO.setPageUnit(propertyService.getInt("pageUnit"));
 		tmplatInfVO.setPageSize(propertyService.getInt("pageSize"));
@@ -114,10 +113,9 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/selectTemplateInf.do")
     public String selectTemplateInf(@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		ComDefaultCodeVO codeVO = new ComDefaultCodeVO();
 
@@ -141,11 +139,10 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/insertTemplateInf.do")
     public String insertTemplateInf(@ModelAttribute("searchVO") TemplateInfVO searchVO, @Valid @ModelAttribute("templateInf") TemplateInf templateInf,
 	    BindingResult bindingResult, SessionStatus status, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -179,10 +176,9 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/addTemplateInf.do")
     public String addTemplateInf(@ModelAttribute("searchVO") TemplateInfVO searchVO, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
     	ComDefaultCodeVO vo = new ComDefaultCodeVO();
 
@@ -204,11 +200,10 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/updateTemplateInf.do")
     public String updateTemplateInf(@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO, @Valid @ModelAttribute("templateInf") TemplateInf templateInf,
 	    BindingResult bindingResult, SessionStatus status, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -246,11 +241,10 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/deleteTemplateInf.do")
     public String deleteTemplateInf(@ModelAttribute("searchVO") TemplateInfVO searchVO, @ModelAttribute("tmplatInf") TemplateInf tmplatInf,
 	    SessionStatus status, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -272,11 +266,10 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/selectTemplateInfsPop.do")
     public String selectTemplateInfsPop(@ModelAttribute("searchVO") TemplateInfVO tmplatInfVO,
     		@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		String typeFlag = (String)commandMap.get("typeFlag");
 
@@ -327,12 +320,19 @@ public class EgovTemplateManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/com/openPopup.do")
     public String openPopupWindow(@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
 
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
-
     	String requestUrl = (String)commandMap.get("requestUrl");
+
+    	// iframe src로 그대로 반영되므로, 외부 URL/스킴 URI(javascript:, data: 등)를 차단하고
+    	// 애플리케이션 내부의 절대경로만 허용한다.
+    	if (!isSafeInternalUrl(requestUrl)) {
+    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.authority"));
+    		return "cmm/error/accessDenied";
+    	}
+
     	String trgetId = (String)commandMap.get("trgetId");
     	String width = (String)commandMap.get("width");
     	String height = (String)commandMap.get("height");
@@ -360,18 +360,26 @@ public class EgovTemplateManageController {
     }
 
     /**
-     * 운영자 권한을 확인한다.(로그인 여부를 확인한다.)
+     * openPopup.do의 requestUrl이 iframe src로 그대로 반영되므로,
+     * 애플리케이션 내부의 절대경로("/"로 시작)만 허용하고 외부 URL이나
+     * javascript:/data: 등 스킴 URI를 차단한다.
      *
-     * @param boardMaster
-     * @throws EgovBizException
+     * @param url 검증할 요청 URL
+     * @return 내부 상대경로이면 true
      */
-    protected boolean checkAuthority(ModelMap model) throws Exception {
-    	// 사용자권한 처리
-    	if(!EgovUserDetailsHelper.isAuthenticated()) {
-    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return false;
-    	}else{
-    		return true;
+    private boolean isSafeInternalUrl(String url) {
+    	if (url == null) {
+    		return false;
     	}
+    	String trimmed = url.trim();
+    	if (trimmed.isEmpty()) {
+    		return false;
+    	}
+    	// "//"(프로토콜 상대경로), "\\"로 시작하거나 콜론(:)을 포함하면
+    	// 외부 URL 또는 javascript:/data: 등 스킴 URI로 간주하여 차단한다.
+    	if (!trimmed.startsWith("/") || trimmed.startsWith("//") || trimmed.startsWith("/\\") || trimmed.contains(":")) {
+    		return false;
+    	}
+    	return true;
     }
 }

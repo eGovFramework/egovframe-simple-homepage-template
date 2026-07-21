@@ -3,7 +3,6 @@ package egovframework.let.cop.bbs.web;
 import java.util.List;
 import java.util.Map;
 
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
-import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.annotation.RequireAdmin;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.bbs.service.BoardMaster;
@@ -59,26 +58,6 @@ public class EgovBBSAttributeManageController {
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
 
-    /** EgovMessageSource */
-    @Resource(name="egovMessageSource")
-    EgovMessageSource egovMessageSource;
-
-    /**
-     * 운영자 권한을 확인한다.(로그인 여부를 확인한다.)
-     *
-     * @param boardMaster
-     * @throws EgovBizException
-     */
-    protected boolean checkAuthority(ModelMap model) throws Exception {
-    	// 사용자권한 처리
-    	if(!EgovUserDetailsHelper.isAuthenticated()) {
-    		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
-        	return false;
-    	}else{
-    		return true;
-    	}
-    }
-
 	/**
      * 신규 게시판 마스터 등록을 위한 등록페이지로 이동한다.
      *
@@ -87,10 +66,9 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/addBBSMaster.do")
     public String addBBSMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
     	BoardMaster boardMaster = new BoardMaster();
 
@@ -120,11 +98,10 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/insertBBSMasterInf.do")
     public String insertBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    BindingResult bindingResult, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
     	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -174,18 +151,17 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/SelectBBSMasterInfs.do")
-    public String selectBBSMasterInfs(HttpSession session, 
+    public String selectBBSMasterInfs(HttpSession session,
 			@RequestParam(value="menuNo", required=false) String menuNo,
-    		@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, 
+    		@ModelAttribute("searchVO") BoardMasterVO boardMasterVO,
     		ModelMap model) throws Exception {
-    	
+
     	// 선택된 메뉴정보를 세션으로 등록한다.
     	if (menuNo!=null && !menuNo.equals("")){
     		session.setAttribute("menuNo",menuNo);
     	}
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
     	boardMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
 		boardMasterVO.setPageSize(propertyService.getInt("pageSize"));
@@ -220,10 +196,9 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/SelectBBSMasterInf.do")
     public String selectBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO searchVO, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
     	BoardMasterVO vo = bbsAttrbService.selectBBSMasterInf(searchVO);
 		model.addAttribute("result", vo);
@@ -240,11 +215,10 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/UpdateBBSMasterInf.do")
     public String updateBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    BindingResult bindingResult, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -282,11 +256,10 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/DeleteBBSMasterInf.do")
     public String deleteBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
 	    ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -307,10 +280,9 @@ public class EgovBBSAttributeManageController {
      * @return
      * @throws Exception
      */
+    @RequireAdmin
     @RequestMapping("/cop/bbs/SelectBBSMasterInfsPop.do")
     public String selectBBSMasterInfsPop(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
-
-    	if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
     	boardMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
 		boardMasterVO.setPageSize(propertyService.getInt("pageSize"));

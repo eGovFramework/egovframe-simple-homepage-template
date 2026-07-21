@@ -85,8 +85,13 @@
 	</login-config>
 
 	<session-config>
-		<session-timeout>600</session-timeout>
+		<session-timeout>30</session-timeout>
 		<tracking-mode>COOKIE</tracking-mode>
+		<cookie-config>
+			<http-only>true</http-only>
+			<!-- 운영환경은 반드시 HTTPS로 서비스하여 Secure 속성이 적용되도록 하시기 바랍니다. -->
+			<secure>true</secure>
+		</cookie-config>
 	</session-config>
 
 	<error-page>

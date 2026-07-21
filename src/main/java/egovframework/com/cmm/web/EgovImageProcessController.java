@@ -22,8 +22,10 @@ import egovframework.com.cmm.SessionVO;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
@@ -73,12 +75,26 @@ public class EgovImageProcessController extends HttpServlet {
 	 * @throws Exception
 	 */
 	@RequestMapping("/cmm/fms/getImage.do")
-	public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap, HttpServletResponse response) throws Exception {
+	public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		// 사용자권한 처리
+		if (!EgovUserDetailsHelper.isAuthenticated()) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return;
+		}
 
 		String param_atchFileId = (String) commandMap.get("atchFileId");
 		param_atchFileId = param_atchFileId.replaceAll(" ", "+");
 		byte[] decodedBytes = Base64.getDecoder().decode(param_atchFileId);
 		String decodedString = new String(cryptoService.decrypt(decodedBytes, ALGORITHM_KEY));
+
+		// 세션 바인딩 검증 - atchFileId 발급 당시의 세션ID와 현재 세션ID가 일치해야 한다.
+		String issuedSessionId = StringUtils.substringBefore(decodedString, "|");
+		if (issuedSessionId == null || issuedSessionId.isEmpty() || !issuedSessionId.equals(request.getSession().getId())) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return;
+		}
+
 		String decodedFileId = StringUtils.substringAfter(decodedString, "|");
 
 		String fileSn = (String) commandMap.get("fileSn");

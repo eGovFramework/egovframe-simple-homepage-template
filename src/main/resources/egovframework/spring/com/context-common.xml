@@ -76,6 +76,6 @@
 	</bean>
 
 	<!-- MULTIPART RESOLVERS : Spring Framework 6.2.8 기반 파일 업로드 설정 -->
-	<bean id="local.MultiCommonsMultipartResolver" class="egovframework.com.cmm.web.EgovMultipartResolver" />
+	<bean id="multipartResolver" class="egovframework.com.cmm.web.EgovMultipartResolver" />
 
 </beans>

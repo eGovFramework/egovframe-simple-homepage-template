@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
@@ -70,7 +71,7 @@ public class EgovLoginController {
 	 * @return result - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/uat/uia/actionLogin.do")
+	@RequestMapping(value = "/uat/uia/actionLogin.do", method = RequestMethod.POST)
 	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
 		// 일반 로그인 처리
 		LoginVO resultVO = loginService.actionLogin(loginVO);
@@ -108,7 +109,7 @@ public class EgovLoginController {
 	 * @return String
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/uat/uia/actionLogout.do")
+	@RequestMapping(value = "/uat/uia/actionLogout.do", method = RequestMethod.POST)
 	public String actionLogout(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 	    if (session != null) {
