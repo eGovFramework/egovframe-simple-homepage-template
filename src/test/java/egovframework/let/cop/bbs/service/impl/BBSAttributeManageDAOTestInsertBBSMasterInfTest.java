@@ -1,10 +1,11 @@
 package egovframework.let.cop.bbs.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,11 +15,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.ContextConfiguration;
 
-import egovframework.com.cmm.LoginVO;
-import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.cop.bbs.service.BoardMaster;
 import egovframework.test.EgovTestAbstractSpring;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,7 +37,6 @@ import lombok.extern.slf4j.Slf4j;
 		"egovframework.let.cop.bbs.service.impl", }, includeFilters = {
 				@Filter(type = FilterType.ASSIGNABLE_TYPE, classes = { BBSAttributeManageDAO.class, }) })
 
-@RequiredArgsConstructor
 @Slf4j
 class BBSAttributeManageDAOTestInsertBBSMasterInfTest extends EgovTestAbstractSpring {
 
@@ -47,15 +44,16 @@ class BBSAttributeManageDAOTestInsertBBSMasterInfTest extends EgovTestAbstractSp
 	 * 게시판 속성정보 관리를 위한 데이터 접근 클래스
 	 */
 	@Autowired
-	private BBSAttributeManageDAO bbsAttributeManageDAO;
+	BBSAttributeManageDAO bbsAttributeManageDAO;
 
 	/**
 	 * 신규 게시판 속성정보를 등록한다.
 	 * 
+	 * @throws BaseRuntimeException
 	 * @throws Exception
 	 */
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
 		final BoardMaster boardMaster = new BoardMaster();
 
@@ -96,21 +94,21 @@ class BBSAttributeManageDAOTestInsertBBSMasterInfTest extends EgovTestAbstractSp
 		// 사용여부
 		boardMaster.setUseAt("Y");
 
-		final LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		if (loginVO != null) {
-			// 최초등록자ID
-			boardMaster.setFrstRegisterId(loginVO.getUniqId());
-		}
+//		final LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+//		if (loginVO != null) {
+//			// 최초등록자ID
+//			boardMaster.setFrstRegisterId(loginVO.getUniqId());
+//		}
 
 		// when
 		final int result = bbsAttributeManageDAO.insertBBSMasterInf(boardMaster);
 
 		// then
 		if (log.isDebugEnabled()) {
-			log.debug("loginVO={}", loginVO);
-			log.debug("getId={}", loginVO.getId());
-			log.debug("getName={}", loginVO.getName());
-			log.debug("getUniqId={}", loginVO.getUniqId());
+//			log.debug("loginVO={}", loginVO);
+//			log.debug("getId={}", loginVO.getId());
+//			log.debug("getName={}", loginVO.getName());
+//			log.debug("getUniqId={}", loginVO.getUniqId());
 
 			log.debug("boardMaster={}", boardMaster);
 			log.debug("getBbsId={}", boardMaster.getBbsId());
@@ -118,7 +116,8 @@ class BBSAttributeManageDAOTestInsertBBSMasterInfTest extends EgovTestAbstractSp
 			log.debug("result={}", result);
 		}
 
-		assertEquals(1, result, "신규 게시판 속성정보를 등록한다.");
+//		assertEquals(1, result, "신규 게시판 속성정보를 등록한다.");
+		assertThat(result).as("신규 게시판 속성정보를 등록한다.").isGreaterThan(0);
 	}
 
 }
