@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jakarta.validation.Valid;
-
+import lombok.extern.slf4j.Slf4j;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -42,14 +42,16 @@ import jakarta.servlet.http.HttpSession;
  * << 개정이력(Modification Information) >>
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *  2009.04.10  장동한          최초 생성
- *  2011.05.31  JJY           경량환경 커스터마이징버전 생성
+ *   2009.04.10  장동한          최초 생성
+ *   2011.05.31  JJY           경량환경 커스터마이징버전 생성
+ *   2026.07.16  이백행          [2026년 컨트리뷰션] 디버그 출력에 log.debug 적용
  * </pre>
  * @author 조재영
  * @version 1.0
  * @created 09-6-2011 오전 10:08:04
  */
 @Controller
+@Slf4j
 public class EgovIndvdlSchdulManageController {
 
 	/** EgovMessageSource */
@@ -794,7 +796,7 @@ public class EgovIndvdlSchdulManageController {
      */
     protected boolean checkAuthority(ModelMap model) throws Exception {
     	// 사용자권한 처리
-    	System.out.println("##### EgovIndvdlSchdulManageController authenticate >>> " + EgovUserDetailsHelper.isAuthenticated());
+    	log.debug("##### EgovIndvdlSchdulManageController authenticate >>> {}", EgovUserDetailsHelper.isAuthenticated());
     	if(!EgovUserDetailsHelper.isAuthenticated()) {
     		model.addAttribute("message", egovMessageSource.getMessage("fail.common.login"));
         	return false;
