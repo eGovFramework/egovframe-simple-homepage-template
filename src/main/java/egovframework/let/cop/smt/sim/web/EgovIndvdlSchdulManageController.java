@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.ComDefaultVO;
 import egovframework.com.cmm.EgovMessageSource;
@@ -33,6 +30,8 @@ import egovframework.let.cop.smt.sim.service.IndvdlSchdulManageVO;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 일정관리를 처리하는 Controller Class 구현
@@ -82,7 +81,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param indvdlSchdulManageVO
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageDailyList"
-	 * @throws Exception
 	 */
 	@GetMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageDailyList.do")
 	public String EgovIndvdlSchdulManageDailyList(
@@ -91,8 +89,7 @@ public class EgovIndvdlSchdulManageController {
 			@ModelAttribute("searchVO") ComDefaultVO searchVO,
 			@RequestParam Map <String, Object> commandMap,
 			IndvdlSchdulManageVO indvdlSchdulManageVO,
-    		ModelMap model)
-    throws Exception {
+    		ModelMap model) {
 		
 		// 선택된 메뉴정보를 세션으로 등록한다.
 		if (menuNo!=null && !menuNo.equals("")){
@@ -154,7 +151,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param indvdlSchdulManageVO
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageWeekList"
-	 * @throws Exception
 	 */
 	@GetMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageWeekList.do")
 	public String EgovIndvdlSchdulManageWeekList(
@@ -163,8 +159,7 @@ public class EgovIndvdlSchdulManageController {
 			@ModelAttribute("searchVO") ComDefaultVO searchVO,
 			@RequestParam Map <String, Object> commandMap,
 			IndvdlSchdulManageVO indvdlSchdulManageVO,
-    		ModelMap model)
-    throws Exception {
+    		ModelMap model) {
 		
 		// 선택된 메뉴정보를 세션으로 등록한다.
 		if (menuNo!=null && !menuNo.equals("")){
@@ -296,7 +291,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param indvdlSchdulManageVO
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageMonthList"
-	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageMonthList.do")
 	public String EgovIndvdlSchdulManageMonthList(HttpSession session, 
@@ -304,8 +298,7 @@ public class EgovIndvdlSchdulManageController {
 			@ModelAttribute("searchVO") ComDefaultVO searchVO,
 			@RequestParam Map <String, Object> commandMap,
 			IndvdlSchdulManageVO indvdlSchdulManageVO,
-    		ModelMap model)
-    throws Exception {
+    		ModelMap model) {
 		
 		// 선택된 메뉴정보를 세션으로 등록한다.
 		if (menuNo!=null && !menuNo.equals("")){
@@ -361,15 +354,13 @@ public class EgovIndvdlSchdulManageController {
 	 * @param commandMap
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageDetail"
-	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageDetail.do")
 	public String EgovIndvdlSchdulManageDetail(
 			@ModelAttribute("searchVO") ComDefaultVO searchVO,
 			IndvdlSchdulManageVO indvdlSchdulManageVO,
 			@RequestParam Map <String, Object> commandMap,
-    		ModelMap model)
-    throws Exception {
+    		ModelMap model) {
 
 		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
@@ -416,7 +407,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param bindingResult
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageModify"
-	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageModify.do")
 	public String IndvdlSchdulManageModify(
@@ -424,8 +414,7 @@ public class EgovIndvdlSchdulManageController {
 			@RequestParam Map <String, Object> commandMap,
 			IndvdlSchdulManageVO indvdlSchdulManageVO,
 			BindingResult bindingResult,
-    		ModelMap model)
-    throws Exception {
+    		ModelMap model) {
 
 		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
@@ -494,7 +483,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param bindingResult
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageModifyActor"
-	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageModifyActor.do")
 	public String IndvdlSchdulManageModifyActor(
@@ -504,8 +492,7 @@ public class EgovIndvdlSchdulManageController {
 			@Valid @ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
 			BindingResult bindingResult,
     		ModelMap model,
-    		HttpServletRequest request)
-    throws Exception {
+    		HttpServletRequest request) {
 
 		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
@@ -607,7 +594,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param bindingResult
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageRegist"
-	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageRegist.do")
 	public String IndvdlSchdulManageRegist(
@@ -616,8 +602,7 @@ public class EgovIndvdlSchdulManageController {
 			@ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
 			BindingResult bindingResult,
     		ModelMap model,
-    		HttpServletRequest request)
-    throws Exception {
+    		HttpServletRequest request) {
 
 		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
@@ -664,7 +649,6 @@ public class EgovIndvdlSchdulManageController {
 	 * @param bindingResult
 	 * @param model
 	 * @return "/cop/smt/sim/EgovIndvdlSchdulManageRegistActor"
-	 * @throws Exception
 	 */
 	@RequestMapping(value="/cop/smt/sim/EgovIndvdlSchdulManageRegistActor.do")
 	public String IndvdlSchdulManageRegistActor(
@@ -674,8 +658,7 @@ public class EgovIndvdlSchdulManageController {
 			@Valid @ModelAttribute("indvdlSchdulManageVO") IndvdlSchdulManageVO indvdlSchdulManageVO,
 			BindingResult bindingResult,
     		ModelMap model,
-    		HttpServletRequest request)
-    throws Exception {
+    		HttpServletRequest request) {
 
 		if (!checkAuthority(model)) return "cmm/uat/uia/EgovLoginUsr";	// server-side 권한 확인
 
@@ -792,9 +775,8 @@ public class EgovIndvdlSchdulManageController {
      * 운영자 권한을 확인한다.(로그인 여부를 확인한다.)
      *
      * @param boardMaster
-     * @throws EgovBizException
      */
-    protected boolean checkAuthority(ModelMap model) throws Exception {
+    protected boolean checkAuthority(ModelMap model) {
     	// 사용자권한 처리
     	log.debug("##### EgovIndvdlSchdulManageController authenticate >>> {}", EgovUserDetailsHelper.isAuthenticated());
     	if(!EgovUserDetailsHelper.isAuthenticated()) {

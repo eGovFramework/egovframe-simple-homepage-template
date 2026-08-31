@@ -27,6 +27,7 @@ import jakarta.annotation.Resource;
  *  -------    --------    ---------------------------
  *   2009.04.02  이삼섭          최초 생성
  *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성 
+ *   2026.09.01  이백행          [2026년 컨트리뷰션] 불필요한 예외 제거
  *
  * </pre>
  */
@@ -41,7 +42,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.bbs.com.service.EgovBBSUseInfoManageService#deleteBBSUseInf(egovframework.let.cop.bbs.com.service.BoardUseInf)
      */
-    public void deleteBBSUseInf(BoardUseInf bdUseInf) throws Exception {
+    public void deleteBBSUseInf(BoardUseInf bdUseInf) {
 	bbsUseDAO.deleteBBSUseInf(bdUseInf);
     }
 
@@ -50,7 +51,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.bbs.com.service.EgovBBSUseInfoManageService#insertBBSUseInf(egovframework.let.cop.bbs.com.service.BoardUseInf)
      */
-    public void insertBBSUseInf(BoardUseInf bdUseInf) throws Exception {
+    public void insertBBSUseInf(BoardUseInf bdUseInf) {
 	bbsUseDAO.insertBBSUseInf(bdUseInf);
     }
 
@@ -59,7 +60,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.bbs.com.service.EgovBBSUseInfoManageService#selectBBSUseInfs(egovframework.let.cop.bbs.com.service.BoardUseInfVO)
      */
-    public Map<String, Object> selectBBSUseInfs(BoardUseInfVO bdUseVO) throws Exception {
+    public Map<String, Object> selectBBSUseInfs(BoardUseInfVO bdUseVO) {
 
 	List<BoardUseInfVO> result = bbsUseDAO.selectBBSUseInfs(bdUseVO);
 	int cnt = bbsUseDAO.selectBBSUseInfsCnt(bdUseVO);
@@ -77,7 +78,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.bbs.com.service.EgovBBSUseInfoManageService#updateBBSUseInf(egovframework.let.cop.bbs.com.service.BoardUseInf)
      */
-    public void updateBBSUseInf(BoardUseInf bdUseInf) throws Exception {
+    public void updateBBSUseInf(BoardUseInf bdUseInf) {
 	bbsUseDAO.updateBBSUseInf(bdUseInf);
     }
 
@@ -86,7 +87,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.bbs.com.service.EgovBBSUseInfoManageService#selectBBSUseInf(egovframework.let.cop.bbs.com.service.BoardUseInfVO)
      */
-    public BoardUseInfVO selectBBSUseInf(BoardUseInfVO bdUseVO) throws Exception {
+    public BoardUseInfVO selectBBSUseInf(BoardUseInfVO bdUseVO) {
 	return bbsUseDAO.selectBBSUseInf(bdUseVO);
     }
 
@@ -95,7 +96,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#deleteBBSUseInfByClub(egovframework.let.cop.com.service.BoardUseInf)
      */
-    public void deleteBBSUseInfByClub(BoardUseInfVO bdUseVO) throws Exception {
+    public void deleteBBSUseInfByClub(BoardUseInfVO bdUseVO) {
 	List<BoardUseInf> result = bbsUseDAO.selectBBSUseInfByClub(bdUseVO);
 	
 	BoardUseInf bdUseInf = null;
@@ -116,7 +117,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#deleteBBSUseInfByCmmnty(egovframework.let.cop.com.service.BoardUseInf)
      */
-    public void deleteBBSUseInfByCmmnty(BoardUseInfVO bdUseVO) throws Exception {
+    public void deleteBBSUseInfByCmmnty(BoardUseInfVO bdUseVO) {
 	List<BoardUseInf> result = bbsUseDAO.selectBBSUseInfByCmmnty(bdUseVO);
 	
 	BoardUseInf bdUseInf = null;
@@ -138,7 +139,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#deleteAllBBSUseInfByClub(egovframework.let.cop.com.service.BoardUseInfVO)
      */
-    public void deleteAllBBSUseInfByClub(BoardUseInfVO bdUseVO) throws Exception {
+    public void deleteAllBBSUseInfByClub(BoardUseInfVO bdUseVO) {
 	bbsUseDAO.deleteAllBBSUseInfByClub(bdUseVO);
     }
 
@@ -147,7 +148,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#deleteAllBBSUseInfByCmmnty(egovframework.let.cop.com.service.BoardUseInfVO)
      */
-    public void deleteAllBBSUseInfByCmmnty(BoardUseInfVO bdUseVO) throws Exception {
+    public void deleteAllBBSUseInfByCmmnty(BoardUseInfVO bdUseVO) {
 	bbsUseDAO.deleteAllBBSUseInfByCmmnty(bdUseVO);
     }
 
@@ -156,7 +157,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#deleteBBSUseInfByBoardId(egovframework.let.cop.com.service.BoardUseInf)
      */
-    public void deleteBBSUseInfByBoardId(BoardUseInf bdUseInf) throws Exception {
+    public void deleteBBSUseInfByBoardId(BoardUseInf bdUseInf) {
 	bbsUseDAO.deleteBBSUseInfByBoardId(bdUseInf);
     }
 
@@ -165,7 +166,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
      * 
      * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#selectBBSUseInfsByTrget(egovframework.let.cop.com.service.BoardUseInfVO)
      */
-    public Map<String, Object> selectBBSUseInfsByTrget(BoardUseInfVO bdUseVO) throws Exception {
+    public Map<String, Object> selectBBSUseInfsByTrget(BoardUseInfVO bdUseVO) {
 	List<BoardUseInfVO> result = bbsUseDAO.selectBBSUseInfsByTrget(bdUseVO);
 	int cnt = bbsUseDAO.selectBBSUseInfsCntByTrget(bdUseVO);
 	
@@ -180,7 +181,7 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
     /**
      * 커뮤니티, 동호회에 사용되는 게시판 사용정보를 수정한다.
      */
-    public void updateBBSUseInfByTrget(BoardUseInf bdUseInf) throws Exception {
+    public void updateBBSUseInfByTrget(BoardUseInf bdUseInf) {
 	bbsUseDAO.updateBBSUseInfByTrget(bdUseInf);
     }
 }
