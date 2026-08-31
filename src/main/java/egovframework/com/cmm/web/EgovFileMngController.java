@@ -71,12 +71,11 @@ public class EgovFileMngController {
 	 * @param sessionVO
 	 * @param model
 	 * @return
-	 * @throws Exception
 	 */
 	@GetMapping("/cmm/fms/selectFileInfs.do")
 	public String selectFileInfs(@ModelAttribute("searchVO") FileVO fileVO,
 			HttpServletRequest request,
-			@RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
+			@RequestParam Map<String, Object> commandMap, ModelMap model) {
 		
 		String param_atchFileId = (String) commandMap.get("param_atchFileId");
 		byte[] encrypted_atchFileId = Base64.getDecoder().decode(param_atchFileId);
@@ -112,13 +111,12 @@ public class EgovFileMngController {
 	 * @param sessionVO
 	 * @param model
 	 * @return
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/cmm/fms/selectFileInfsForUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String selectFileInfsForUpdate(@ModelAttribute("searchVO") FileVO fileVO,
 			@RequestParam Map<String, Object> commandMap,
 			HttpServletRequest request,
-			ModelMap model) throws Exception {
+			ModelMap model) {
 
 		String param_atchFileId = (String) commandMap.get("param_atchFileId");
 		byte[] encrypted_atchFileId = Base64.getDecoder().decode(param_atchFileId);
@@ -155,13 +153,11 @@ public class EgovFileMngController {
 	 * @param sessionVO
 	 * @param model
 	 * @return
-	 * @throws Exception
 	 */
 	@PostMapping("/cmm/fms/deleteFileInfs.do")
 	public String deleteFileInf(@ModelAttribute("searchVO") FileVO fileVO,
 			@RequestParam("returnUrl") String returnUrl,
-			HttpServletRequest request, ModelMap model)
-			throws Exception {
+			HttpServletRequest request, ModelMap model) {
 
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
@@ -222,13 +218,12 @@ public class EgovFileMngController {
 	 * @param sessionVO
 	 * @param model
 	 * @return
-	 * @throws Exception
 	 */
 	@GetMapping("/cmm/fms/selectImageFileInfs.do")
 	public String selectImageFileInfs(@ModelAttribute("searchVO") FileVO fileVO,
 			@RequestParam Map<String, Object> commandMap,
 			HttpServletRequest request,
-			ModelMap model) throws Exception {
+			ModelMap model) {
 
 		String param_atchFileId = (String) commandMap.get("atchFileId");
 		String decodedAtchFileId = "";
