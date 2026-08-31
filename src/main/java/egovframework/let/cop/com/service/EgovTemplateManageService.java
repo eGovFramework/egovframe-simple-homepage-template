@@ -17,6 +17,7 @@ import java.util.Map;
  *  -------    --------    ---------------------------
  *   2009.03.17  이삼섭          최초 생성
  *   2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성 
+ *   2026.09.01  이백행          [2026년 컨트리뷰션] 불필요한 예외 제거
  *
  * </pre>
  */
@@ -26,67 +27,53 @@ public interface EgovTemplateManageService {
 	 * 템플릿 정보를 삭제한다.
 	 * 
 	 * @param tmplatInf
-	 * @exception Exception Exception
 	 */
-	public void deleteTemplateInf(TemplateInf tmplatInf)
-	  throws Exception;
+	public void deleteTemplateInf(TemplateInf tmplatInf);
 
 	/**
 	 * 템플릿 정보를 등록한다.
 	 * 
 	 * @param tmplatInf
-	 * @exception Exception Exception
 	 */
-	public void insertTemplateInf(TemplateInf tmplatInf)
-	  throws Exception;
+	public void insertTemplateInf(TemplateInf tmplatInf);
 
 	/**
 	 * 템플릿에 대한 상세정보를 조회한다.
 	 * @return
 	 * 
 	 * @param tmplatInfVO
-	 * @exception Exception Exception
 	 */
-	public TemplateInfVO selectTemplateInf(TemplateInfVO tmplatInfVO)
-	  throws Exception;
+	public TemplateInfVO selectTemplateInf(TemplateInfVO tmplatInfVO);
 
 	/**
 	 * 템플릿에 대한 목록를 조회한다.
 	 * @return
 	 * 
 	 * @param tmplatInfVO
-	 * @exception Exception Exception
 	 */
-	public Map<String, Object> selectTemplateInfs(TemplateInfVO tmplatInfVO)
-	  throws Exception;
+	public Map<String, Object> selectTemplateInfs(TemplateInfVO tmplatInfVO);
 
 	/**
 	 * 템플릿 구분에 따른 목록을 조회한다.
 	 * @return
 	 * 
 	 * @param tmplatInfVO
-	 * @exception Exception Exception
 	 */
-	public List<TemplateInfVO> selectTemplateInfsByCode(TemplateInfVO tmplatInfVO)
-	  throws Exception;
+	public List<TemplateInfVO> selectTemplateInfsByCode(TemplateInfVO tmplatInfVO);
 
 	/**
 	 * 템플릿에 대한 미리보기 정보를 조회한다.
 	 * @return
 	 * 
 	 * @param tmplatInfVO
-	 * @exception Exception Exception
 	 */
-	public TemplateInfVO selectTemplatePreview(TemplateInfVO tmplatInfVO)
-	  throws Exception;
+	public TemplateInfVO selectTemplatePreview(TemplateInfVO tmplatInfVO);
 
 	/**
 	 * 템플릿 정보를 수정한다.
 	 * 
 	 * @param tmplatInf
-	 * @exception Exception Exception
 	 */
-	public void updateTemplateInf(TemplateInf tmplatInf)
-	  throws Exception;
+	public void updateTemplateInf(TemplateInf tmplatInf);
 
 }
