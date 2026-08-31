@@ -5,11 +5,13 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.crypto.EgovCryptoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import jakarta.annotation.Resource;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -91,35 +94,54 @@ public class EgovFileDownloadController {
 	 * @param filename
 	 * @param request
 	 * @param response
-	 * @throws Exception
 	 */
-	private void setDisposition(String filename, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void setDisposition(String filename, HttpServletRequest request, HttpServletResponse response) {
 		String browser = getBrowser(request);
 
 		String dispositionPrefix = "attachment; filename=";
 		String encodedFilename = null;
 
 		if (browser.equals("MSIE")) {
-			encodedFilename = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
+			try {
+				encodedFilename = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
+			} catch (UnsupportedEncodingException e) {
+				throw new BaseRuntimeException(e);
+			}
 		} else if (browser.equals("Trident")) { // IE11 문자열 깨짐 방지
-			encodedFilename = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
+			try {
+				encodedFilename = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
+			} catch (UnsupportedEncodingException e) {
+				throw new BaseRuntimeException(e);
+			}
 		} else if (browser.equals("Firefox")) {
-			encodedFilename = "\"" + new String(filename.getBytes("UTF-8"), "8859_1") + "\"";
+			try {
+				encodedFilename = "\"" + new String(filename.getBytes("UTF-8"), "8859_1") + "\"";
+			} catch (UnsupportedEncodingException e) {
+				throw new BaseRuntimeException(e);
+			}
 		} else if (browser.equals("Opera")) {
-			encodedFilename = "\"" + new String(filename.getBytes("UTF-8"), "8859_1") + "\"";
+			try {
+				encodedFilename = "\"" + new String(filename.getBytes("UTF-8"), "8859_1") + "\"";
+			} catch (UnsupportedEncodingException e) {
+				throw new BaseRuntimeException(e);
+			}
 		} else if (browser.equals("Chrome")) {
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < filename.length(); i++) {
 				char c = filename.charAt(i);
 				if (c > '~') {
-					sb.append(URLEncoder.encode("" + c, "UTF-8"));
+					try {
+						sb.append(URLEncoder.encode("" + c, "UTF-8"));
+					} catch (UnsupportedEncodingException e) {
+						throw new BaseRuntimeException(e);
+					}
 				} else {
 					sb.append(c);
 				}
 			}
 			encodedFilename = sb.toString();
 		} else {
-			throw new IOException("Not supported browser");
+			throw new BaseRuntimeException("Not supported browser");
 		}
 
 		response.setHeader("Content-Disposition", dispositionPrefix + encodedFilename);
@@ -134,10 +156,9 @@ public class EgovFileDownloadController {
 	 *
 	 * @param commandMap
 	 * @param response
-	 * @throws Exception
 	 */
 	@RequestMapping(value = "/cmm/fms/FileDown.do")
-	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) {
 
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
@@ -152,7 +173,11 @@ public class EgovFileDownloadController {
 			// 세션 바인딩 검증 - atchFileId 발급 당시의 세션ID와 현재 세션ID가 일치해야 한다.
 			String issuedSessionId = StringUtils.substringBefore(decodedString, "|");
 			if (issuedSessionId == null || issuedSessionId.isEmpty() || !issuedSessionId.equals(request.getSession().getId())) {
-				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				try {
+					response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				} catch (IOException e) {
+					throw new BaseRuntimeException(e);
+				}
 				return;
 			}
 
@@ -205,7 +230,11 @@ public class EgovFileDownloadController {
 				}
 
 			} else {
-				request.getRequestDispatcher("/cmm/error/egovBizException.jsp").forward(request, response);
+				try {
+					request.getRequestDispatcher("/cmm/error/egovBizException.jsp").forward(request, response);
+				} catch (ServletException | IOException e) {
+					throw new BaseRuntimeException(e);
+				}
 			}
 		}
 	}

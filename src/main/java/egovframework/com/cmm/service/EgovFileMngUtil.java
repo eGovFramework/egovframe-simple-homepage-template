@@ -1,12 +1,15 @@
 package egovframework.com.cmm.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
+import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.slf4j.Logger;
@@ -51,9 +54,8 @@ public class EgovFileMngUtil {
      *
      * @param files
      * @return
-     * @throws Exception
      */
-    public List<FileVO> parseFileInf(Map<String, MultipartFile> files, String KeyStr, int fileKeyParam, String atchFileId, String storePath) throws Exception {
+    public List<FileVO> parseFileInf(Map<String, MultipartFile> files, String KeyStr, int fileKeyParam, String atchFileId, String storePath) {
     	int fileKey = fileKeyParam;
 
     	String storePathString = "";
@@ -66,7 +68,11 @@ public class EgovFileMngUtil {
     	}
 
     	if (atchFileId == null || "".equals(atchFileId)) {
-    		atchFileIdString = idgenService.getNextStringId();
+    		try {
+				atchFileIdString = idgenService.getNextStringId();
+			} catch (FdlException e) {
+				throw new BaseRuntimeException(e);
+			}
     	} else {
     		atchFileIdString = atchFileId;
     	}
@@ -106,7 +112,11 @@ public class EgovFileMngUtil {
 
 		    if (!"".equals(orginFileName)) {
 				filePath = storePathString + File.separator + newName;
-				file.transferTo(new File(EgovWebUtil.filePathBlackList(filePath)));
+				try {
+					file.transferTo(new File(EgovWebUtil.filePathBlackList(filePath)));
+				} catch (IllegalStateException | IOException e) {
+					throw new BaseRuntimeException(e);
+				}
 		    }
 
 		    fvo = new FileVO();
