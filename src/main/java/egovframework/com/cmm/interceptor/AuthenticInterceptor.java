@@ -36,9 +36,9 @@ public class AuthenticInterceptor extends WebContentInterceptor {
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException {
-		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		Object authenticatedUser = EgovUserDetailsHelper.getAuthenticatedUser();
 
-		if (loginVO.getId() != null) {
+		if (authenticatedUser instanceof LoginVO && ((LoginVO) authenticatedUser).getId() != null) {
 			return true;
 		} else {
 			ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
