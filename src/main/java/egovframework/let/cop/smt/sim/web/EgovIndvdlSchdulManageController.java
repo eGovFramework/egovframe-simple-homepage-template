@@ -691,6 +691,28 @@ public class EgovIndvdlSchdulManageController {
 
     		if(bindingResult.hasErrors()){
 
+    	    	//공통코드  중요도 조회
+    	    	ComDefaultCodeVO voComCode = new ComDefaultCodeVO();
+    	    	voComCode.setCodeId("COM019");
+    	    	model.addAttribute("schdulIpcrCode", cmmUseService.selectCmmCodeDetail(voComCode));
+    	    	//공통코드  일정구분 조회
+    	    	voComCode = new ComDefaultCodeVO();
+    	    	voComCode.setCodeId("COM030");
+    	    	model.addAttribute("schdulSe", cmmUseService.selectCmmCodeDetail(voComCode));
+    	    	//공통코드  반복구분 조회
+    	    	voComCode = new ComDefaultCodeVO();
+    	    	voComCode.setCodeId("COM031");
+    	    	model.addAttribute("reptitSeCode", cmmUseService.selectCmmCodeDetail(voComCode));
+
+    	    	//일정시작일자(시)
+    	    	model.addAttribute("schdulBgndeHH", getTimeHH());
+    	    	//일정시작일자(분)
+    	    	model.addAttribute("schdulBgndeMM", getTimeMM());
+    	    	//일정종료일자(시)
+    	    	model.addAttribute("schdulEnddeHH", getTimeHH());
+    	    	//일정종료일자(분)
+    	    	model.addAttribute("schdulEnddeMM", getTimeMM());
+
     			return sLocationUrl;
     		}
 

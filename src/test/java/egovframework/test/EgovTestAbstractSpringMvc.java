@@ -126,9 +126,9 @@ public class EgovTestAbstractSpringMvc {
 			if (log.isDebugEnabled()) {
 				log.debug("length={}", beanDefinitionNames.length);
 			}
-
-			mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 		}
+
+		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 	}
 
 	/**
