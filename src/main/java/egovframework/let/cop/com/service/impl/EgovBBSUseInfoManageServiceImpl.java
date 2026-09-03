@@ -159,28 +159,4 @@ public class EgovBBSUseInfoManageServiceImpl extends EgovAbstractServiceImpl imp
     public void deleteBBSUseInfByBoardId(BoardUseInf bdUseInf) throws Exception {
 	bbsUseDAO.deleteBBSUseInfByBoardId(bdUseInf);
     }
-
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보에 대한 목록을 조회한다.
-     * 
-     * @see egovframework.let.cop.com.service.EgovBBSUseInfoManageService#selectBBSUseInfsByTrget(egovframework.let.cop.com.service.BoardUseInfVO)
-     */
-    public Map<String, Object> selectBBSUseInfsByTrget(BoardUseInfVO bdUseVO) throws Exception {
-	List<BoardUseInfVO> result = bbsUseDAO.selectBBSUseInfsByTrget(bdUseVO);
-	int cnt = bbsUseDAO.selectBBSUseInfsCntByTrget(bdUseVO);
-	
-	Map<String, Object> map = new HashMap<String, Object>();
-	
-	map.put("resultList", result);
-	map.put("resultCnt", Integer.toString(cnt));
-
-	return map;
-    }
-
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보를 수정한다.
-     */
-    public void updateBBSUseInfByTrget(BoardUseInf bdUseInf) throws Exception {
-	bbsUseDAO.updateBBSUseInfByTrget(bdUseInf);
-    }
 }
