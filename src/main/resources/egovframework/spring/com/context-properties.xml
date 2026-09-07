@@ -18,7 +18,7 @@
             <map>
                 <entry key="pageUnit" value="10"/>
                 <entry key="pageSize" value="10"/>
-                <entry key="posblAtchFileSize" value="${Globals.fileUpload.maxRequestSize}"/>
+                <entry key="Globals.posblAtchFileSize" value="${Globals.posblAtchFileSize}"/>
                 <entry key="Globals.fileStorePath" value="${Globals.fileStorePath}"/>
                 <entry key="Globals.addedOptions" value="false"/>
             </map>
