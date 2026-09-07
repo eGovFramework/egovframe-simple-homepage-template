@@ -445,7 +445,7 @@ public class EgovBBSManageController {
      */
     @PostMapping("/cop/bbs/replyBoardArticle.do")
     public String replyBoardArticle(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO boardVO,
-	    @ModelAttribute("bdMstr") BoardMaster bdMstr, @ModelAttribute("board") Board board, BindingResult bindingResult, ModelMap model,
+	    @ModelAttribute("bdMstr") BoardMaster bdMstr, @Valid @ModelAttribute("board") Board board, BindingResult bindingResult, ModelMap model,
 	    SessionStatus status, RedirectAttributes redirectAttributes) throws Exception {
 
     	// 사용자권한 처리
