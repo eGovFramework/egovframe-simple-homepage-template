@@ -9,6 +9,7 @@ import java.util.Base64;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.crypto.EgovCryptoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,14 +73,17 @@ public class EgovImageProcessController extends HttpServlet {
 	 * @param sessionVO
 	 * @param model
 	 * @param response
-	 * @throws Exception
 	 */
 	@RequestMapping("/cmm/fms/getImage.do")
-	public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void getImageInf(SessionVO sessionVO, ModelMap model, @RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) {
 
 		// 사용자권한 처리
 		if (!EgovUserDetailsHelper.isAuthenticated()) {
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			try {
+				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			} catch (IOException e) {
+				throw new BaseRuntimeException(e);
+			}
 			return;
 		}
 
@@ -91,7 +95,11 @@ public class EgovImageProcessController extends HttpServlet {
 		// 세션 바인딩 검증 - atchFileId 발급 당시의 세션ID와 현재 세션ID가 일치해야 한다.
 		String issuedSessionId = StringUtils.substringBefore(decodedString, "|");
 		if (issuedSessionId == null || issuedSessionId.isEmpty() || !issuedSessionId.equals(request.getSession().getId())) {
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			try {
+				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			} catch (IOException e) {
+				throw new BaseRuntimeException(e);
+			}
 			return;
 		}
 
