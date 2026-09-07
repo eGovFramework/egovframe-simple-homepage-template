@@ -129,33 +129,4 @@ public class BBSUseInfoManageDAO extends EgovAbstractMapper {
     public void deleteBBSUseInfByBoardId(BoardUseInf bdUseInf) {
     	update("BBSUseInfoManageDAO.deleteBBSUseInfByBoardId", bdUseInf);
     }
-
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보에 대한 목록을 조회한다.
-     *
-     * @param bdUseVO
-     * @return
-     */
-    public List<BoardUseInfVO> selectBBSUseInfsByTrget(BoardUseInfVO bdUseVO) {
-    	return selectList("BBSUseInfoManageDAO.selectBBSUseInfsByTrget", bdUseVO);
-    }
-
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보에 대한 전체 건수를 조회한다.
-     *
-     * @param bdUseVO
-     * @return
-     */
-    public int selectBBSUseInfsCntByTrget(BoardUseInfVO bdUseVO) {
-    	return (Integer)selectOne("BBSUseInfoManageDAO.selectBBSUseInfsCntByTrget", bdUseVO);
-    }
-
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보를 수정한다.
-     *
-     * @param bdUseInf
-     */
-    public void updateBBSUseInfByTrget(BoardUseInf bdUseInf) {
-    	update("BBSUseInfoManageDAO.updateBBSUseInfByTrget", bdUseInf);
-    }
 }

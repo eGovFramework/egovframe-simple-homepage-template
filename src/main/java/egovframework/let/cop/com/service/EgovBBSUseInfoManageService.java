@@ -104,21 +104,4 @@ public interface EgovBBSUseInfoManageService {
      */
     public void deleteBBSUseInfByBoardId(BoardUseInf bdUseInf) throws Exception;
 
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보에 대한 목록을 조회한다.
-     * 
-     * @param bdUseVO
-     * @return
-     * @throws Exception
-     */
-    public Map<String, Object> selectBBSUseInfsByTrget(BoardUseInfVO bdUseVO) throws Exception;
-
-    /**
-     * 커뮤니티, 동호회에 사용되는 게시판 사용정보를 수정한다.
-     * 
-     * @param bdUseInf
-     * @throws Exception
-     */
-    public void updateBBSUseInfByTrget(BoardUseInf bdUseInf) throws Exception;
-
 }
