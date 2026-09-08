@@ -40,6 +40,7 @@ import jakarta.servlet.http.HttpSession;
  *  2009.03.12  이삼섭          최초 생성
  *  2009.06.26	한성곤		2단계 기능 추가 (댓글관리, 만족도조사)
  *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2026.09.01  이백행          [2026년 컨트리뷰션] 불필요한 예외 제거
  *
  *  </pre>
  */
@@ -64,11 +65,10 @@ public class EgovBBSAttributeManageController {
      * @param boardMasterVO
      * @param model
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/addBBSMaster.do")
-    public String addBBSMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
+    public String addBBSMaster(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) {
 
     	BoardMaster boardMaster = new BoardMaster();
 
@@ -96,12 +96,11 @@ public class EgovBBSAttributeManageController {
      * @param boardMasterVO
      * @param boardMaster
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/insertBBSMasterInf.do")
     public String insertBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
-	    BindingResult bindingResult, ModelMap model) throws Exception {
+	    BindingResult bindingResult, ModelMap model) {
 
     	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -149,14 +148,13 @@ public class EgovBBSAttributeManageController {
      * @param boardMasterVO
      * @param model
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/SelectBBSMasterInfs.do")
     public String selectBBSMasterInfs(HttpSession session,
 			@RequestParam(value="menuNo", required=false) String menuNo,
     		@ModelAttribute("searchVO") BoardMasterVO boardMasterVO,
-    		ModelMap model) throws Exception {
+    		ModelMap model) {
 
     	// 선택된 메뉴정보를 세션으로 등록한다.
     	if (menuNo!=null && !menuNo.equals("")){
@@ -194,11 +192,10 @@ public class EgovBBSAttributeManageController {
      * @param boardMasterVO
      * @param model
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/SelectBBSMasterInf.do")
-    public String selectBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO searchVO, ModelMap model) throws Exception {
+    public String selectBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO searchVO, ModelMap model) {
 
     	BoardMasterVO vo = bbsAttrbService.selectBBSMasterInf(searchVO);
 		model.addAttribute("result", vo);
@@ -213,12 +210,11 @@ public class EgovBBSAttributeManageController {
      * @param boardMaster
      * @param model
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/UpdateBBSMasterInf.do")
     public String updateBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
-	    BindingResult bindingResult, ModelMap model) throws Exception {
+	    BindingResult bindingResult, ModelMap model) {
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -254,12 +250,11 @@ public class EgovBBSAttributeManageController {
      * @param boardMaster
      * @param status
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/DeleteBBSMasterInf.do")
     public String deleteBBSMasterInf(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, @ModelAttribute("boardMaster") BoardMaster boardMaster,
-	    ModelMap model) throws Exception {
+	    ModelMap model) {
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
@@ -278,11 +273,10 @@ public class EgovBBSAttributeManageController {
      * @param boardMasterVO
      * @param model
      * @return
-     * @throws Exception
      */
     @RequireAdmin
     @RequestMapping("/cop/bbs/SelectBBSMasterInfsPop.do")
-    public String selectBBSMasterInfsPop(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) throws Exception {
+    public String selectBBSMasterInfsPop(@ModelAttribute("searchVO") BoardMasterVO boardMasterVO, ModelMap model) {
 
     	boardMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
 		boardMasterVO.setPageSize(propertyService.getInt("pageSize"));

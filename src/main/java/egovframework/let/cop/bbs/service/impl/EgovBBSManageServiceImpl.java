@@ -32,6 +32,7 @@ import jakarta.annotation.Resource;
  *  -------    --------    ---------------------------
  *  2009.03.19  이삼섭          최초 생성
  *  2011.08.31  JJY            경량환경 템플릿 커스터마이징버전 생성
+ *   2026.09.01  이백행          [2026년 컨트리뷰션] 불필요한 예외 제거
  *
  *  </pre>
  */
@@ -52,7 +53,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#deleteBoardArticle(egovframework.let.cop.bbs.brd.service.Board)
      */
-    public void deleteBoardArticle(Board board) throws Exception {
+    public void deleteBoardArticle(Board board) {
 	FileVO fvo = new FileVO();
 
 	fvo.setAtchFileId(board.getAtchFileId());
@@ -71,7 +72,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#insertBoardArticle(egovframework.let.cop.bbs.brd.service.Board)
      */
-    public void insertBoardArticle(Board board) throws Exception {
+    public void insertBoardArticle(Board board) {
 	// SORT_ORDR는 부모글의 소트 오더와 같게, NTT_NO는 순서대로 부여
 
 	if ("Y".equals(board.getReplyAt())) {
@@ -98,7 +99,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticle(egovframework.let.cop.bbs.brd.service.BoardVO)
      */
-    public BoardVO selectBoardArticle(BoardVO boardVO) throws Exception {
+    public BoardVO selectBoardArticle(BoardVO boardVO) {
 	if (boardVO.isPlusCount()) {
 	    int iniqireCo = bbsMngDAO.selectMaxInqireCo(boardVO);
 
@@ -114,7 +115,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticles(egovframework.let.cop.bbs.brd.service.BoardVO)
      */
-    public Map<String, Object> selectBoardArticles(BoardVO boardVO, String attrbFlag) throws Exception {
+    public Map<String, Object> selectBoardArticles(BoardVO boardVO, String attrbFlag) {
 	List<BoardVO> list = bbsMngDAO.selectBoardArticleList(boardVO);
 	List<BoardVO> result = new ArrayList<BoardVO>();
 
@@ -154,7 +155,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#updateBoardArticle(egovframework.let.cop.bbs.brd.service.Board)
      */
-    public void updateBoardArticle(Board board) throws Exception {
+    public void updateBoardArticle(Board board) {
 			bbsMngDAO.updateBoardArticle(board);
     }
 
@@ -163,7 +164,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#deleteGuestList(egovframework.let.cop.bbs.brd.service.BoardVO)
      */
-    public void deleteGuestList(BoardVO boardVO) throws Exception {
+    public void deleteGuestList(BoardVO boardVO) {
 	bbsMngDAO.deleteGuestList(boardVO);
     }
 
@@ -172,7 +173,7 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.let.cop.bbs.brd.service.EgovBBSManageService#selectGuestList(egovframework.let.cop.bbs.brd.service.BoardVO)
      */
-    public Map<String, Object> selectGuestList(BoardVO boardVO) throws Exception {
+    public Map<String, Object> selectGuestList(BoardVO boardVO) {
 	List<BoardVO> result = bbsMngDAO.selectGuestList(boardVO);
 	int cnt = bbsMngDAO.selectGuestListCnt(boardVO);
 
@@ -189,9 +190,8 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @param board
      * @return
-     * @throws Exception
      */
-    public String getPasswordInf(Board board) throws Exception {
+    public String getPasswordInf(Board board) {
 	return bbsMngDAO.getPasswordInf(board);
     }
 }
