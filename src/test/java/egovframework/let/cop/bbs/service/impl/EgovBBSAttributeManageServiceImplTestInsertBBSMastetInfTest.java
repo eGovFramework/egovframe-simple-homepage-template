@@ -59,11 +59,9 @@ class EgovBBSAttributeManageServiceImplTestInsertBBSMastetInfTest extends EgovTe
 
 	/**
 	 * 신규 게시판 속성정보를 생성한다.
-	 * 
-	 * @throws Exception
 	 */
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final BoardMaster boardMaster = new BoardMaster();
 

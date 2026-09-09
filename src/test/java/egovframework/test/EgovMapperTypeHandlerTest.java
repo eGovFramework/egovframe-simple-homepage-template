@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -58,7 +59,7 @@ class EgovMapperTypeHandlerTest {
 		return dbTypes;
 	}
 
-	private void buildSqlSessionFactory(String dbType) throws Exception {
+	private void buildSqlSessionFactory(String dbType) throws BaseRuntimeException, Exception {
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();

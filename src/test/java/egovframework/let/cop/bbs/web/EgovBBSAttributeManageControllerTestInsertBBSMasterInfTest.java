@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import egovframework.test.EgovTestAbstractSpringMvc;
@@ -25,10 +26,11 @@ class EgovBBSAttributeManageControllerTestInsertBBSMasterInfTest extends EgovTes
 	/**
 	 * 신규 게시판 마스터 정보를 등록한다.
 	 * 
+	 * @throws BaseRuntimeException
 	 * @throws Exception
 	 */
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
 
 		// when

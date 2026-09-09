@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,9 +67,8 @@ public class EgovFormBasedFileUtil {
 	 * 파일명 변환.
 	 * @param filename String
 	 * @return
-	 * @throws Exception
 	 */
-	protected static String convert(String filename) throws Exception {
+	protected static String convert(String filename) {
 		//return java.net.URLEncoder.encode(filename, "utf-8");
 		return filename;
 	}
@@ -78,7 +77,6 @@ public class EgovFormBasedFileUtil {
 	 * Stream으로부터 파일을 저장함.
 	 * @param is InputStream
 	 * @param file File
-	 * @throws IOException
 	 */
 	public static long saveFile(InputStream is, File file) throws IOException {
 		//KISA 보안약점 조치 (2018-10-29, 윤창원)
@@ -125,10 +123,9 @@ public class EgovFormBasedFileUtil {
 	 * @param where
 	 * @param maxFileSize
 	 * @return
-	 * @throws Exception
 	 */
 	/*
-	public static List<EgovFormBasedFileVo> uploadFiles(HttpServletRequest request, String where, long maxFileSize) throws Exception {
+	public static List<EgovFormBasedFileVo> uploadFiles(HttpServletRequest request, String where, long maxFileSize) {
 		List<EgovFormBasedFileVo> list = new ArrayList<EgovFormBasedFileVo>();
 
 		// Check that we have a file upload request
@@ -194,19 +191,18 @@ public class EgovFormBasedFileUtil {
 	 * @param serverSubPath
 	 * @param physicalName
 	 * @param original
-	 * @throws Exception
 	 */
-	public static void downloadFile(HttpServletResponse response, String where, String serverSubPath, String physicalName, String original) throws Exception {
+	public static void downloadFile(HttpServletResponse response, String where, String serverSubPath, String physicalName, String original) {
 		String downFileName = where + SEPERATOR + serverSubPath + SEPERATOR + physicalName;
 
 		File file = new File(EgovWebUtil.filePathBlackList(downFileName));
 
 		if (!file.exists()) {
-			throw new FileNotFoundException(downFileName);
+			throw new BaseRuntimeException(downFileName);
 		}
 
 		if (!file.isFile()) {
-			throw new FileNotFoundException(downFileName);
+			throw new BaseRuntimeException(downFileName);
 		}
 
 		byte[] b = new byte[BUFFER_SIZE];
@@ -230,6 +226,8 @@ public class EgovFormBasedFileUtil {
 			while ((read = fin.read(b)) != -1) {
 				outs.write(b, 0, read);
 			}
+		} catch (IOException e) {
+			throw new BaseRuntimeException(e);
 		} finally {
 			EgovResourceCloseHelper.close(outs, fin);
 		}
@@ -246,20 +244,19 @@ public class EgovFormBasedFileUtil {
 	 * @param serverSubPath
 	 * @param physicalName
 	 * @param mimeType
-	 * @throws Exception
 	 */
-	public static void viewFile(HttpServletResponse response, String where, String serverSubPath, String physicalName, String mimeTypeParam) throws Exception {
+	public static void viewFile(HttpServletResponse response, String where, String serverSubPath, String physicalName, String mimeTypeParam) {
 		String mimeType = mimeTypeParam;
 		String downFileName = where + SEPERATOR + serverSubPath + SEPERATOR + physicalName;
 
 		File file = new File(EgovWebUtil.filePathBlackList(downFileName));
 
 		if (!file.exists()) {
-			throw new FileNotFoundException(downFileName);
+			throw new BaseRuntimeException(downFileName);
 		}
 
 		if (!file.isFile()) {
-			throw new FileNotFoundException(downFileName);
+			throw new BaseRuntimeException(downFileName);
 		}
 
 		byte[] b = new byte[BUFFER_SIZE];
@@ -283,6 +280,8 @@ public class EgovFormBasedFileUtil {
 			while ((read = fin.read(b)) != -1) {
 				outs.write(b, 0, read);
 			}
+		} catch (IOException e) {
+			throw new BaseRuntimeException(e);
 		} finally {
 			EgovResourceCloseHelper.close(outs, fin);
 		}

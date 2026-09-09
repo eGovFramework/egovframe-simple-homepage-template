@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MvcResult;
@@ -31,10 +32,11 @@ class EgovIndvdlSchdulManageControllerTestRegistActorTest extends EgovTestAbstra
 	/**
 	 * 서버 검증에 걸려 등록 폼으로 되돌아갈 때 폼이 필요로 하는 목록이 모델에 남아 있어야 한다.
 	 *
+	 * @throws BaseRuntimeException
 	 * @throws Exception
 	 */
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
 		final LoginVO loginVO = new LoginVO();
 		loginVO.setId("TEST1");
