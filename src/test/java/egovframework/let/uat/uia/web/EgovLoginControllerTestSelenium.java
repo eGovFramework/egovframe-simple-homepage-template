@@ -18,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class EgovLoginControllerTestSelenium {
 
-	WebDriver driver;
+	private WebDriver driver;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		try {
 			driver = new ChromeDriver();
 //			driver = new EdgeDriver();
@@ -42,7 +42,11 @@ class EgovLoginControllerTestSelenium {
 		// given
 
 		// 로그인 화면 이동
-		driver.get("http://localhost:8080/egovframe-template-simple/uat/uia/egovLoginUsr.do");
+		try {
+			driver.get("http://localhost:8080/egovframe-template-simple/uat/uia/egovLoginUsr.do");
+		} catch (WebDriverException e) {
+			Assumptions.abort("WebDriver를 실행할 수 없어 테스트를 건너뜁니다.");
+		}
 
 		JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
 
