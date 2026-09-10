@@ -3,9 +3,11 @@ package egovframework.let.cop.bbs.web;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,10 +41,12 @@ class EgovBBSAttributeManageControllerPosblAtchFileSizeTest extends EgovTestAbst
 
 	@Test
 	@DisplayName("게시판마스터 등록·수정이 조회하는 키가 globals.properties 에 선언된 값을 돌려준다")
-	void testPosblAtchFileSizeIsResolvable() throws Exception {
+	void testPosblAtchFileSizeIsResolvable() {
 		final Properties globals = new Properties();
 		try (InputStream inputStream = getClass().getResourceAsStream(GLOBALS)) {
 			globals.load(inputStream);
+		} catch (IOException e) {
+			throw new BaseRuntimeException(e);
 		}
 
 		assertNotNull(globals.getProperty(KEY), GLOBALS + " 에 " + KEY + " 선언이 없다");

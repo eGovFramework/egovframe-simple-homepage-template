@@ -12,8 +12,6 @@ import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,8 +44,6 @@ public class EgovFileMngUtil {
 
     @Resource(name = "egovFileIdGnrService")
     private EgovIdGnrService idgenService;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EgovFileMngUtil.class);
 
     /**
      * 첨부파일에 대한 목록 정보를 취득한다.

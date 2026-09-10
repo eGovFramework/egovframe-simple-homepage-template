@@ -45,11 +45,9 @@ public class EgovMainController {
 	 *
 	 * @param request
 	 * @param commandMap
-	 * @exception Exception Exception
 	 */
 	@RequestMapping(value = "/cmm/forwardPage.do")
-	public String forwardPageWithMenuNo(HttpServletRequest request, @RequestParam Map<String, Object> commandMap)
-	  throws Exception{
+	public String forwardPageWithMenuNo(HttpServletRequest request, @RequestParam Map<String, Object> commandMap) {
 		return "";
 	}
 
@@ -59,11 +57,9 @@ public class EgovMainController {
 	 *
 	 * @param request
 	 * @param model
-	 * @exception Exception Exception
 	 */
 	@RequestMapping(value = "/cmm/main/mainPage.do")
-	public String getMgtMainPage(HttpServletRequest request, ModelMap model)
-	  throws Exception{
+	public String getMgtMainPage(HttpServletRequest request, ModelMap model) {
 
 		// 공지사항 메인 컨텐츠 조회 시작 ---------------------------------
 		BoardVO boardVO = new BoardVO();

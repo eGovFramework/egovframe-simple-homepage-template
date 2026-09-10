@@ -15,7 +15,6 @@
  */
 package egovframework.com.cmm;
 
-import org.egovframe.rte.ptl.mvc.tags.ui.pagination.AbstractKrdsPaginationRenderer;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.AbstractPaginationRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

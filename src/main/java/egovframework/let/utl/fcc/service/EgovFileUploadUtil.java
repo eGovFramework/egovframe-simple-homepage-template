@@ -1,11 +1,13 @@
 package egovframework.let.utl.fcc.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
@@ -39,10 +41,8 @@ public class EgovFileUploadUtil extends EgovFormBasedFileUtil {
 	 * @param where
 	 * @param maxFileSize
 	 * @return
-	 * @throws Exception
 	 */
-	public static List<EgovFormBasedFileVo> uploadFiles(HttpServletRequest request, String where, long maxFileSize)
-		throws Exception {
+	public static List<EgovFormBasedFileVo> uploadFiles(HttpServletRequest request, String where, long maxFileSize) {
 		List<EgovFormBasedFileVo> list = new ArrayList<EgovFormBasedFileVo>();
 
 		//MultipartHttpServletRequest mptRequest = (MultipartHttpServletRequest) request;
@@ -79,9 +79,15 @@ public class EgovFileUploadUtil extends EgovFormBasedFileUtil {
 							is = mFile.getInputStream();
 							saveFile(is, new File(EgovWebUtil.filePathBlackList(
 								where + SEPERATOR + vo.getServerSubPath() + SEPERATOR + vo.getPhysicalName())));
+						} catch (IOException e) {
+							throw new BaseRuntimeException(e);
 						} finally {
 							if (is != null) {
-								is.close();
+								try {
+									is.close();
+								} catch (IOException e) {
+									throw new BaseRuntimeException(e);
+								}
 							}
 						}
 						list.add(vo);
@@ -100,10 +106,9 @@ public class EgovFileUploadUtil extends EgovFormBasedFileUtil {
 	 * @param where
 	 * @param maxFileSize
 	 * @return
-	 * @throws Exception
 	 */
 	public static List<EgovFormBasedFileVo> uploadFilesExt(MultipartHttpServletRequest mptRequest, String where,
-		long maxFileSize, String extensionWhiteList) throws Exception {
+		long maxFileSize, String extensionWhiteList) {
 		List<EgovFormBasedFileVo> list = new ArrayList<EgovFormBasedFileVo>();
 
 		if (mptRequest != null) {
@@ -147,9 +152,15 @@ public class EgovFileUploadUtil extends EgovFormBasedFileUtil {
 							is = mFile.getInputStream();
 							saveFile(is, new File(EgovWebUtil.filePathBlackList(
 								where + SEPERATOR + vo.getServerSubPath() + SEPERATOR + vo.getPhysicalName())));
+						} catch (IOException e) {
+							throw new BaseRuntimeException(e);
 						} finally {
 							if (is != null) {
-								is.close();
+								try {
+									is.close();
+								} catch (IOException e) {
+									throw new BaseRuntimeException(e);
+								}
 							}
 						}
 						list.add(vo);

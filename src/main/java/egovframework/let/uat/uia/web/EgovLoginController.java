@@ -57,10 +57,9 @@ public class EgovLoginController {
 	 * 로그인 화면으로 들어간다
 	 * @param vo - 로그인후 이동할 URL이 담긴 LoginVO
 	 * @return 로그인 페이지
-	 * @exception Exception
 	 */
 	@RequestMapping(value = "/uat/uia/egovLoginUsr.do")
-	public String loginUsrView(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+	public String loginUsrView(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "cmm/uat/uia/EgovLoginUsr";
 	}
 
@@ -69,10 +68,9 @@ public class EgovLoginController {
 	 * @param vo - 아이디, 비밀번호가 담긴 LoginVO
 	 * @param request - 세션처리를 위한 HttpServletRequest
 	 * @return result - 로그인결과(세션정보)
-	 * @exception Exception
 	 */
 	@RequestMapping(value = "/uat/uia/actionLogin.do", method = RequestMethod.POST)
-	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
+	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) {
 		// 일반 로그인 처리
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 
@@ -89,10 +87,9 @@ public class EgovLoginController {
 	 * 로그인 후 메인화면으로 들어간다
 	 * @param
 	 * @return 로그인 페이지
-	 * @exception Exception
 	 */
 	@RequestMapping(value = "/uat/uia/actionMain.do")
-	public String actionMain(ModelMap model) throws Exception {
+	public String actionMain(ModelMap model) {
 		// 1. 사용자 인증 처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
@@ -107,10 +104,9 @@ public class EgovLoginController {
 	/**
 	 * 로그아웃한다.
 	 * @return String
-	 * @exception Exception
 	 */
 	@RequestMapping(value = "/uat/uia/actionLogout.do", method = RequestMethod.POST)
-	public String actionLogout(HttpServletRequest request) throws Exception {
+	public String actionLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 	    if (session != null) {
 	        session.invalidate();

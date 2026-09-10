@@ -3,10 +3,9 @@ package egovframework.let.cop.bbs.service;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import org.egovframe.rte.ptl.reactive.validation.EgovNullCheck;
+
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * 게시물에 대한 데이터 처리 모델 클래스
