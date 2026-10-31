@@ -16,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class EgovLoginControllerTestSelenium {
+class EgovLoginControllerSeleniumIT {
 
 	private WebDriver driver;
 
